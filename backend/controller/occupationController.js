@@ -8,7 +8,7 @@ async function getAllOccupation(req, res) {
 
     if (occupations.length == 0) return res.status(404).json({ error: "There are no records in the database" })
 
-    res.status(200).json(tables)
+    res.status(200).json(occupations)
 
   } catch (error) {
     console.log(error);

@@ -12,22 +12,27 @@ app.use('', express.static(path.join(__dirname, '')));
 
 const { getAllTables, addTable } = require('../backend/controller/tableController')
 const { getAllOccupation } = require('../backend/controller/occupationController')
+const { getAllMenuItems } = require('../backend/controller/menuController')
 
 // Create DB connection
 createDBConnection()
 
 
-// mainpage
+// mainpage backend team
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, '/index.html'));
 });
 
-// Show all albums
+// Show all tables
 app.get('/allTables', getAllTables); // sends the req and res aoutomatically
 
+// Show all currently occupied tables
 app.get('/currentTables', getAllOccupation); // sends the req and res aoutomatically
 
-// Create a new album
+// Show all menu items
+app.get('/Menu', getAllMenuItems); // sends the req and res aoutomatically
+
+// Create a new table
 app.post('/addTable', addTable);
 
 // LISTENING ON PORT 
