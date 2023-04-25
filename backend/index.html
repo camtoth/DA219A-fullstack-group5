@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>BACKEND PAGE</title>
+</head>
+
+<body>
+
+  <h1>Test environment for backend team</h1>
+  <br>
+
+  <h2>Get data:</h2>
+  <a href="http://localhost:3000/allTables">View all tables</a><br>
+  <a href="http://localhost:3000/currentTables">View occupied tables</a><br>
+  <a href="http://localhost:3000/menu">View menu</a><br>
+  <a href="http://localhost:3000/orders">View orders</a><br>
+  <br>
+  <br>
+  <h2> Create new (dummy) data - ADMIN:</h2>
+  <br>
+
+  <table>
+    <tr>
+      <th>ADD NEW TABLE:</th>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Table number:</td>
+      <td><input type="number" id="tableNumber"></input></td>
+    </tr>
+    <tr>
+      <td>Seat capacity:</td>
+      <td><input type="number" id="tableSeats"></input></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><button type="button" id="addTable">Add Table</button></td>
+    </tr>
+    <tr></tr>
+    <tr>
+      <th>ADD NEW ACCOUNT:</th>
+      <td></td>
+    </tr>
+    <td>Role:</td>
+    <td><select id="role">
+        <option value="" disabled selected hidden>Choose a role</option>
+        <option value="admin">admin</option>
+        <option value="waiter">waiter</option>
+        <option value="cook">cook</option>
+      </select></td>
+    </tr>
+    <tr>
+      <td>First name:</td>
+      <td><input type="text" id="firstName"></input></td>
+    </tr>
+    <tr>
+      <td>Last name:</td>
+      <td><input type="text" id="lastName"></input></td>
+    </tr>
+    <tr>
+      <td>Username:</td>
+      <td><input type="text" id="userName"></input></td>
+    </tr>
+    <tr>
+    <tr>
+      <td>Password:</td>
+      <td><input type="password" id="password"></input></td>
+    </tr>
+    <tr>
+    <tr>
+      <td></td>
+      <td><button type="button" id="addAccount">Add Employee</button></td>
+    </tr>
+    <tr></tr>
+    <tr>
+      <th>ADD NEW MENU ITEM:</th>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Name:</td>
+      <td><input type="text" id="itemName"></input></td>
+    </tr>
+    <tr>
+      <td>Price:</td>
+      <td><input type="number" id="itemPrice"></input></td>
+    </tr>
+    <tr>
+      <td>Category:</td>
+      <td><input type="text" id="itemCategory"></input></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><button type="button" id="addItem">Add Menu Item</button></td>
+    </tr>
+    <tr></tr>
+
+  </table>
+
+  <h2>Create new (dummy) data - WAITER:</h2>
+
+
+
+  <script src="index.js"></script>
+</body>
+
+</html>

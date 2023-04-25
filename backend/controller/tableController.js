@@ -2,14 +2,14 @@ const Tables = require("../model/Tables")
 const mongoose = require("mongoose");
 
 // Show all tables
-async function getAll(req, res) {
+async function getAllTables(req, res) {
     try {
         const tables = await Tables.find()
 
-        if (tables.length == 0) return res.status(404).json({ error: "There are no albums in the database" })
+        if (tables.length == 0) return res.status(404).json({ error: "There are no records in the database" })
 
         res.status(200).json(tables)
-        
+
     } catch (error) {
         console.log(error);
         res.status(500).json({ error: "Server error" + error })
@@ -17,7 +17,8 @@ async function getAll(req, res) {
 }
 
 // Create a new table
-async function add(req, res) {
+async function addTable(req, res) {
+    console.log("trying to add a table..")
     try {
         // Create a new table object
         let newTable = new Tables({
@@ -43,4 +44,4 @@ async function add(req, res) {
     }
 }
 
-module.exports = { getAll, add };
+module.exports = { getAllTables, addTable };
