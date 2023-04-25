@@ -7,3 +7,9 @@
 `TableID` represents one of the tables at the restaurant, and it's meant to keep track of how many should be rendered for the resturant view.
 
 `TableInstanceID` represents an instance of that table, when it is currently being occupied (checkInTime==not null, checkOutTime==null). It has attributes, such as an assigned waiter, and has an order linked to it. This object will be archived for statistics and/or bookeeping purposes. All orders will reference one `TableInstanceID`.
+
+## Get started
+```
+npm run setup
+npm run start
+```
