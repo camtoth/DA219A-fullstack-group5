@@ -12,7 +12,7 @@ addTable.addEventListener('click', event => {
 
   //post to database
   if (checkData) {
-    const response = fetch('http://localhost:3000/addTable', {
+    const response = fetch('http://localhost:3000/api/tables/addTable', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
