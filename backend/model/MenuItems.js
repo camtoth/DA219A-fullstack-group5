@@ -10,10 +10,6 @@ const schema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    portionSize : {
-        type: Number,
-        required: true
-    },
     category : {
         type: String,
         required: true
