@@ -10,30 +10,23 @@ app.use(express.urlencoded({ extended: false })) //when extended property is set
 app.use('', express.static(path.join(__dirname, '')));
 
 
-const { getAllTables, addTable } = require('../backend/controller/tableController')
-const { getAllOccupation } = require('../backend/controller/occupationController')
-const { getAllMenuItems } = require('../backend/controller/menuController')
+const home = require('./routes/home')
+const tables = require('./routes/tables');
+const occupations = require('./routes/occupations');
+const menuItems = require('./routes/menuItems');
+const accounts = require('./routes/accounts');
+
 
 // Create DB connection
 createDBConnection()
 
+// Main Routes
+app.use('/', home);
+app.use('/api/tables', tables);
+app.use('/api/occupations', occupations);
+app.use('/api/menuItems', menuItems);
+app.use('/api/accounts', accounts);
 
-// mainpage backend team
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, '/index.html'));
-});
-
-// Show all tables
-app.get('/allTables', getAllTables); // sends the req and res aoutomatically
-
-// Show all currently occupied tables
-app.get('/currentTables', getAllOccupation); // sends the req and res aoutomatically
-
-// Show all menu items
-app.get('/Menu', getAllMenuItems); // sends the req and res aoutomatically
-
-// Create a new table
-app.post('/addTable', addTable);
 
 // LISTENING ON PORT 
 const port = process.env.PORT || 3000;
