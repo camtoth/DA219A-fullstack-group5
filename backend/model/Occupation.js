@@ -26,7 +26,7 @@ const schema = new mongoose.Schema({
     orders: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'MenueItems',
-        count: { type: Number, default: 0, required: true },
+        portions: { type: Number, default: 0, required: true },
         purchaseTime: { type: Date, default: Date.now },
         comment: { type: String },
         completed: { type: Boolean, default: false }
