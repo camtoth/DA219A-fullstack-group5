@@ -10,7 +10,7 @@ const schema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    quantity : {
+    portionSize : {
         type: Number,
         required: true
     },
