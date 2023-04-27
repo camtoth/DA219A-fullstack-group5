@@ -15,7 +15,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon ./backend/server.js",
-    "setup": "npm init && npm install dotenv express mongoose nodemon && npm install mongodb"
+    "setup": "npm install"
   },
   "repository": {
     "type": "git",
