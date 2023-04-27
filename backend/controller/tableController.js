@@ -44,4 +44,39 @@ async function addTable(req, res) {
     }
 }
 
-module.exports = { getAllTables, addTable };
+
+// Update an table
+async function updateTable(req, res) {
+    try {
+        const table = await Tables
+            .findByIdAndUpdate(
+                req.params.id,
+                {
+                    number: req.body.number,
+                    seats: req.body.seats
+                },
+                { new: true });
+
+        // !table == true when table is NULL bc table null == false
+        if (!table) return res.status(404).json({ error: 'ID not found' });
+
+        res.status(200).json(table)
+    } catch (error) {
+        res.status(500).json({ error: "Server error" + error })
+    }
+}
+
+// Delete an album
+async function deleteTable(req, res) {
+    try {
+        const table = await Tables.findByIdAndRemove(req.params.id);
+
+        if (!table) return res.status(404).json({ error: 'ID not found' });
+
+        res.status(200).json(table);
+    } catch (error) {
+        res.status(500).json({ error: "Server error" + error })
+    }
+}
+
+module.exports = { getAllTables, addTable, updateTable, deleteTable };
