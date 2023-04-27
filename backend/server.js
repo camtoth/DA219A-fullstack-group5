@@ -5,7 +5,7 @@ const createDBConnection = require('./dbConnection')
 
 const app = express() // Set up express
 app.use(express.json())
-app.use(express.static('frontend'));
+app.use(express.static('src'));
 app.use(express.urlencoded({ extended: false })) //when extended property is set to false, the URL-encoded data will instead be parsed with the query-string library.
 app.use('', express.static(path.join(__dirname, '')));
 
