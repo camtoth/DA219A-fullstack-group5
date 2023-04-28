@@ -3,7 +3,7 @@ const router = express.Router();
 const { getAllAccounts, addAccount, updateAccount, deleteAccount }  = require('../controller/accountController')
 
 
-// Show all menu items
+// Show all
 router.get('/', getAllAccounts); // sends the req and res aoutomatically
 
 // Create
