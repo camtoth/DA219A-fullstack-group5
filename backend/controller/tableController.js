@@ -1,5 +1,4 @@
 const Tables = require("../model/Tables")
-const mongoose = require("mongoose");
 
 // Show all tables
 async function getAllTables(req, res) {
@@ -19,24 +18,23 @@ async function getAllTables(req, res) {
 // Create a new table
 async function addTable(req, res) {
     console.log("trying to add a table..")
-    try {
+    try {        
+        validateFields(req)
+
         // Create a new table object
-        let newTable = new Tables({
+        let newTable = {
             number: req.body.number,
             seats: req.body.seats
-        });
+        };
 
         // Find if the table is in the DB
-        const table = await Tables.find({
-            number: req.body.number,
-            seats: req.body.seats
-        })
+        const table = await Tables.find(newTable)
 
         // If the table EXISTS in the DB
         if (table.length > 0) return res.status(409).json({ error: "The table is already in the database" })
 
         // If not create
-        Tables.insertMany(newTable)  // add to the db
+        Tables.insertMany(new Tables(newTable))  // add to the db
         res.status(201).json(table) // return as a JSON object + HTTP-status code 201 (created).   
         console.log("data added!")
 
@@ -49,6 +47,7 @@ async function addTable(req, res) {
 // Update an table
 async function updateTable(req, res) {
     try {
+        validateFields(req)
         const table = await Tables
             .findByIdAndUpdate(
                 req.params.id,
@@ -77,6 +76,15 @@ async function deleteTable(req, res) {
         res.status(200).json(table);
     } catch (error) {
         res.status(500).json({ error: "Server error" + error })
+    }
+}
+
+
+function validateFields(req) {
+
+    // Check for missing required fields
+    if (!req.body.number || !req.body.seats) {
+        throw new Error("Missing required fields.");
     }
 }
 

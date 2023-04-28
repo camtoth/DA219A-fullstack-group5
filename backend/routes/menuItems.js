@@ -3,7 +3,7 @@ const router = express.Router();
 const { getAllMenuItems, addMenuItem, updateMenuItem, deleteMenuItem }  = require('../controller/menuController')
 
 
-// Show all menu items
+// Show all
 router.get('/', getAllMenuItems); // sends the req and res aoutomatically
 
 // Create
