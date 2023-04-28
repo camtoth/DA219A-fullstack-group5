@@ -123,7 +123,6 @@ function addTable(nr, seats) {
 
 
 async function showTables() {
-  console.log("hallo")
   let collections = await (await (fetch("http://localhost:3000/api/tables"))).json();
 
   let html = `
@@ -166,11 +165,7 @@ async function showTables() {
 }
 
 async function showMenuItems() {
-  console.log("hallo menu")
   let collections = await (await (fetch("http://localhost:3000/api/menuItems"))).json();
-  //console.log(data)
-  //let collections = data["data"]
-  console.log(collections)
 
   let html = `
   <table>
@@ -213,6 +208,42 @@ async function showMenuItems() {
   });
 }
 
+async function showAccounts() {
+
+  let html = `
+  <table>
+    <tr>
+      <th> First Name</th>
+      <th> Last Name</th>
+      <th>Username</th>
+      <th>Password</th>
+      <th>Role</th>
+      <th></th>
+      <th></th>
+    </tr>`
+
+  html += `    
+  <tr>
+      <td><input type="text" id="firstName"></input></td>
+      <td><input type="text" id="lastName"></input></td>
+      <td><input type="text" id="userName"></input></td>
+      <td><input type="password" id="password"></input></td>
+      <td><select id="role">
+        <option value="" disabled selected hidden>Choose a role</option>
+        <option value="admin">admin</option>
+        <option value="waiter">waiter</option>
+        <option value="cook">cook</option>
+      </select></td>
+      <td><button type="button" id="addAccount">+</button></td>
+      <td></td>
+    </tr>
+  </table>`
+
+  document.getElementById("accountCollections").innerHTML = html;
+}
+
+
 
 showTables();
 showMenuItems();
+showAccounts();
