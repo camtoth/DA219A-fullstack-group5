@@ -19,10 +19,8 @@ async function getAllMenuItems(req, res) {
 async function addMenuItem(req, res) {
   console.log("trying to add a menu item..")
   try {
-    // Check for missing required fields
-    if (!req.body.name || !req.body.price || !req.body.category) {
-      return res.status(400).json({ error: "Missing required fields." });
-    }
+
+    validateFields(req)
 
     // Create a new object
     let newMenuItem = {
@@ -50,6 +48,8 @@ async function addMenuItem(req, res) {
 // Update a record
 async function updateMenuItem(req, res) {
   try {
+    validateFields(req)
+    
     const menuItem = await MenuItems
       .findByIdAndUpdate(
         req.params.id,
@@ -79,6 +79,14 @@ async function deleteMenuItem(req, res) {
     res.status(200).json(menuItem);
   } catch (error) {
     res.status(500).json({ error: "Server error" + error })
+  }
+}
+
+
+function validateFields(req) {
+  // Check for missing required fields
+  if (!req.body.name || !req.body.price || !req.body.category) {
+    throw new Error("Missing required fields.");
   }
 }
 

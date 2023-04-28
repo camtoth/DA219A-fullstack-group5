@@ -18,11 +18,8 @@ async function getAllTables(req, res) {
 // Create a new table
 async function addTable(req, res) {
     console.log("trying to add a table..")
-    try {
-        // Check for missing required fields
-        if (!req.body.number || !req.body.number) {
-            return res.status(400).json({ error: "Missing required fields." });
-        }
+    try {        
+        validateFields(req)
 
         // Create a new table object
         let newTable = {
@@ -50,6 +47,7 @@ async function addTable(req, res) {
 // Update an table
 async function updateTable(req, res) {
     try {
+        validateFields(req)
         const table = await Tables
             .findByIdAndUpdate(
                 req.params.id,
@@ -78,6 +76,15 @@ async function deleteTable(req, res) {
         res.status(200).json(table);
     } catch (error) {
         res.status(500).json({ error: "Server error" + error })
+    }
+}
+
+
+function validateFields(req) {
+
+    // Check for missing required fields
+    if (!req.body.number || !req.body.seats) {
+        throw new Error("Missing required fields.");
     }
 }
 
