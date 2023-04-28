@@ -39,6 +39,7 @@ async function addTable(req, res) {
         // If not create
         Tables.insertMany(new Tables(newTable))  // add to the db
         res.status(201).json(table) // return as a JSON object + HTTP-status code 201 (created).   
+        console.log("data added!")
 
     } catch (error) {
         res.status(500).json({ error: "Server error" + error })

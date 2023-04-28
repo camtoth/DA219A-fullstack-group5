@@ -40,6 +40,7 @@ async function addMenuItem(req, res) {
     // If not create
     MenuItems.insertMany(new MenuItems(newMenuItem))  // add to the db
     res.status(201).json(menuItem) // return as a JSON object + HTTP-status code 201 (created).   
+    console.log("data added!")
 
   } catch (error) {
     res.status(500).json({ error: "Server error" + error })

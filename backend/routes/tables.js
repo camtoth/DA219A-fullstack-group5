@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { getAllTables, addTable, updateTable, deleteTable }  = require('../controller/tableController')
+const { getAllTables, addTable, updateTable, deleteTable } = require('../controller/tableController')
 
 
 // Show all tables
-router.get('/', getAllTables); // sends the req and res aoutomatically
+router.get('/', getAllTables);
 
 // Create a new table
 router.post('/', addTable);
