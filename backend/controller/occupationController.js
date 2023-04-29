@@ -18,6 +18,30 @@ async function getAllOccupations(req, res) {
   }
 }
 
+// Return occuptions by ID
+async function getOccupionByID(req, res) {
+  try {
+
+    // TO DO
+    
+
+  } catch (error) {
+    res.status(500).json({ error: "Server error" + error })
+  }
+}
+
+// Return array of all occuptions at the current date and time.
+async function getCurrentOccupions(req, res) {
+  try {
+    
+    // TO DO
+    
+
+  } catch (error) {
+    res.status(500).json({ error: "Server error" + error })
+  }
+}
+
 // Create a new record
 async function addOccupation(req, res) {
   console.log("trying to add a occupation..")
@@ -108,6 +132,9 @@ async function deleteOccupation(req, res) {
   }
 }
 
+
+
+
 /*
 async function verifyIDs(tableID, waiterID) {
   if (!mongoose.Types.ObjectId.isValid(tableID)) {
@@ -128,4 +155,4 @@ async function verifyIDs(tableID, waiterID) {
   if (!table) throw new Error('Table does not exist');
 }*/
 
-module.exports = { getAllOccupations, addOccupation, updateOccupation, deleteOccupation };
+module.exports = { getAllOccupations, addOccupation, updateOccupation, deleteOccupation, getCurrentOccupions, getOccupionByID };
