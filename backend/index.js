@@ -1,9 +1,11 @@
 
 //available roles
 const roles = ["admin", "waiter", "cook"]
+let tableNrs = [];
+let waiters = [];
 
 // [varname in model, description on html, variable type,key value]
-const dbVariables = {
+let dbVariables = {
   "tables": [["number", "Table number", "number", true],
   ["seats", "Max. seat capacity", "number", false]],
   "menuItems": [["name", "Dish", "text", true],
@@ -13,10 +15,47 @@ const dbVariables = {
   ["lastName", "Last Name", "text", true],
   ["username", "Username", "text", true],
   ["password", "Password", "password", false],
-  ["role", "Role", roles, false]]
+  ["role", "Role", roles, false]],
+  "occupations": [["tableID", "Table number", tableNrs, true],
+  ["waiterID", "Waiter username", waiters, true],
+  ["starTime", "Start time", "datetime-local", true],
+  ["checkOutTime", "Checkout time", "datetime-local", false],
+  ["totalPrice", "Total price", "number", false]]
 }
 //edit on or off
 editBool = false;
+
+//get all tablenrs in database
+async function getTableNrs() {
+  let tableNrs = []
+  let tables = await (await (fetch(`http://localhost:3000/api/tables`))).json();
+
+  for (let i = 0; i < tables.length; i++) {
+    tableNr = tables[i].number
+    tableNrs.push(tableNr)
+  }
+
+  return tableNrs
+}
+
+//get all waiters in database
+async function getWaiters() {
+  let waiters = []
+  let accounts = await (await (fetch(`http://localhost:3000/api/accounts`))).json();
+
+  for (let i = 0; i < accounts.length; i++) {
+    role = accounts[i].role
+    username = accounts[i].username
+
+    if (role === "waiter") {
+      waiters.push(username)
+    }
+  }
+
+  return waiters
+}
+
+
 
 async function showRecords(modelName) {
   //retrieve data
@@ -28,7 +67,7 @@ async function showRecords(modelName) {
   for (let i = 0; i < dbVar.length; i++) {
     html += `<th>${dbVar[i][1]}</th>`
   } //headers
-  html += `<th></th><th></th></tr>`
+  html += `<th>${(modelName === 'occupations') ? "Orders" : ""}</th><th></th></tr>`
 
   //loop through all records
   for (let i = 0; i < collections.length; i++) {
@@ -67,7 +106,12 @@ async function showRecords(modelName) {
     if (editBool) {
       html += `<td><button type="button" id="update_${modelName}_${collection._id}">Update</button></td>`
     } else {
+      //show orders button
+      if (modelName === 'occupations') {
+        html += `<td><button type="button" id="orders_${collection._id}">View orders</button></td>`
+      }
       html += `<td><button type="button" id="delete_${modelName}_${collection._id}">X</button></td>`
+
     }
     html += `</tr>`
   }
@@ -218,10 +262,13 @@ document.getElementById("editMode").addEventListener('click', event => {
 });
 
 
-function start() {
+async function start() {
+  dbVariables["occupations"][0][2] = await getTableNrs();
+  dbVariables["occupations"][1][2] = await getWaiters();
   showRecords("tables");
   showRecords("menuItems");
   showRecords("accounts");
+  showRecords("occupations");
 }
 
 start();
