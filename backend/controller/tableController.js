@@ -1,49 +1,23 @@
 const Tables = require("../model/Tables")
 
-// Show all tables
+const { getAll, addRecord, deleteRecord } = require('../controller/mainController')
+
+//get all Tables
 async function getAllTables(req, res) {
-    try {
-        const tables = await Tables.find()
-
-        if (tables.length == 0) return res.status(404).json({ error: "There are no records in the database" })
-
-        res.status(200).json(tables)
-
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ error: "Server error" + error })
-    }
+    const result = await getAll("tables")
+    res.status(result[0]).json(result[1]);
 }
 
-// Create a new table
+//add a new table
 async function addTable(req, res) {
-    console.log("trying to add a table..")
-    try {
-        // Check for missing required fields
-        if (!req.body.number || !req.body.seats) {
-            return res.status(400).json({ error: "Missing required fields." });
-        }
+    const result = await addRecord("tables", req);
+    res.status(result[0]).json(result[1]);
+}
 
-        // Create a new table object
-        let newTable = {
-            number: req.body.number,
-            seats: req.body.seats
-        };
-
-        // Find if the table is in the DB
-        const table = await Tables.find(newTable)
-
-        // If the table EXISTS in the DB
-        if (table.length > 0) return res.status(409).json({ error: "The table is already in the database" })
-
-        // If not create
-        Tables.insertMany(new Tables(newTable))  // add to the db
-        res.status(201).json(table) // return as a JSON object + HTTP-status code 201 (created).   
-        console.log("data added!")
-
-    } catch (error) {
-        res.status(500).json({ error: "Server error" + error })
-    }
+//delete table
+async function deleteTable(req, res) {
+    const result = await deleteRecord("tables", req);
+    res.status(result[0]).json(result[1]);
 }
 
 
@@ -68,18 +42,8 @@ async function updateTable(req, res) {
     }
 }
 
-// Delete an album
-async function deleteTable(req, res) {
-    try {
-        const table = await Tables.findByIdAndRemove(req.params.id);
 
-        if (!table) return res.status(404).json({ error: 'ID not found' });
 
-        res.status(200).json(table);
-    } catch (error) {
-        res.status(500).json({ error: "Server error" + error })
-    }
-}
 
 
 module.exports = { getAllTables, addTable, updateTable, deleteTable };

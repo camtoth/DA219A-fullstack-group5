@@ -1,249 +1,189 @@
 
+//available roles
+const roles = ["admin", "waiter", "cook"]
 
-
-
-//add new table
-/*
-addTable.addEventListener('click', event => {
-  console.log("ADD data")
-  let nr = tableNumber.value;
-  let seats = tableSeats.value;
-  let checkData = true;
-
-  //make json string
-  let json_text = '{"number":' + nr + ',"seats":' + seats + '}';
-  console.log(json_text);
-
-  //post to database
-  if (checkData) {
-    const response = fetch('http://localhost:3000/api/tables', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: json_text
-    });
-    document.getElementById("tableNumber").value = ""
-    document.getElementById("tableSeats").value = ""
-  }
-  else {
-    console.log("something went wrong")
-  }
-});
-
-
-//add new menu Item
-addItem.addEventListener('click', event => {
-  console.log("ADD menuItem data")
-  let name = itemName.value;
-  let category = itemCategory.value;
-  let price = itemPrice.value;
-  let checkData = true;
-
-  //make json string
-  let json_text = '{"name":"' + name + '","category":"' + category + '","price":' + price + '}';
-  console.log(json_text);
-
-  //post to database
-  if (checkData) {
-    const response = fetch('http://localhost:3000/api/menuItems', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: json_text
-    });
-    document.getElementById("itemName").value = ""
-    document.getElementById("itemCategory").value = ""
-    document.getElementById("itemPrice").value = ""
-  }
-  else {
-    console.log("something went wrong")
-  }
-});
-*/
-
-
-function addItem(name, price, category) {
-  console.log("ADD menuItem data")
-  let checkData = true;
-
-  //make json string
-  let json_text = '{"name":"' + name + '","category":"' + category + '","price":' + price + '}';
-  console.log(json_text);
-
-  //post to database
-  if (checkData) {
-    const response = fetch('http://localhost:3000/api/menuItems', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: json_text
-    });
-    document.getElementById("itemName").value = ""
-    document.getElementById("itemCategory").value = ""
-    document.getElementById("itemPrice").value = ""
-  }
-  else {
-    console.log("something went wrong")
-  }
+// [varname in model, description on html, variable type,key value]
+const dbVariables = {
+  "tables": [["number", "Table number", "number", true],
+  ["seats", "Max. seat capacity", "number", false]],
+  "menuItems": [["name", "Dish", "text", true],
+  ["price", "Price", "number", false],
+  ["category", "Category", "text", false]],
+  "accounts": [["firstName", "First Name", "text", true],
+  ["lastName", "Last Name", "text", true],
+  ["username", "Username", "text", true],
+  ["password", "Password", "password", false],
+  ["role", "Role", roles, false]]
 }
+//edit on or off
+editBool = false;
 
-function addTable(nr, seats) {
-  console.log("ADD data")
-  let checkData = true;
+async function showRecords(modelName) {
+  //retrieve data
+  let collections = await (await (fetch(`http://localhost:3000/api/${modelName}`))).json();
+  let dbVar = dbVariables[modelName]
 
-  //make json string
-  let json_text = '{"number":' + nr + ',"seats":' + seats + '}';
-  console.log(json_text);
+  //create table and headings
+  let html = `<table><tr>`
+  for (let i = 0; i < dbVar.length; i++) {
+    html += `<th>${dbVar[i][1]}</th>`
+  } //headers
+  html += `<th></th><th></th></tr>`
 
-  //post to database
-  if (checkData) {
-    const response = fetch('http://localhost:3000/api/tables', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: json_text
-    });
-    document.getElementById("tableNumber").value = ""
-    document.getElementById("tableSeats").value = ""
-    showTables();
-  }
-  else {
-    console.log("something went wrong")
-  }
-}
-
-
-
-async function showTables() {
-  let collections = await (await (fetch("http://localhost:3000/api/tables"))).json();
-
-  let html = `
-  <table>
-    <tr>
-      <th> Table Nr</th>
-      <th> Seat Capacity</th>
-      <th></th>
-      <th></th>
-    </tr>`
-
+  //loop through all records
   for (let i = 0; i < collections.length; i++) {
-    console.log(collections[i].number, collections[i].seats)
-    html += `
-    <tr>
-    <td><input type="number" id="tnr_${collections[i]._id}" value = "${collections[i].number}"></input></td>
-    <td><input type="number" id="tseat_${collections[i]._id}" value = "${collections[i].seats}"></input></td>
-    <td><button type="button" id="tdelete_${collections[i]._id}">X</button></td>
-    <td> <button type="button" id="tupdate_${collections[i]._id}">Update</button> </td>
-    </tr>
-    `
+    let collection = collections[i]
+    html += `<tr>`
+
+    for (let j = 0; j < dbVar.length; j++) {
+      //check if variable has a list selection
+      if (typeof (dbVar[j][2]) === 'object') {
+        //list type
+        let currentSelection = collection[dbVar[j][0]];
+        console.log(collection[dbVar[j][0]])
+        html += `<td><select ${(dbVar[j][3] || !editBool) ? "disabled" : ""} id="${modelName}_${dbVar[j][0]}_${collection._id}">`
+
+        for (let option of dbVar[j][2]) {
+
+          if (option == currentSelection) {
+            html += `<option value="${option}" selected="selected">${option}</option>`
+          } else {
+            html += `<option value="${option}">${option}</option>`
+          }
+
+        }
+        html += `</select></td>`
+      } else {
+        //normal type
+        html += `<td><input ${(dbVar[j][3] || !editBool) ? "disabled" : ""}  type="${dbVar[j][2]}" 
+      id="${modelName}_${dbVar[j][0]}_${collection._id}" 
+      value = "${collection[dbVar[j][0]]}"></input></td>`
+
+      }
+    }
+
+
+    //add delete button
+    if (editBool) {
+      html += `<td></td>`
+    } else {
+      html += `<td><button type="button" id="delete__${modelName}_${collection._id}">X</button></td>`
+    }
+    html += `</tr>`
   }
 
-  html += `    
-  <tr>
-      <td><input type="number" id="tableNumber"></input></td>
-      <td><input type="number" id="tableSeats"></input></td>
-      <td><button type="button" id="addTable">+</button></td>
-      <td></td>
-    </tr>
+  //create fields for new record
+  html += `<tr>`
+  for (let j = 0; j < dbVar.length; j++) {
+
+    //check if variable has a list selection
+    if (typeof (dbVar[j][2]) === 'object') {
+      //list type
+      html += `
+      <td>
+      <select id="new_${modelName}_${dbVar[j][0]}">
+      <option value="" selected disabled hidden>...</option>`
+
+      for (let option of dbVar[j][2]) {
+        html += `<option value="${option}">${option}</option>`
+      }
+      html += `</select></td>`
+    } else {
+      //normal type
+      html += `<td><input type="${dbVar[j][2]}" id="new_${modelName}_${dbVar[j][0]}"></input></td>`
+    }
+  }
+  html += `
+  <td><button type="button" id="add_${modelName}">+</button></td>
+  <td></td>
+  </tr>
   </table>`
 
-  document.getElementById("tableCollections").innerHTML = html;
+  document.getElementById(`${modelName}Collections`).innerHTML = html;
+
+  //add button events
+  document.getElementById(`add_${modelName}`).addEventListener('click', event => {
+    addNewRecord(modelName);
+  });
+
+  if (!editBool) {
+    for (let i = 0; i < collections.length; i++) {
+      //add delete button event
+      document.getElementById(`delete__${modelName}_${collections[i]._id}`).addEventListener('click', event => {
+        deleteRecord(modelName, collections[i]._id);
+      });
+      //add update button event
+
+    }
+  }
+}
 
 
-  //add ADD button event
-  document.getElementById("addTable").addEventListener('click', event => {
-    addTable(tableNumber.value, tableSeats.value);
+//delete record
+function deleteRecord(modelName, idnr) {
+  console.log(modelName, idnr)
+
+  let jsonText = `{"_id":"${idnr}"}`
+
+  const response = fetch(`http://localhost:3000/api/${modelName}/${idnr}`, {
+    method: 'DELETE',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: jsonText
   });
 }
 
-async function showMenuItems() {
-  let collections = await (await (fetch("http://localhost:3000/api/menuItems"))).json();
+//add new record
+function addNewRecord(modelName) {
+  console.log(`add new record to ${modelName} table`)
 
-  let html = `
-  <table>
-    <tr>
-      <th> Dish</th>
-      <th> Price</th>
-      <th>Category</th>
-      <th></th>
-      <th></th>
-    </tr>`
+  //create json
+  let dbVar = dbVariables[modelName]
+  let jsonText = `{`;
 
-  for (let i = 0; i < collections.length; i++) {
-    console.log(collections[i].number, collections[i].seats)
-    html += `
-    <tr>
-    <td><input type="text" id="iname_${collections[i]._id}" value = "${collections[i].name}"></input></td>
-    <td><input type="number" id="iprice_${collections[i]._id}" value = "${collections[i].price}"></input></td>
-    <td><input type="text" id="icat_${collections[i]._id}" value = "${collections[i].category}"></input></td>
-    <td><button type="button" id="idelete_${collections[i]._id}">X</button></td>
-    <td> <button type="button" id="iupdate_${collections[i]._id}">Update</button> </td>
-    </tr>
-    `
+  for (let i = 0; i < dbVar.length; i++) {
+    jsonText += `"${dbVar[i][0]}":"${document.getElementById(`new_${modelName}_${dbVar[i][0]}`).value}",`
   }
+  jsonText = jsonText.slice(0, jsonText.length - 1);
+  jsonText += `}`
 
-  html += `    
-  <tr>
-      <td><input type="text" id="itemName"></input></td>
-      <td><input type="number" id="itemPrice"></input></td>
-      <td><input type="text" id="itemCategory"></input></td>
-      <td><button type="button" id="addItem">+</button></td>
-      <td></td>
-    </tr>
-  </table>`
+  console.log(jsonText);
 
-  document.getElementById("menuCollections").innerHTML = html;
-
-  //add ADD button event
-  document.getElementById("addItem").addEventListener('click', event => {
-    addItem(itemName.value, itemPrice.value, itemCategory.value);
+  //post to database
+  const response = fetch(`http://localhost:3000/api/${modelName}`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: jsonText
   });
+
+  //reset fields
+  for (let i = 0; i < dbVar.length; i++) {
+    document.getElementById(`new_${modelName}_${dbVar[i][0]}`).value = ""
+  }
 }
 
-async function showAccounts() {
+document.getElementById("editMode").addEventListener('click', event => {
+  if (editBool) {
+    editBool = false;
+  } else {
+    editBool = true;
+  }
+  start();
 
-  let html = `
-  <table>
-    <tr>
-      <th> First Name</th>
-      <th> Last Name</th>
-      <th>Username</th>
-      <th>Password</th>
-      <th>Role</th>
-      <th></th>
-      <th></th>
-    </tr>`
+});
 
-  html += `    
-  <tr>
-      <td><input type="text" id="firstName"></input></td>
-      <td><input type="text" id="lastName"></input></td>
-      <td><input type="text" id="userName"></input></td>
-      <td><input type="password" id="password"></input></td>
-      <td><select id="role">
-        <option value="" disabled selected hidden>Choose a role</option>
-        <option value="admin">admin</option>
-        <option value="waiter">waiter</option>
-        <option value="cook">cook</option>
-      </select></td>
-      <td><button type="button" id="addAccount">+</button></td>
-      <td></td>
-    </tr>
-  </table>`
 
-  document.getElementById("accountCollections").innerHTML = html;
+function start() {
+  showRecords("tables");
+  showRecords("menuItems");
+  showRecords("accounts");
 }
 
+start();
 
 
-showTables();
-showMenuItems();
-showAccounts();

@@ -16,7 +16,8 @@ const occupations = require('./routes/occupations');
 const menuItems = require('./routes/menuItems');
 const accounts = require('./routes/accounts');
 const swaggerUi = require('swagger-ui-express'),
-swaggerDocument = require('../swagger.json');
+  swaggerDocument = require('../swagger.json');
+
 
 
 // Create DB connection
@@ -29,6 +30,7 @@ app.use('/api/occupations', occupations);
 app.use('/api/menuItems', menuItems);
 app.use('/api/accounts', accounts);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 
 // LISTENING ON PORT 
 const port = process.env.PORT || 3000;
