@@ -1,9 +1,15 @@
 const MenuItems = require("../model/MenuItems")
-const { getAll, addRecord, deleteRecord, updateRecord } = require('../controller/mainController')
+const { getAll, addRecord, deleteRecord, updateRecord, getRecord } = require('../controller/mainController')
 
 //get all menu
 async function getAllMenuItems(req, res) {
   const result = await getAll("menuItems")
+  res.status(result[0]).json(result[1]);
+}
+
+//get menu item
+async function getMenuItem(req, res) {
+  const result = await getRecord("menuItems", req);
   res.status(result[0]).json(result[1]);
 }
 
@@ -26,4 +32,4 @@ async function updateMenuItem(req, res) {
 }
 
 
-module.exports = { getAllMenuItems, addMenuItem, updateMenuItem, deleteMenuItem };
+module.exports = { getAllMenuItems, addMenuItem, updateMenuItem, deleteMenuItem, getMenuItem };
