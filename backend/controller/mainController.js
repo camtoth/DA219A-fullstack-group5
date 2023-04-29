@@ -31,6 +31,25 @@ async function getAll(modelName) {
   return [statuscode, data]
 }
 
+//update record
+async function updateRecord(modelName, req) {
+  console.log("trying to update record..")
+  let statuscode;
+  let data = req.body
+  const filter = { "_id": req.params.id };
+
+  try {
+    await dbInfo[modelName].model.updateOne(filter, data)
+    statuscode = 200
+    console.log("data updated!")
+  } catch (err) {
+    statuscode = 404
+    data = { error: "data could not be updated" }
+  };
+
+  return [statuscode, data];
+}
+
 //create new data record
 async function addRecord(modelName, req) {
   console.log("trying to add a new record..")
@@ -89,6 +108,6 @@ async function deleteRecord(modelName, req) {
 }
 
 
-module.exports = { getAll, addRecord, deleteRecord };
+module.exports = { getAll, addRecord, deleteRecord, updateRecord };
 
 

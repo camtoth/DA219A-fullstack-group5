@@ -1,5 +1,5 @@
 const MenuItems = require("../model/MenuItems")
-const { getAll, addRecord, deleteRecord } = require('../controller/mainController')
+const { getAll, addRecord, deleteRecord, updateRecord } = require('../controller/mainController')
 
 //get all menu
 async function getAllMenuItems(req, res) {
@@ -13,37 +13,17 @@ async function addMenuItem(req, res) {
   res.status(result[0]).json(result[1]);
 }
 
-// Delete a record
+// Delete menu item
 async function deleteMenuItem(req, res) {
   const result = await deleteRecord("menuItems", req);
   res.status(result[0]).json(result[1]);
 }
 
-
-
-
-// Update a record
+//update menuitem
 async function updateMenuItem(req, res) {
-  try {
-    const menuItem = await MenuItems
-      .findByIdAndUpdate(
-        req.params.id,
-        {
-          name: req.body.name,
-          price: req.body.price,
-          category: req.body.category
-        },
-        { new: true });
-
-    // If not found - when var is null -> !var == true
-    if (!menuItem) return res.status(404).json({ error: 'ID not found' });
-
-    res.status(200).json(menuItem)
-  } catch (error) {
-    res.status(500).json({ error: "Server error" + error })
-  }
+  const result = await updateRecord("menuItems", req);
+  res.status(result[0]).json(result[1]);
 }
-
 
 
 module.exports = { getAllMenuItems, addMenuItem, updateMenuItem, deleteMenuItem };

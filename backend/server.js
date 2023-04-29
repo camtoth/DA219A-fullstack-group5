@@ -2,6 +2,7 @@ const express = require('express')
 const path = require('path');
 require('dotenv').config()
 const createDBConnection = require('./dbConnection')
+const cors = require('cors')
 
 const app = express() // Set up express
 app.use(express.json())
@@ -22,6 +23,10 @@ const swaggerUi = require('swagger-ui-express'),
 
 // Create DB connection
 createDBConnection()
+
+app.use(cors({
+  origin: "*",
+}))
 
 // Main Routes
 app.use('/', home);

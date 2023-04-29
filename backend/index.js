@@ -65,55 +65,65 @@ async function showRecords(modelName) {
 
     //add delete button
     if (editBool) {
-      html += `<td></td>`
+      html += `<td><button type="button" id="update_${modelName}_${collection._id}">Update</button></td>`
     } else {
-      html += `<td><button type="button" id="delete__${modelName}_${collection._id}">X</button></td>`
+      html += `<td><button type="button" id="delete_${modelName}_${collection._id}">X</button></td>`
     }
     html += `</tr>`
   }
 
   //create fields for new record
-  html += `<tr>`
-  for (let j = 0; j < dbVar.length; j++) {
+  if (!editBool) {
+    html += `<tr>`
+    for (let j = 0; j < dbVar.length; j++) {
 
-    //check if variable has a list selection
-    if (typeof (dbVar[j][2]) === 'object') {
-      //list type
-      html += `
+      //check if variable has a list selection
+      if (typeof (dbVar[j][2]) === 'object') {
+        //list type
+        html += `
       <td>
       <select id="new_${modelName}_${dbVar[j][0]}">
       <option value="" selected disabled hidden>...</option>`
 
-      for (let option of dbVar[j][2]) {
-        html += `<option value="${option}">${option}</option>`
+        for (let option of dbVar[j][2]) {
+          html += `<option value="${option}">${option}</option>`
+        }
+        html += `</select></td>`
+      } else {
+        //normal type
+        html += `<td><input type="${dbVar[j][2]}" id="new_${modelName}_${dbVar[j][0]}"></input></td>`
       }
-      html += `</select></td>`
-    } else {
-      //normal type
-      html += `<td><input type="${dbVar[j][2]}" id="new_${modelName}_${dbVar[j][0]}"></input></td>`
     }
-  }
-  html += `
+
+    html += `
   <td><button type="button" id="add_${modelName}">+</button></td>
   <td></td>
   </tr>
   </table>`
+  }
+
 
   document.getElementById(`${modelName}Collections`).innerHTML = html;
 
   //add button events
-  document.getElementById(`add_${modelName}`).addEventListener('click', event => {
-    addNewRecord(modelName);
-  });
+  if (editBool) {
+    for (let i = 0; i < collections.length; i++) {
+      //add update button event
+      document.getElementById(`update_${modelName}_${collections[i]._id}`).addEventListener('click', event => {
+        updateRecord(modelName, collections[i]._id);
+      });
 
-  if (!editBool) {
+    }
+  } else {
+    document.getElementById(`add_${modelName}`).addEventListener('click', event => {
+      addNewRecord(modelName);
+    });
+
     for (let i = 0; i < collections.length; i++) {
       //add delete button event
-      document.getElementById(`delete__${modelName}_${collections[i]._id}`).addEventListener('click', event => {
+      document.getElementById(`delete_${modelName}_${collections[i]._id}`).addEventListener('click', event => {
         deleteRecord(modelName, collections[i]._id);
       });
-      //add update button event
-
     }
   }
 }
@@ -133,6 +143,36 @@ function deleteRecord(modelName, idnr) {
     },
     body: jsonText
   });
+}
+
+//update record
+function updateRecord(modelName, idnr) {
+  console.log(`edit record in ${modelName} table`)
+  console.log(modelName, idnr)
+
+  //create json
+  let dbVar = dbVariables[modelName]
+  let jsonText = `{`;
+
+  for (let i = 0; i < dbVar.length; i++) {
+    jsonText += `"${dbVar[i][0]}":"${document.getElementById(`${modelName}_${dbVar[i][0]}_${idnr}`).value}",`
+  }
+  jsonText = jsonText.slice(0, jsonText.length - 1);
+  jsonText += `}`
+
+  console.log(jsonText);
+
+  const response = fetch(`http://localhost:3000/api/${modelName}/${idnr}`, {
+    method: 'PUT',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: jsonText
+  });
+
+
+
 }
 
 //add new record
