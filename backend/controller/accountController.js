@@ -20,7 +20,12 @@ async function addAccount(req, res) {
     console.log("trying to add a account..")
     try {
 
-        validateFields(req)
+        // Check for missing required fields
+        if (!req.body.firstName || !req.body.lastName || !req.body.username || !req.body.password || !req.body.role) {
+            return res.status(400).json({ error: "Missing required fields." });
+        }
+
+        validateRole(req.body.role)
 
         // Create a new object
         let newAccount = {
@@ -47,9 +52,12 @@ async function addAccount(req, res) {
 }
 
 // Update a record
-async function updateAccount(req, res) {        
+async function updateAccount(req, res) {
     try {
-        validateFields(req)
+        if (req.body.role) {
+            validateRole(req.body.role)
+        }
+                
         const account = await Accounts
             .findByIdAndUpdate(
                 req.params.id,
@@ -84,17 +92,9 @@ async function deleteAccount(req, res) {
     }
 }
 
-function validateFields(req) {
-
-    // Check for missing required fields
-    if (!req.body.firstName || !req.body.lastName || !req.body.username || !req.body.password || !req.body.role) {
-        // return res.status(400).json({ error: "Missing required fields." });
-        throw new Error("Missing required fields.");
-    }
-
+function validateRole(role) {
     // Check for valid role values
-    if (req.body.role && !['admin', 'waiter', 'cook'].includes(req.body.role)) {
-        //return res.status(400).json({ error: "Invalid role value." });
+    if (role && !['admin', 'waiter', 'cook'].includes(role)) {        
         throw new Error("Invalid role value.");
     }
 }
