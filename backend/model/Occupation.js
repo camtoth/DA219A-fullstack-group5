@@ -24,7 +24,7 @@ const schema = new mongoose.Schema({
         default: null
     },
     orders: [{
-        menuItemID: { type: mongoose.Schema.Types.ObjectId, ref: 'MenueItems' },
+        menuItemID: { type: mongoose.Schema.Types.ObjectId, ref: 'MenuItems' },
         portions: { type: Number, default: 0, required: true },
         purchaseTime: { type: Date, default: Date.now },
         comment: { type: String },
