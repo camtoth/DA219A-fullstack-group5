@@ -11,16 +11,32 @@
   <h1>Test environment for backend team</h1>
   <br>
 
-  <h2>Get data:</h2>
+  <h2>Get data in JSON format:</h2>
   <a href="http://localhost:3000/api/tables">View all tables</a><br>
   <a href="http://localhost:3000/api/tables/currentTables">View occupied tables</a><br>
   <a href="http://localhost:3000/api/menuItems">View menu</a><br>
   <a href="http://localhost:3000/api/occupations">View orders</a><br>
   <br>
   <br>
-  <h2> Create new (dummy) data - ADMIN:</h2>
+  <h2> Database collections:</h2>
+
+  <h4> TABLES</h4>
+  <div id="tableCollections"></div>
   <br>
 
+  <h4> MENU</h4>
+  <div id="menuCollections"></div>
+  <br>
+
+  <br>
+  <h4> ACCOUNTS</h4>
+  <div id="accountCollections"></div>
+
+  <br>
+  <h4> OCCUPATIONS</h4>
+  <div id="occuptationCollections"></div>
+
+  <!--
   <table>
     <tr>
       <th>ADD NEW TABLE:</th>
@@ -28,15 +44,15 @@
     </tr>
     <tr>
       <td>Table number:</td>
-      <td><input type="number" id="tableNumber"></input></td>
+      <td><input type="number" id="tableNumber2"></input></td>
     </tr>
     <tr>
       <td>Seat capacity:</td>
-      <td><input type="number" id="tableSeats"></input></td>
+      <td><input type="number" id="tableSeats2"></input></td>
     </tr>
     <tr>
       <td></td>
-      <td><button type="button" id="addTable">Add Table</button></td>
+      <td><button type="button" id="addTable2">Add Table</button></td>
     </tr>
     <tr></tr>
     <tr>
@@ -80,27 +96,24 @@
     </tr>
     <tr>
       <td>Name:</td>
-      <td><input type="text" id="itemName"></input></td>
+      <td><input type="text" id="itemName2"></input></td>
     </tr>
     <tr>
       <td>Price:</td>
-      <td><input type="number" id="itemPrice"></input></td>
+      <td><input type="number" id="itemPrice2"></input></td>
     </tr>
     <tr>
       <td>Category:</td>
-      <td><input type="text" id="itemCategory"></input></td>
+      <td><input type="text" id="itemCategory2"></input></td>
     </tr>
     <tr>
       <td></td>
-      <td><button type="button" id="addItem">Add Menu Item</button></td>
+      <td><button type="button" id="addItem2">Add Menu Item</button></td>
     </tr>
     <tr></tr>
 
   </table>
-
-  <h2>Create new (dummy) data - WAITER:</h2>
-
-
+-->
 
   <script src="index.js"></script>
 </body>
