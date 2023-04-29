@@ -3,16 +3,16 @@ const router = express.Router();
 const { getAllTables, addTable, updateTable, deleteTable } = require('../controller/tableController')
 
 
-// Show all tables
-router.get('/', getAllTables);
+// Show all
+router.get('/', getAllTables); // sends the req and res aoutomatically
 
-// Create a new table
+// Create
 router.post('/', addTable);
 
-// Update an album
+// Update
 router.put('/:id', updateTable);
 
-// Delete an album
+// Delete
 router.delete('/:id', deleteTable);
 
 module.exports = router;
