@@ -1,9 +1,21 @@
 const express = require('express');
 const router = express.Router();
-const { getAllOccupation }  = require('../controller/occupationController')
+const { getAllOccupations, addOccupation, updateOccupation, deleteOccupation  }  = require('../controller/occupationController')
 
 
-// Show all currently occupied tables
-router.get('/currentTables', getAllOccupation); // sends the req and res aoutomatically
+// Show all
+router.get('/', getAllOccupations); // sends the req and res aoutomatically
+
+// Create new occupation
+router.post('/', addOccupation);
+
+// Occupation order
+// router.post('/order/', addOccupationOrder);
+
+// Update
+router.put('/:id', updateOccupation);
+
+// Delete
+router.delete('/:id', deleteOccupation);
 
 module.exports = router;
