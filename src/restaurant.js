@@ -46,6 +46,10 @@ function getNumberOfItemsWithSameId(menuItemID) {
     return newOrder.filter((item) => item.menuItemID === menuItemID).length
 }
 
+function addOrRemoveComment(){
+
+}
+
 function handleChangeMenu (inputValue, menuItemID, menuItemName) {
     const value = inputValue
     const currentItemCount = getNumberOfItemsWithSameId(menuItemID)
@@ -72,7 +76,7 @@ function renderTables(){
     for (let i = 0; i < tables.length; i++){
         //console.log(tables[i])
         htmlToRender +=
-        `<div class="col-auto mx-1 my-2">
+        `<div class="col mx-1 my-2">
             <div class="row justify-content-between">
                 <div class="d-flex col-8 mx-auto justify-content-center"><button type="button" class="btn btn-primary">Table ${tables[i].number}</button></div>
         </div></div></div>`
@@ -114,14 +118,13 @@ function renderMenuItems(htmlCategoryID, category){
             htmlToRender +=
             `<li class="list-group-item">
                 <form class="row align-items-center g-3 justify-content-between">
-                    <div class="col-10">
+                    <div class="col-auto">
                         <div class="form-check" style="transform: rotate(0);">
                             <input class="form-check-input me-1" type="checkbox" data-id="${item._id}" value="${item.name}" id="${item._id}Checkbox">
                             <label class="form-check-label stretched-link" for="${item._id}Checkbox">${item.name}</label>
                         </div>
                     </div>
-
-                    <div class="col-2">
+                    <div class="col-auto">
                         <label class="visually-hidden " for="${item._id}Amount">Amount</label>
                         <input class="form-control" style="width: 80px" type="number" min="0" data-name="${item.name}" data-id="${item._id}" id="${item._id}Amount" value="1" onkeydown="return false">
                     </div>
@@ -129,27 +132,40 @@ function renderMenuItems(htmlCategoryID, category){
             </li>`
         }
     })
-
     return htmlToRender
 }
 
 function renderNewOrder(){
     const htmlTablesDiv = document.getElementById('js-newordercontainer')
-    //let tablesToRender = []
 	let htmlToRender = ''
     for (let i = 0; i < newOrder.length; i++){
         //console.log(tables[i])
         htmlToRender +=
         `<li class="list-group-item">
-            <div class="row justify-content-between">
-                ${newOrder[i].menuItemName}
+            <div class="row row-cols-auto align-items-center justify-content-between">
+            <div class="col "><h6>${newOrder[i].menuItemName}</h6></div>
+            
+                <div class="col">
+                    <div class="form-floating">
+                        <textarea class="form-control" style="min-width: 40ch" placeholder="Leave a comment here" id="${newOrder[i].menuItemID}Comment"></textarea>
+                        <label for="${newOrder[i].menuItemID}Comment">Comment</label>
+                    </div>
+                </div>
             </div>
         </li>
         `
     }
     htmlTablesDiv.innerHTML = htmlToRender
+    //take comment textbox input
+    const commentTextboxes = document.querySelectorAll('textarea')
+    commentTextboxes.forEach(textbox => {
+        textbox.addEventListener('change', textbox => {
+            console.log(textbox.currentTarget.value)
+        })
+    })
 }
 
+// init events after everything has been loaded from db
 function initEvents() {
     const menuCheckboxes = document.querySelectorAll('input[type=checkbox]')
 	menuCheckboxes.forEach(checkbox => {
@@ -176,7 +192,7 @@ async function init() {
     //console.log(tables)
     logJSONData("api/occupations/")
     menu = await logJSONData("api/menuItems/")
-    console.log(menu)
+    //console.log(menu)
 	renderTables()
     renderMenuCategories()
     initEvents()
