@@ -143,11 +143,11 @@ function renderNewOrder(){
         htmlToRender +=
         `<li class="list-group-item">
             <div class="row row-cols-auto align-items-center justify-content-between">
-            <div class="col "><h6>${newOrder[i].menuItemName}</h6></div>
-            
-                <div class="col">
+                <div class="col "><h6>${newOrder[i].menuItemName}</h6>
+                </div>
+                <div class="col-md-6">
                     <div class="form-floating">
-                        <textarea class="form-control" style="min-width: 40ch" placeholder="Leave a comment here" id="${newOrder[i].menuItemID}Comment"></textarea>
+                        <textarea class="form-control" placeholder="Leave a comment here" id="${newOrder[i].menuItemID}Comment"></textarea>
                         <label for="${newOrder[i].menuItemID}Comment">Comment</label>
                     </div>
                 </div>
