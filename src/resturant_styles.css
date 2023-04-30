@@ -1,0 +1,5 @@
+input{
+    &::-webkit-inner-spin-button{
+      opacity:1;
+    } 
+  }
