@@ -7,6 +7,7 @@ const mongoose = require("mongoose")
 async function getAllOccupations(req, res) {
   try {
     const occupations = await Occupation.find()
+    console.log(occupations)
 
     if (occupations.length == 0) return res.status(404).json({ error: "There are no records in the database" })
 
@@ -23,7 +24,7 @@ async function getOccupionByID(req, res) {
   try {
 
     // TO DO
-    
+
 
   } catch (error) {
     res.status(500).json({ error: "Server error" + error })
@@ -33,9 +34,9 @@ async function getOccupionByID(req, res) {
 // Return array of all occuptions at the current date and time.
 async function getCurrentOccupions(req, res) {
   try {
-    
+
     // TO DO
-    
+
 
   } catch (error) {
     res.status(500).json({ error: "Server error" + error })

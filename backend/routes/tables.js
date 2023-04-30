@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getAllTables, addTable, updateTable, deleteTable } = require('../controller/tableController')
+const { getAllTables, addTable, updateTable, deleteTable, getTable } = require('../controller/tableController')
 
 
 // Show all
@@ -11,6 +11,9 @@ router.post('/', addTable);
 
 // Update
 router.put('/:id', updateTable);
+
+// Get
+router.get('/:id', getTable);
 
 // Delete
 router.delete('/:id', deleteTable);

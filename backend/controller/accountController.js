@@ -1,13 +1,19 @@
 const Accounts = require("../model/Accounts")
-const { getAll, addRecord, deleteRecord, updateRecord } = require('../controller/mainController')
+const { getAll, addRecord, deleteRecord, updateRecord, getRecord } = require('../controller/mainController')
 
-//get all menu
+//get all accounts
 async function getAllAccounts(req, res) {
     const result = await getAll("accounts")
     res.status(result[0]).json(result[1]);
 }
 
-//add a new menu
+//get account
+async function getAccount(req, res) {
+    const result = await getRecord("accounts", req);
+    res.status(result[0]).json(result[1]);
+}
+
+//add a new account
 async function addAccount(req, res) {
     const result = await addRecord("accounts", req);
     res.status(result[0]).json(result[1]);
@@ -26,4 +32,4 @@ async function updateAccount(req, res) {
 }
 
 
-module.exports = { getAllAccounts, addAccount, updateAccount, deleteAccount };
+module.exports = { getAllAccounts, addAccount, updateAccount, deleteAccount, getAccount };

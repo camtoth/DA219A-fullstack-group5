@@ -19,7 +19,7 @@ let dbVariables = {
   "occupations": [["tableID", "Table number", tableNrs, true],
   ["waiterID", "Waiter username", waiters, true],
   ["starTime", "Start time", "datetime-local", true],
-  ["checkOutTime", "Checkout time", "datetime-local", false],
+  ["checkOutTime", "Checkout time", "datetime-local", true],
   ["totalPrice", "Total price", "number", false]]
 }
 //edit on or off
@@ -113,6 +113,7 @@ async function showRecords(modelName) {
       html += `<td><button type="button" id="delete_${modelName}_${collection._id}">X</button></td>`
 
     }
+    html += `<td><a href="http://localhost:3000/api/${modelName}/${collection._id}">json</a></td>`
     html += `</tr>`
   }
 
