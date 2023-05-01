@@ -32,8 +32,16 @@ async function updateOccupation(req, res) {
 
 //add occupation
 async function addOccupation(req, res) {
-  const result = await addRecord("occupation", req);
-  res.status(result[0]).json(result[1]);
+  const tableID = req.body.tableID;
+  const query = { "tableID": tableID, "checkOutTime": null }
+  const checkOccupied = await getAll("occupation", query)
+
+  if (checkOccupied.length > 0) {
+    res.status(409).json({ error: "The table is already in the database" });
+  } else {
+    const result = await addRecord("occupation", req);
+    res.status(result[0]).json(result[1]);
+  }
 }
 
 //get all current occupations
