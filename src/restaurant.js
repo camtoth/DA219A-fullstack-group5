@@ -48,7 +48,7 @@ function getCategories() {
 }
 
 function addItem(id, itemName) {
-    newOrder.push({menuItemID: id, menuItemName: itemName, comment: "test"}) //push the iteminstance object
+    newOrder.push({menuItemID: id, instanceID: getNumberOfItemsWithSameId(id) + 1, menuItemName: itemName, comment: "test"}) //push the iteminstance object
     console.log(newOrder)
     renderNewOrder()
 }
@@ -70,8 +70,10 @@ function getNumberOfItemsWithSameId(menuItemID) {
     return newOrder.filter((item) => item.menuItemID === menuItemID).length
 }
 
-function addOrRemoveComment(){
-
+function addOrRemoveComment(menuItemID, instanceID, commentValue){
+    const itemToComment = newOrder.find(item => item.menuItemID == menuItemID && item.instanceID == instanceID)
+    itemToComment.comment = commentValue
+    console.log(newOrder)
 }
 
 function handleChangeMenu (inputValue, menuItemID, menuItemName) {
@@ -171,7 +173,7 @@ function renderNewOrder(){
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="${newOrder[i].menuItemID}Comment"></textarea>
+                        <textarea class="form-control" placeholder="Leave a comment here" data-itemid="${newOrder[i].menuItemID}" data-instanceid="${newOrder[i].instanceID}" id="${newOrder[i].menuItemID}Comment">${newOrder[i].comment}</textarea>
                         <label for="${newOrder[i].menuItemID}Comment">Comment</label>
                     </div>
                 </div>
@@ -184,7 +186,8 @@ function renderNewOrder(){
     const commentTextboxes = document.querySelectorAll('textarea')
     commentTextboxes.forEach(textbox => {
         textbox.addEventListener('change', textbox => {
-            console.log(textbox.currentTarget.value)
+            console.log(textbox.currentTarget.dataset)
+            addOrRemoveComment(textbox.currentTarget.dataset.itemid, textbox.currentTarget.dataset.instanceid, textbox.currentTarget.value)
         })
     })
 }
