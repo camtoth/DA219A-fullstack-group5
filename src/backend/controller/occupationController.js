@@ -33,7 +33,11 @@ async function updateOccupation(req, res) {
 //add occupation
 async function addOccupation(req, res) {
   const tableID = req.body.tableID;
+  // You need also waiterID
+
   const query = { "tableID": tableID, "checkOutTime": null }
+  // Check out time is null by default
+
   const checkOccupied = await getAll("occupation", query)
 
   if (checkOccupied.length > 0) {
