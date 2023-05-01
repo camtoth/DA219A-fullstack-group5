@@ -16,7 +16,6 @@ async function getAll(modelName, query = null) {
   let statuscode;
   try {
     data = await dbInfo[modelName].model.find(query);
-
     if (data.length == 0) {
       data = { error: "There are no records in the database" }
       statuscode = 404;

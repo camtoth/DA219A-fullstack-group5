@@ -145,7 +145,8 @@ async function showRecords(modelName) {
     } else {
       //show orders button
       if (modelName === 'occupations') {
-        html += `<td><button type="button" id="orders_${collection._id}">View orders</button></td>`
+        html += `<td><a href="http://localhost:3000/api/${modelName}/orders/${collection._id}">orders</a></td>`
+        //html += `<td><button type="button" id="orders_${collection._id}">View orders</button></td>`
       }
       html += `<td><button type="button" id="delete_${modelName}_${collection._id}">X</button></td>`
 

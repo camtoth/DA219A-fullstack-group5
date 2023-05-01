@@ -30,18 +30,57 @@ async function updateOccupation(req, res) {
   res.status(result[0]).json(result[1]);
 }
 
+//add occupation
 async function addOccupation(req, res) {
   const result = await addRecord("occupation", req);
   res.status(result[0]).json(result[1]);
 }
 
-// Return array of all occuptions at the current date and time.
+//get all current occupations
 async function getCurrentOccupations(req, res) {
   let query = { "checkOutTime": null }
   const result = await getAll("occupation", query)
 
   let jsonText = {}
   res.status(result[0]).json(result[1]);
+}
+
+//get orders from occupation
+async function getOccupationOrder(req, res) {
+  //get orders
+  let result = await getRecord("occupation", req);
+  let orders = result[1][0].orders
+
+  //get menu items
+  let menuItems = {};
+  result = await getAll("menuItems");
+  for (let i = 0; i < result[1].length; i++) {
+    menuItems[result[1][i]._id] = result[1][i].name
+  }
+
+  //loop through orders
+  let ordersByTime = {}
+  for (let i = 0; i < orders.length; i++) {
+    let purchaseTime = orders[i].purchaseTime;
+    let portions = orders[i].portions
+    let itemID = orders[i].menuItemID
+    let itemName = menuItems[itemID]
+    let order = {
+      "itemID": itemID,
+      "itemName": itemName,
+      "portions": portions,
+      "comment": orders[i].comment,
+      "completed": orders[i].completed
+    }
+
+    if (!Object.keys(ordersByTime).includes(purchaseTime)) {
+      ordersByTime[purchaseTime] = [order];
+    } else {
+      ordersByTime[purchaseTime].push(order);
+    }
+  }
+
+  res.status(result[0]).json(ordersByTime);
 }
 
 
@@ -125,4 +164,4 @@ async function updateOccupation(req, res) {
 }
 
 
-module.exports = { getAllOccupations, addOccupation, updateOccupation, deleteOccupation, getCurrentOccupations, getOccupation };
+module.exports = { getAllOccupations, addOccupation, updateOccupation, deleteOccupation, getCurrentOccupations, getOccupation, getOccupationOrder };
