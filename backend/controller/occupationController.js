@@ -62,13 +62,12 @@ async function getOccupationOrder(req, res) {
   let ordersByTime = {}
   for (let i = 0; i < orders.length; i++) {
     let purchaseTime = orders[i].purchaseTime;
-    let portions = orders[i].portions
     let itemID = orders[i].menuItemID
     let itemName = menuItems[itemID]
     let order = {
       "itemID": itemID,
       "itemName": itemName,
-      "portions": portions,
+      "portions": orders[i].portions,
       "comment": orders[i].comment,
       "completed": orders[i].completed
     }
