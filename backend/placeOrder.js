@@ -26,13 +26,12 @@ async function showTables() {
   <table>
   <tr>
   <td>Table Nr</td>
-  <td><select id="tableSelect}">
+  <td><select id="tableSelect">
   <option value="" selected disabled hidden>...</option>`
 
   for (let i = 0; i < collections.length; i++) {
     let tableID = collections[i].tableID
     let tableNr = tableNrs[tableID]
-    console.log(tableID, tableNr)
     html += `<option value="${tableID}">${tableNr}</option>`
   }
   html += `</select></td></tr></table>`
@@ -60,14 +59,48 @@ async function showMenu() {
     html += `<tr>
     <td>${collections[i].name}</td>
     <td> ${collections[i].price}SEK</td>
-    <td><input type="number" id="${collections[i].name}_p" value = "0"></input></td>
-    <td><input type="text" id="${collections[i].name}_c" value = ""></input></td>
+    <td><input type="number" id="portion_${collections[i]._id}" value = "0"></input></td>
+    <td><input type="text" id="comment_${collections[i]._id}" value = ""></input></td>
     </tr>`
   }
 
   html += `</table>`
   document.getElementById("orderInfo").innerHTML = html;
 }
+
+//add new record
+async function placeOrder() {
+  //retrieve data
+  let collections = await (await (fetch(`http://localhost:3000/api/menuItems`))).json();
+
+  let orders = []
+  console.log(`placing an order...`)
+  for (let i = 0; i < collections.length; i++) {
+    let portion = document.getElementById(`portion_${collections[i]._id}`).value
+    let comment = document.getElementById(`comment_${collections[i]._id}`).value
+    let price = collections[i].price
+
+    if (portion > 0) {
+      let order = {
+        "itemID": collections[i]._id,
+        "itemName": collections[i].name,
+        "portions": portion,
+        "comment": comment,
+        "price": price,
+        "completed": false
+      }
+      orders.push(order)
+    }
+  }
+  console.log("tableID:", document.getElementById(`tableSelect`).value)
+  console.log(orders)
+}
+
+
+document.getElementById("placeOrder").addEventListener('click', event => {
+  placeOrder();
+
+});
 
 showTables();
 showMenu();
