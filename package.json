@@ -18,7 +18,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./backend/server.js",
+    "start": "nodemon ./src/backend/server.js",
     "setup": "npm install"
   },
   "repository": {
