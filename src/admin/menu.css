@@ -1,0 +1,54 @@
+.container-fluid {
+ text-align:center;
+ padding-top: 20px;
+ background-color:rgb(255, 220, 220);
+ display: flex;
+ width: 100%;
+ padding-left: 10px;
+ margin-bottom: 10px;
+ height:100px;
+}
+
+.container-fluid h2{
+  color: rgb(253, 253, 253);
+  display: flex;
+  text-decoration: double;
+  text-shadow: 100%;
+  text-shadow: black;
+  text-align: center;
+  padding-left: 40%;
+
+ 
+}
+
+.container {
+  display: block;
+  width: 100%;
+  padding-left: 0px;
+  margin-top: 20px;
+}
+
+.table {
+ width: 100%;
+ align-self: center;
+
+
+}
+
+a:link, a:visited {
+  background-color: #d3aeab;
+  color: white;
+  padding: 7px 7px;
+  text-align: center;
+  text-decoration: none;
+  width: fit-content;
+  margin-bottom: 30px;
+  margin-top: 9px;
+  align-content: center;
+
+ 
+}
+
+a:hover, a:active {
+  background-color: rgb(237, 222, 222);
+}

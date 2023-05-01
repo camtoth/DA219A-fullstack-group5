@@ -1,0 +1,45 @@
+
+ h2{
+color: rgb(254, 252, 252);
+text-align: center;
+background-color:  #d3aeab;
+margin-bottom: 50px;
+padding-top: 0;
+width: 80%;
+height: 90px;
+align-items: center;
+align-content: center;
+display: block;
+padding-top: 25px ;
+font-size: 20pt;
+ 
+}
+
+.return {
+  background-color: #d3aeab;
+  color: rgb(251, 251, 251);
+  padding: 6px 6px;
+  text-align: left;
+  text-decoration: none;
+  margin-bottom:80px;
+  margin-top: 0px;
+  display:flex;
+  padding-bottom: 10px;
+  margin-right: 91%;
+ 
+ 
+}
+
+a:hover, a:active {
+  background-color: rgb(237, 222, 222);
+}
+
+.navbar{
+ text-align: center;
+ display: inline;
+ padding-left: 40px;
+ padding-right: 40px;
+
+}
+
+
