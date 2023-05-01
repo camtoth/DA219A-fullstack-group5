@@ -6,14 +6,16 @@ const { getAllTables, addTable, updateTable, deleteTable, getTable } = require('
 // Show all
 router.get('/', getAllTables); // sends the req and res aoutomatically
 
+// Get
+router.get('/:id', getTable);
+
 // Create
 router.post('/', addTable);
 
 // Update
 router.put('/:id', updateTable);
 
-// Get
-router.get('/:id', getTable);
+
 
 // Delete
 router.delete('/:id', deleteTable);
