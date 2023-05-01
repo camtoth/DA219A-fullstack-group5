@@ -17,7 +17,7 @@ const occupations = require('./routes/occupations');
 const menuItems = require('./routes/menuItems');
 const accounts = require('./routes/accounts');
 const swaggerUi = require('swagger-ui-express'),
-  swaggerDocument = require('../swagger.json');
+  swaggerDocument = require('./swagger.json');
 
 
 
