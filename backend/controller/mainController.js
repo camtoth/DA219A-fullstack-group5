@@ -6,7 +6,8 @@ const Occupation = require("../model/Occupation");
 const dbInfo = {
   "tables": { "model": Tables, "validate": ["number"] },
   "menuItems": { "model": MenuItems, "validate": ["name"] },
-  "accounts": { "model": Accounts, "validate": ["firstName", "lastName", "username"] }
+  "accounts": { "model": Accounts, "validate": ["firstName", "lastName", "username"] },
+  "occupation": { "model": Occupation, "validate": ["tableID", "waiterID", "startTime"] }
 }
 
 //retrieve all records from table
@@ -59,6 +60,7 @@ async function getRecord(modelName, req) {
     data = await dbInfo[modelName].model.find({ "_id": req.params.id });
     statuscode = 200;
   } catch (err) {
+    console.log(err);
     statuscode = 404;
     data = { error: "data could not be found" };
   };

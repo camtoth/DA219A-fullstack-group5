@@ -18,9 +18,9 @@ let dbVariables = {
   ["role", "Role", roles, false]],
   "occupations": [["tableID", "Table number", tableNrs, true],
   ["waiterID", "Waiter username", waiters, true],
-  ["starTime", "Start time", "datetime-local", true],
-  ["checkOutTime", "Checkout time", "datetime-local", true],
-  ["totalPrice", "Total price", "number", false]]
+  ["startTime", "Start time", "DATE", true],
+  ["checkOutTime", "Checkout time", "DATE", true],
+  ["totalPrice", "Total price", "number", true]]
 }
 //edit on or off
 editBool = false;
@@ -62,9 +62,48 @@ async function updateVariables() {
   dbVariables["occupations"][1][2] = await getWaiters();
 }
 
+//find key based on value
+function getKey(dictionary, value) {
+  let keyMatch;
+  for (let key in dictionary) {
+    if (dictionary[key] === value) {
+      keyMatch = key;
+      break
+    }
+  }
+  return keyMatch;
+}
+
+function getDateString(timeString) {
+  const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+  let dayString;
+  if (timeString === null) {
+    dayString = "busy"
+
+  }
+  else {
+    let time = new Date(timeString);
+
+    //time
+    let minute = time.getMinutes()
+    let hour = time.getHours()
+    minute = (minute < 10) ? `0${minute}` : minute;
+    hour = (hour < 10) ? `0${hour}` : hour;
+
+    //day
+    let dayName = dayNames[time.getDay()]
+    let dayMonth = monthNames[time.getMonth()]
+    let dayNr = time.getDate()
+
+    dayString = `${hour}:${minute} (${dayName},${dayNr}/${dayMonth})`
+  }
+
+  return dayString
+}
+
 
 async function showRecords(modelName) {
-
   await updateVariables();
   //retrieve data
   let collections = await (await (fetch(`http://localhost:3000/api/${modelName}`))).json();
@@ -82,30 +121,40 @@ async function showRecords(modelName) {
     let collection = collections[i]
     html += `<tr>`
 
-    for (let j = 0; j < dbVar.length; j++) {
-      //check if variable has a list selection
-      if (typeof (dbVar[j][2]) === 'object') {
-        //list type
-        let currentSelection = collection[dbVar[j][0]];
-        html += `<td><select ${(dbVar[j][3] || !editBool) ? "disabled" : ""} id="${modelName}_${dbVar[j][0]}_${collection._id}">`
+    if (modelName === "occupations") {
+      console.log("========")
+      console.log(collection);
+    }
 
-        for (let option in dbVar[j][2]) {
-          if (option == currentSelection) {
-            html += `<option value="${option}" selected="selected">${dbVar[j][2][option]}</option>`
+    for (let j = 0; j < dbVar.length; j++) {
+      let value = collection[dbVar[j][0]]
+      let varType = dbVar[j][2];
+
+      if (varType === "DATE") {
+        value = getDateString(value);
+        varType = "text";
+        console.log(dbVar[j][0], value)
+      }
+      //check if variable has a list selection
+      if (typeof (varType) === 'object') {
+        //list type
+        html += `<td><select ${(dbVar[j][3] || !editBool) ? "disabled" : ""} id="${modelName}_${dbVar[j][0]}_${collection._id}">`
+        for (let option in varType) {
+          if (option == value) {
+            html += `<option value="${option}" selected="selected">${varType[option]}</option>`
           } else {
-            html += `<option value="${option}">${dbVar[j][2][option]}</option>`
+            html += `<option value="${option}">${varType[option]}</option>`
           }
         }
         html += `</select></td>`
       } else {
         //normal type
-        html += `<td><input ${(dbVar[j][3] || !editBool) ? "disabled" : ""}  type="${dbVar[j][2]}" 
+        html += `<td><input ${(dbVar[j][3] || !editBool) ? "disabled" : ""}  type="${varType}" 
       id="${modelName}_${dbVar[j][0]}_${collection._id}" 
-      value = "${collection[dbVar[j][0]]}"></input></td>`
+      value = "${value}"></input></td>`
 
       }
     }
-
 
     //add delete button
     if (editBool) {
@@ -126,23 +175,30 @@ async function showRecords(modelName) {
   if (!editBool) {
     html += `<tr>`
     for (let j = 0; j < dbVar.length; j++) {
+      let varType = dbVar[j][2];
 
-      //check if variable has a list selection
-      if (typeof (dbVar[j][2]) === 'object') {
-        //list type
-        html += `
+      if (varType === "DATE") {
+        html += `<td></td>`
+      } else {
+        //check if variable has a list selection
+        if (typeof (varType) === 'object') {
+          //list type
+          html += `
       <td>
       <select id="new_${modelName}_${dbVar[j][0]}">
       <option value="" selected disabled hidden>...</option>`
 
-        for (let option in dbVar[j][2]) {
-          html += `<option value="${option}">${dbVar[j][2][option]}</option>`
+          for (let option in varType) {
+            html += `<option value="${option}">${varType[option]}</option>`
+          }
+          html += `</select></td>`
+        } else {
+          //normal type
+          html += `<td><input type="${varType}" id="new_${modelName}_${dbVar[j][0]}"></input></td>`
         }
-        html += `</select></td>`
-      } else {
-        //normal type
-        html += `<td><input type="${dbVar[j][2]}" id="new_${modelName}_${dbVar[j][0]}"></input></td>`
       }
+
+
     }
 
     html += `
@@ -205,7 +261,13 @@ function updateRecord(modelName, idnr) {
   let jsonText = `{`;
 
   for (let i = 0; i < dbVar.length; i++) {
-    jsonText += `"${dbVar[i][0]}":"${document.getElementById(`${modelName}_${dbVar[i][0]}_${idnr}`).value}",`
+    let value = document.getElementById(`${modelName}_${dbVar[i][0]}_${idnr}`).value;
+
+    //check if variable has a list selection
+    if (typeof (dbVar[i][2]) === 'object') {
+      value = getKey(dbVar[i][2], value)
+    }
+    jsonText += `"${dbVar[i][0]}":"${value}",`
   }
   jsonText = jsonText.slice(0, jsonText.length - 1);
   jsonText += `}`
@@ -231,7 +293,13 @@ function addNewRecord(modelName) {
   let jsonText = `{`;
 
   for (let i = 0; i < dbVar.length; i++) {
-    jsonText += `"${dbVar[i][0]}":"${document.getElementById(`new_${modelName}_${dbVar[i][0]}`).value}",`
+    let value = document.getElementById(`new_${modelName}_${dbVar[i][0]}`).value
+
+    //check if variable has a list selection
+    if (typeof (dbVar[i][2]) === 'object') {
+      value = getKey(dbVar[i][2], value)
+    }
+    jsonText += `"${dbVar[i][0]}":"${value}",`
   }
   jsonText = jsonText.slice(0, jsonText.length - 1);
   jsonText += `}`

@@ -3,33 +3,37 @@ const Tables = require("../model/Tables");
 const Accounts = require("../model/Accounts");
 const mongoose = require("mongoose")
 
-// Show all tables
+const { getAll, addRecord, deleteRecord, updateRecord, getRecord } = require('../controller/mainController')
+
+
+//get all ocupations
 async function getAllOccupations(req, res) {
-  try {
-    const occupations = await Occupation.find()
-    console.log(occupations)
-
-    if (occupations.length == 0) return res.status(404).json({ error: "There are no records in the database" })
-
-    res.status(200).json(occupations)
-
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: "Server error" + error })
-  }
+  const result = await getAll("occupation")
+  res.status(result[0]).json(result[1]);
 }
 
-// Return occuptions by ID
-async function getOccupionByID(req, res) {
-  try {
-
-    // TO DO
-
-
-  } catch (error) {
-    res.status(500).json({ error: "Server error" + error })
-  }
+//get occupation
+async function getOccupation(req, res) {
+  console.log("go!")
+  const result = await getRecord("occupation", req);
+  res.status(result[0]).json(result[1]);
 }
+
+//delete occupation
+async function deleteOccupation(req, res) {
+  const result = await deleteRecord("occupation", req);
+  res.status(result[0]).json(result[1]);
+}
+
+//update occupation
+async function updateOccupation(req, res) {
+  const result = await updateRecord("occupation", req);
+  res.status(result[0]).json(result[1]);
+}
+
+
+
+
 
 // Return array of all occuptions at the current date and time.
 async function getCurrentOccupions(req, res) {
@@ -120,40 +124,5 @@ async function updateOccupation(req, res) {
   }
 }
 
-// Delete a record
-async function deleteOccupation(req, res) {
-  try {
-    const occupation = await Occupation.findByIdAndRemove(req.params.id);
 
-    if (!occupation) return res.status(404).json({ error: 'ID not found' });
-
-    res.status(200).json(occupation);
-  } catch (error) {
-    res.status(500).json({ error: "Server error" + error })
-  }
-}
-
-
-
-
-/*
-async function verifyIDs(tableID, waiterID) {
-  if (!mongoose.Types.ObjectId.isValid(tableID)) {
-    throw new Error('TableID - Not a valid ID format.');
-  }
-
-  if (!mongoose.Types.ObjectId.isValid(waiterID)) {
-    throw new Error('WaiterID - Not a valid ID format.');
-  }
-
-  // Check if ID exists
-  const account = await Accounts.findById(waiterID);
-  const table = await Tables.findById(tableID);
-
-  if (!account) throw new Error('This account does not exist');
-  if (account.role != "waiter") throw new Error('This account is not of a waiter');
-
-  if (!table) throw new Error('Table does not exist');
-}*/
-
-module.exports = { getAllOccupations, addOccupation, updateOccupation, deleteOccupation, getCurrentOccupions, getOccupionByID };
+module.exports = { getAllOccupations, addOccupation, updateOccupation, deleteOccupation, getCurrentOccupions, getOccupation };
