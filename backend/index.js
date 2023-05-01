@@ -1,8 +1,8 @@
 
 //available roles
-const roles = ["admin", "waiter", "cook"]
-let tableNrs = [];
-let waiters = [];
+const roles = { "admin": "admin", "waiter": "waiter", "cook": "cook" }
+let tableNrs = {};
+let waiters = {};
 
 // [varname in model, description on html, variable type,key value]
 let dbVariables = {
@@ -27,12 +27,13 @@ editBool = false;
 
 //get all tablenrs in database
 async function getTableNrs() {
-  let tableNrs = []
+  let tableNrs = {}
   let tables = await (await (fetch(`http://localhost:3000/api/tables`))).json();
 
   for (let i = 0; i < tables.length; i++) {
     tableNr = tables[i].number
-    tableNrs.push(tableNr)
+    tableid = tables[i]._id
+    tableNrs[tableid] = tableNr
   }
 
   return tableNrs
@@ -40,24 +41,31 @@ async function getTableNrs() {
 
 //get all waiters in database
 async function getWaiters() {
-  let waiters = []
+  let waiters = {}
   let accounts = await (await (fetch(`http://localhost:3000/api/accounts`))).json();
 
   for (let i = 0; i < accounts.length; i++) {
     role = accounts[i].role
     username = accounts[i].username
+    userid = accounts[i]._id
 
     if (role === "waiter") {
-      waiters.push(username)
+      waiters[userid] = username
     }
   }
 
   return waiters
 }
 
+async function updateVariables() {
+  dbVariables["occupations"][0][2] = await getTableNrs();
+  dbVariables["occupations"][1][2] = await getWaiters();
+}
 
 
 async function showRecords(modelName) {
+
+  await updateVariables();
   //retrieve data
   let collections = await (await (fetch(`http://localhost:3000/api/${modelName}`))).json();
   let dbVar = dbVariables[modelName]
@@ -79,17 +87,14 @@ async function showRecords(modelName) {
       if (typeof (dbVar[j][2]) === 'object') {
         //list type
         let currentSelection = collection[dbVar[j][0]];
-        console.log(collection[dbVar[j][0]])
         html += `<td><select ${(dbVar[j][3] || !editBool) ? "disabled" : ""} id="${modelName}_${dbVar[j][0]}_${collection._id}">`
 
-        for (let option of dbVar[j][2]) {
-
+        for (let option in dbVar[j][2]) {
           if (option == currentSelection) {
-            html += `<option value="${option}" selected="selected">${option}</option>`
+            html += `<option value="${option}" selected="selected">${dbVar[j][2][option]}</option>`
           } else {
-            html += `<option value="${option}">${option}</option>`
+            html += `<option value="${option}">${dbVar[j][2][option]}</option>`
           }
-
         }
         html += `</select></td>`
       } else {
@@ -130,8 +135,8 @@ async function showRecords(modelName) {
       <select id="new_${modelName}_${dbVar[j][0]}">
       <option value="" selected disabled hidden>...</option>`
 
-        for (let option of dbVar[j][2]) {
-          html += `<option value="${option}">${option}</option>`
+        for (let option in dbVar[j][2]) {
+          html += `<option value="${option}">${dbVar[j][2][option]}</option>`
         }
         html += `</select></td>`
       } else {
@@ -215,9 +220,6 @@ function updateRecord(modelName, idnr) {
     },
     body: jsonText
   });
-
-
-
 }
 
 //add new record
@@ -264,8 +266,6 @@ document.getElementById("editMode").addEventListener('click', event => {
 
 
 async function start() {
-  dbVariables["occupations"][0][2] = await getTableNrs();
-  dbVariables["occupations"][1][2] = await getWaiters();
   showRecords("tables");
   showRecords("menuItems");
   showRecords("accounts");
