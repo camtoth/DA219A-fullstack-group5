@@ -282,7 +282,6 @@ function addNewRecord(modelName) {
       let value = document.getElementById(`new_${modelName}_${dbVar[i][0]}`).value
       jsonText += `"${dbVar[i][0]}":"${value}",`
     }
-
   }
   jsonText = jsonText.slice(0, jsonText.length - 1);
   jsonText += `}`

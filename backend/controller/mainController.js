@@ -7,7 +7,7 @@ const dbInfo = {
   "tables": { "model": Tables, "validate": ["number"] },
   "menuItems": { "model": MenuItems, "validate": ["name"] },
   "accounts": { "model": Accounts, "validate": ["firstName", "lastName", "username"] },
-  "occupation": { "model": Occupation, "validate": ["tableID", "waiterID", "startTime"] }
+  "occupation": { "model": Occupation, "validate": ["tableID", "checkOutTime"] }
 }
 
 //retrieve all records from table
