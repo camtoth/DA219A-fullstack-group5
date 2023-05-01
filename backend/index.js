@@ -62,17 +62,6 @@ async function updateVariables() {
   dbVariables["occupations"][1][2] = await getWaiters();
 }
 
-//find key based on value
-function getKey(dictionary, value) {
-  let keyMatch;
-  for (let key in dictionary) {
-    if (dictionary[key] === value) {
-      keyMatch = key;
-      break
-    }
-  }
-  return keyMatch;
-}
 
 function getDateString(timeString) {
   const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
@@ -121,11 +110,6 @@ async function showRecords(modelName) {
     let collection = collections[i]
     html += `<tr>`
 
-    if (modelName === "occupations") {
-      console.log("========")
-      console.log(collection);
-    }
-
     for (let j = 0; j < dbVar.length; j++) {
       let value = collection[dbVar[j][0]]
       let varType = dbVar[j][2];
@@ -133,7 +117,6 @@ async function showRecords(modelName) {
       if (varType === "DATE") {
         value = getDateString(value);
         varType = "text";
-        console.log(dbVar[j][0], value)
       }
       //check if variable has a list selection
       if (typeof (varType) === 'object') {
@@ -261,13 +244,12 @@ function updateRecord(modelName, idnr) {
   let jsonText = `{`;
 
   for (let i = 0; i < dbVar.length; i++) {
-    let value = document.getElementById(`${modelName}_${dbVar[i][0]}_${idnr}`).value;
+    let varType = dbVar[i][2]
+    if (varType !== "DATE") {
 
-    //check if variable has a list selection
-    if (typeof (dbVar[i][2]) === 'object') {
-      value = getKey(dbVar[i][2], value)
+      let value = document.getElementById(`${modelName}_${dbVar[i][0]}_${idnr}`).value;
+      jsonText += `"${dbVar[i][0]}":"${value}",`
     }
-    jsonText += `"${dbVar[i][0]}":"${value}",`
   }
   jsonText = jsonText.slice(0, jsonText.length - 1);
   jsonText += `}`
@@ -293,13 +275,13 @@ function addNewRecord(modelName) {
   let jsonText = `{`;
 
   for (let i = 0; i < dbVar.length; i++) {
-    let value = document.getElementById(`new_${modelName}_${dbVar[i][0]}`).value
+    let varType = dbVar[i][2]
 
-    //check if variable has a list selection
-    if (typeof (dbVar[i][2]) === 'object') {
-      value = getKey(dbVar[i][2], value)
+    if (varType !== "DATE") {
+      let value = document.getElementById(`new_${modelName}_${dbVar[i][0]}`).value
+      jsonText += `"${dbVar[i][0]}":"${value}",`
     }
-    jsonText += `"${dbVar[i][0]}":"${value}",`
+
   }
   jsonText = jsonText.slice(0, jsonText.length - 1);
   jsonText += `}`
@@ -318,7 +300,12 @@ function addNewRecord(modelName) {
 
   //reset fields
   for (let i = 0; i < dbVar.length; i++) {
-    document.getElementById(`new_${modelName}_${dbVar[i][0]}`).value = ""
+    let varType = dbVar[i][2]
+
+    if (varType !== "DATE") {
+      document.getElementById(`new_${modelName}_${dbVar[i][0]}`).value = ""
+    }
+
   }
 }
 

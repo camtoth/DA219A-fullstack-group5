@@ -11,11 +11,11 @@ const dbInfo = {
 }
 
 //retrieve all records from table
-async function getAll(modelName) {
+async function getAll(modelName, query = null) {
   let data;
   let statuscode;
   try {
-    data = await dbInfo[modelName].model.find();
+    data = await dbInfo[modelName].model.find(query);
 
     if (data.length == 0) {
       data = { error: "There are no records in the database" }

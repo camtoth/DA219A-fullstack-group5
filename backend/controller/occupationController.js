@@ -14,7 +14,6 @@ async function getAllOccupations(req, res) {
 
 //get occupation
 async function getOccupation(req, res) {
-  console.log("go!")
   const result = await getRecord("occupation", req);
   res.status(result[0]).json(result[1]);
 }
@@ -31,24 +30,24 @@ async function updateOccupation(req, res) {
   res.status(result[0]).json(result[1]);
 }
 
-
-
-
-
-// Return array of all occuptions at the current date and time.
-async function getCurrentOccupions(req, res) {
-  try {
-
-    // TO DO
-
-
-  } catch (error) {
-    res.status(500).json({ error: "Server error" + error })
-  }
+async function addOccupation(req, res) {
+  const result = await addRecord("occupation", req);
+  res.status(result[0]).json(result[1]);
 }
 
+// Return array of all occuptions at the current date and time.
+async function getCurrentOccupations(req, res) {
+  let query = { "checkOutTime": null }
+  const result = await getAll("occupation", query)
+
+  let jsonText = {}
+  res.status(result[0]).json(result[1]);
+}
+
+
+/*
 // Create a new record
-async function addOccupation(req, res) {
+async function addOccupation2(req, res) {
   console.log("trying to add a occupation..")
   try {
 
@@ -97,6 +96,7 @@ async function addOccupation(req, res) {
     res.status(500).json({ error: "Server error" + error })
   }
 }
+*/
 
 
 // Update a record
@@ -125,4 +125,4 @@ async function updateOccupation(req, res) {
 }
 
 
-module.exports = { getAllOccupations, addOccupation, updateOccupation, deleteOccupation, getCurrentOccupions, getOccupation };
+module.exports = { getAllOccupations, addOccupation, updateOccupation, deleteOccupation, getCurrentOccupations, getOccupation };
