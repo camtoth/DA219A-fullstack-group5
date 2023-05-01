@@ -13,7 +13,31 @@ async function logJSONData(APIendpoint) {
     const jsonData = await response.json()
     //console.log(jsonData)
     return jsonData
-  }
+}
+
+async function postData(APIendpoint, data) {
+  // Default options are marked with *
+  const response = await fetch(`http://127.0.0.1:3000/${APIendpoint}`, {
+    method: "POST", // *GET, POST, PUT, DELETE, etc.
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data), // body data type must match "Content-Type" header
+  });
+  return response.json(); // parses JSON response into native JavaScript objects
+}
+
+async function putData(APIendpoint, data) {
+    // Default options are marked with *
+    const response = await fetch(`http://127.0.0.1:3000/${APIendpoint}`, {
+      method: "PUT", // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data), // body data type must match "Content-Type" header
+    });
+    return response.json(); // parses JSON response into native JavaScript objects
+}
 
 function getCategories() {
     for (let i = 0; i < menu.length; i++){
