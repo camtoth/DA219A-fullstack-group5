@@ -52,15 +52,16 @@ async function showMenu() {
   <tr>
   <th>Dish</th>
   <th>Price</th>
-  <th>Quantity
-  </th>
+  <th>Quantity</th>
+  <th>Comment</th>
   </tr>`
 
   for (let i = 0; i < collections.length; i++) {
     html += `<tr>
     <td>${collections[i].name}</td>
     <td> ${collections[i].price}SEK</td>
-    <td><input type="number" id="${collections[i].name}" value = "0"></input></td>
+    <td><input type="number" id="${collections[i].name}_p" value = "0"></input></td>
+    <td><input type="text" id="${collections[i].name}_c" value = ""></input></td>
     </tr>`
   }
 
