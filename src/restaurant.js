@@ -73,9 +73,9 @@ function getNumberOfItemsWithSameId(menuItemID) {
 function addOrRemoveComment(menuItemID, instanceID, commentValue){
     const itemToComment = newOrder.find(item => item.menuItemID == menuItemID && item.instanceID == instanceID)
     itemToComment.comment = commentValue
-    console.log(newOrder)
 }
 
+// called when changing quantity of menu item
 function handleChangeMenu (inputValue, menuItemID, menuItemName) {
     const value = inputValue
     const currentItemCount = getNumberOfItemsWithSameId(menuItemID)
@@ -162,6 +162,8 @@ function renderMenuItems(htmlCategoryID, category){
 }
 
 function renderNewOrder(){
+    newOrder.sort((a,b) => (a.menuItemID > b.menuItemID) ? 1 : ((b.menuItemID > a.menuItemID) ? -1 : 0))
+    console.log(newOrder)
     const htmlTablesDiv = document.getElementById('js-newordercontainer')
 	let htmlToRender = ''
     for (let i = 0; i < newOrder.length; i++){
