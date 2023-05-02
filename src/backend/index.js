@@ -8,6 +8,7 @@ let waiters = {};
 let dbVariables = {
   "tables": [["number", "Table number", "number", true],
   ["seats", "Max. seat capacity", "number", false]],
+  
   "menuItems": [["name", "Dish", "text", true],
   ["price", "Price", "number", false],
   ["category", "Category", "text", false]],
@@ -135,7 +136,6 @@ async function showRecords(modelName) {
         html += `<td><input ${(dbVar[j][3] || !editBool) ? "disabled" : ""}  type="${varType}" 
       id="${modelName}_${dbVar[j][0]}_${collection._id}" 
       value = "${value}"></input></td>`
-
       }
     }
 
@@ -202,7 +202,6 @@ async function showRecords(modelName) {
       document.getElementById(`update_${modelName}_${collections[i]._id}`).addEventListener('click', event => {
         updateRecord(modelName, collections[i]._id);
       });
-
     }
   } else {
     document.getElementById(`add_${modelName}`).addEventListener('click', event => {
@@ -217,7 +216,6 @@ async function showRecords(modelName) {
     }
   }
 }
-
 
 //delete record
 function deleteRecord(modelName, idnr) {

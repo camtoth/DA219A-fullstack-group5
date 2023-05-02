@@ -42,4 +42,15 @@ a:hover, a:active {
 
 }
 
+.background-fluid {
+  background-image: url("../Image/adminpge.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100mvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 
