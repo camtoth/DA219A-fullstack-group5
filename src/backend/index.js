@@ -100,7 +100,7 @@ async function showRecords(modelName) {
   let dbVar = dbVariables[modelName]
 
   //create table and headings
-  let html = `<table><tr>`
+  let html = `<table class="table table-bordered"><tr>`
   for (let i = 0; i < dbVar.length; i++) {
     html += `<th>${dbVar[i][1]}</th>`
   } //headers
