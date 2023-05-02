@@ -15,8 +15,6 @@ router.post('/', addTable);
 // Update
 router.put('/:id', updateTable);
 
-
-
 // Delete
 router.delete('/:id', deleteTable);
 
