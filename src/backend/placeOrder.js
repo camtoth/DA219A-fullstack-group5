@@ -1,6 +1,5 @@
 
-let order = []
-
+let table2occupation = {};
 
 //get all tablenrs in database
 async function getTableNrs() {
@@ -30,8 +29,10 @@ async function showTables() {
   <option value="" selected disabled hidden>...</option>`
 
   for (let i = 0; i < collections.length; i++) {
+    let occupationID = collections[i]._id
     let tableID = collections[i].tableID
     let tableNr = tableNrs[tableID]
+    table2occupation[tableID] = occupationID
     html += `<option value="${tableID}">${tableNr}</option>`
   }
   html += `</select></td></tr></table>`
@@ -68,33 +69,61 @@ async function showMenu() {
   document.getElementById("orderInfo").innerHTML = html;
 }
 
-//add new record
+//add new record (could not get $push command to work so used a regular update - try to change later)
 async function placeOrder() {
-  //retrieve data
-  let collections = await (await (fetch(`http://localhost:3000/api/menuItems`))).json();
 
-  let orders = []
-  console.log(`placing an order...`)
-  for (let i = 0; i < collections.length; i++) {
-    let portion = document.getElementById(`portion_${collections[i]._id}`).value
-    let comment = document.getElementById(`comment_${collections[i]._id}`).value
-    let price = collections[i].price
+  let tableID = document.getElementById(`tableSelect`).value;
+  let idnr = table2occupation[tableID]
 
-    if (portion > 0) {
-      let order = {
-        "itemID": collections[i]._id,
-        "itemName": collections[i].name,
-        "portions": portion,
-        "comment": comment,
-        "price": price,
-        "completed": false
-      }
-      orders.push(order)
+  if (idnr === undefined) {
+    console.log("specify id")
+  } else {
+    let jsonText = `{"orders":[`;
+    //retrieve current order
+    let occupation = await (await (fetch(`http://localhost:3000/api/occupations/${idnr}`))).json();
+    let currentOrders = occupation[0].orders
+
+    for (let i = 0; i < currentOrders.length; i++) {
+      jsonText += `
+      {"menuItemID": "${currentOrders[i].menuItemID}",
+      "comment": "${currentOrders[i].comment}",
+      "completed": ${currentOrders[i].completed},
+      "purchaseTime":"${currentOrders[i].purchaseTime}"},`
     }
+
+    //retrieve data
+    let collections = await (await (fetch(`http://localhost:3000/api/menuItems`))).json();
+
+    for (let i = 0; i < collections.length; i++) {
+      let portion = document.getElementById(`portion_${collections[i]._id}`).value
+      let comment = document.getElementById(`comment_${collections[i]._id}`).value
+
+      if (portion > 0) {
+        jsonText += `
+      {"menuItemID": "${collections[i]._id}",
+      "comment": "${comment}",
+      "completed": false},`
+      }
+    }
+
+    jsonText = jsonText.slice(0, jsonText.length - 1);
+    jsonText += `]}`
+
+    console.log(jsonText);
+
+    const response = fetch(`http://localhost:3000/api/occupations/${idnr}`, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: jsonText
+    });
+
   }
-  console.log("tableID:", document.getElementById(`tableSelect`).value)
-  console.log(orders)
+
 }
+
 
 
 document.getElementById("placeOrder").addEventListener('click', event => {

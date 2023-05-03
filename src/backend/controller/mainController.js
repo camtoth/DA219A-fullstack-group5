@@ -25,6 +25,7 @@ async function getAll(modelName, query = null) {
     }
   } catch (error) {
     console.log(error);
+    statuscode = 500;
     data = { error: "Server error" + error }
   }
 
@@ -44,9 +45,35 @@ async function updateRecord(modelName, req) {
     console.log("data updated!");
   } catch (err) {
     statuscode = 404;
+    console.log(err)
     data = { error: "data could not be updated" };
   };
 
+  return [statuscode, data];
+}
+
+async function pushRecord(modelName, req) {
+  console.log("trying to push data")
+  let statuscode;
+  let data = req.body
+  console.log(data)
+  statuscode = 200;
+
+  /*
+  const filter = { "_id": req.params.id };
+
+  try {
+
+    dbInfo[modelName].model.updateOne(filter, { $push: data });
+
+    statuscode = 200;
+    console.log("data updated!");
+  } catch (err) {
+    statuscode = 404;
+    console.log(err)
+    data = { error: "data could not be updated" };
+  };
+*/
   return [statuscode, data];
 }
 
@@ -125,6 +152,6 @@ async function deleteRecord(modelName, req) {
 }
 
 
-module.exports = { getAll, addRecord, deleteRecord, updateRecord, getRecord };
+module.exports = { getAll, addRecord, deleteRecord, updateRecord, getRecord, pushRecord };
 
 

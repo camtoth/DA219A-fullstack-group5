@@ -1,6 +1,6 @@
 const Tables = require("../model/Tables")
 
-const { getAll, addRecord, deleteRecord, updateRecord, getRecord } = require('../controller/mainController')
+const { getAll, addRecord, deleteRecord, updateRecord, getRecord, pushRecord } = require('../controller/mainController')
 
 //get all Tables
 async function getAllTables(req, res) {
