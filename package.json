@@ -13,7 +13,7 @@
     "swagger-ui-express": "^4.6.2"
   },
   "name": "da219a-fullstack-group5",
-  "description": "**Comments:**",
+  "description": "Dining Dashboard",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -25,7 +25,7 @@
     "type": "git",
     "url": "git+https://github.com/camtoth/DA219A-fullstack-group5.git"
   },
-  "author": "",
+  "author": "Stephan Hek, Hiva Moghaddam, Cameron Toth, Yana Zlatanova",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/camtoth/DA219A-fullstack-group5/issues"
