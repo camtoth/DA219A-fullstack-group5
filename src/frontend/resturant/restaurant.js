@@ -1,5 +1,6 @@
 //global variables
 let tables = []
+let current = []
 let menu = []
 let categories = []
 let newOrder = []
@@ -93,14 +94,24 @@ function renderTables(){
     const htmlTablesDiv = document.getElementById('js-tablescontainer')
     //let tablesToRender = []
 	let htmlToRender = ''
-    for (let i = 0; i < tables.length; i++){
-        //console.log(tables[i])
-        htmlToRender +=
-        `<div class="col mx-1 my-2">
-            <div class="row justify-content-between">
-                <div class="d-flex col-8 mx-auto justify-content-center"><button type="button" class="btn btn-primary">Table ${tables[i].number}</button></div>
-        </div></div></div>`
-    }
+    tables.forEach(table => {
+        if (current.some(element => element.tableID == table._id)){
+            htmlToRender +=
+            `<div class="col mx-1 my-2">
+                <div class="row justify-content-between">
+                    <div class="d-flex col-8 mx-auto justify-content-center"><button type="button" id=${table._id} class="btn btn-primary">Table ${table.number}</button>
+                    </div>
+            </div></div></div>`
+        }
+        else{
+            htmlToRender +=
+            `<div class="col mx-1 my-2">
+                <div class="row justify-content-between">
+                    <div class="d-flex col-8 mx-auto justify-content-center"><button type="button" id=${table._id} class="btn btn-secondary">Table ${table.number}</button>
+                    </div>
+            </div></div></div>`
+        }
+    })
     htmlTablesDiv.innerHTML = htmlToRender
 }
 
@@ -212,7 +223,9 @@ function initEvents() {
 // init
 async function init() {
     tables = await logJSONData("api/tables")
-    //console.log(tables)
+    current = await logJSONData("api/occupations/current")
+    console.log(tables)
+    console.log(current)
     logJSONData("api/occupations/")
     menu = await logJSONData("api/menuItems/")
     //console.log(menu)
