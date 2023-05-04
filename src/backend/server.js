@@ -18,9 +18,7 @@ app.use(express.static('../frontend', {
 
 app.use('', express.static(path.join(__dirname, '../frontend')));
 
-
-const admin = require('./routes/admin')
-const restaurant = require('./routes/restaurant')
+const login = require('./routes/login')
 const home = require('./routes/home')
 const tables = require('./routes/tables');
 const occupations = require('./routes/occupations');
@@ -40,8 +38,7 @@ app.use(cors({
 
 // Main Routes
 app.use('/', home);
-app.use('/admin', admin);
-app.use('/restaurant', restaurant);
+app.use('/login', login);
 app.use('/api/tables', tables);
 app.use('/api/occupations', occupations);
 app.use('/api/menuItems', menuItems);
