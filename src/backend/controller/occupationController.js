@@ -92,7 +92,6 @@ function getDateString(timeString) {
 async function getOccupationOrder(req, res) {
   //get orders
   let result = await getRecord("occupation", req);
-  console.log(result[1])
   let orders = result[1][0].orders
 
   console.log("orders:", orders)
@@ -117,50 +116,20 @@ async function getOccupationOrder(req, res) {
       "completed": orders[i].completed
     }
 
-    console.log(i, purchaseTime)
     if (!Object.keys(ordersByTime).includes(purchaseTime)) {
       ordersByTime[purchaseTime] = [order];
     } else {
-      console.log("push")
       ordersByTime[purchaseTime].push(order);
     }
   }
 
-  console.log(ordersByTime)
   res.status(result[0]).json(ordersByTime);
 }
 
-//add new order to occupation doesnt work
+//add new order to occupation
 async function addOccupationOrder(req, res) {
-
-  let jsonText = req.body
-
-  console.log(req.body)
-
-  req.body.push({ "test": 1 })
-
-
-  //console.log(String(jsonText))
-  jsonText = jsonText.slice(0, jsonText.length - 1);
-
-  //retrieve current order
-  let occupation = await (await (fetch(`http://localhost:3000/api/occupations/${req.params.id}`))).json();
-  let currentOrders = occupation[0].orders
-
-  for (let i = 0; i < currentOrders.length; i++) {
-    jsonText += `
-      {"menuItemID": "${currentOrders[i].menuItemID}",
-      "comment": "${currentOrders[i].comment}",
-      "completed": ${currentOrders[i].completed}},`
-  }
-
-  jsonText += `]}`;
-  console.log(jsonText)
-  req.body = jsonText;
-
-  const result = await updateRecord("occupation", req);
+  const result = await pushRecord("occupation", req);
   res.status(result[0]).json(result[1]);
-
 
 }
 

@@ -52,19 +52,15 @@ async function updateRecord(modelName, req) {
   return [statuscode, data];
 }
 
+//push a record to an array
 async function pushRecord(modelName, req) {
   console.log("trying to push data")
   let statuscode;
   let data = req.body
-  console.log(data)
-  statuscode = 200;
-
-  /*
   const filter = { "_id": req.params.id };
-
   try {
 
-    dbInfo[modelName].model.updateOne(filter, { $push: data });
+    await dbInfo[modelName].model.updateOne(filter, { $push: data });
 
     statuscode = 200;
     console.log("data updated!");
@@ -73,7 +69,7 @@ async function pushRecord(modelName, req) {
     console.log(err)
     data = { error: "data could not be updated" };
   };
-*/
+
   return [statuscode, data];
 }
 
