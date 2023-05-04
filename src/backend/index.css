@@ -1,0 +1,30 @@
+.header1{
+  text-align: center;
+  padding-top: 70px;
+  padding-bottom: 5px;
+  font-size: 30px;
+}
+.allTables{
+ margin: 10px 20px 10px 20px;
+ 
+}
+
+h4{
+  font-weight:500;
+text-align: center;
+}
+
+.backGround{
+   background-image:url('https://images.pexels.com/photos/1939485/pexels-photo-1939485.jpeg?auto=compress&cs=tinysrgb&w=400');
+   background-size: auto;
+
+  
+}
+
+#table{
+ border-color: black;
+}
+
+a{
+  color: black;
+}
