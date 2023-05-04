@@ -5,10 +5,19 @@ const createDBConnection = require('./dbConnection')
 const cors = require('cors')
 
 const app = express() // Set up express
-app.use(express.json())
-app.use(express.static('src'));
-app.use(express.urlencoded({ extended: false })) //when extended property is set to false, the URL-encoded data will instead be parsed with the query-string library.
-app.use('', express.static(path.join(__dirname, '')));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+app.use(express.static('../frontend', {
+  setHeaders: (res, path) => {
+    if (path.endsWith('.css')) {
+      res.setHeader('Content-Type', 'text/css');
+    }
+  }
+}));
+
+app.use('', express.static(path.join(__dirname, '../frontend')));
+
 
 
 const home = require('./routes/home')
