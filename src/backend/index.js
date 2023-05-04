@@ -8,7 +8,7 @@ let waiters = {};
 let dbVariables = {
   "tables": [["number", "Table number", "number", true],
   ["seats", "Max. seat capacity", "number", false]],
-  
+
   "menuItems": [["name", "Dish", "text", true],
   ["price", "Price", "number", false],
   ["category", "Category", "text", false]],
@@ -146,7 +146,7 @@ async function showRecords(modelName) {
       //show orders button
       if (modelName === 'occupations') {
         html += `<td><a href="http://localhost:3000/api/${modelName}/orders/${collection._id}">orders</a></td>`
-        //html += `<td><button type="button" id="orders_${collection._id}">View orders</button></td>`
+        html += `<td><button type="button" id="checkout_${collection._id}">Checkout</button></td>`
       }
       html += `<td><button type="button" id="delete_${modelName}_${collection._id}">X</button></td>`
 
@@ -213,8 +213,35 @@ async function showRecords(modelName) {
       document.getElementById(`delete_${modelName}_${collections[i]._id}`).addEventListener('click', event => {
         deleteRecord(modelName, collections[i]._id);
       });
+
+      //add checkout button event
+      if (modelName === 'occupations') {
+        document.getElementById(`checkout_${collections[i]._id}`).addEventListener('click', event => {
+          checkoutOccupation(collections[i]._id);
+        });
+      }
+
     }
+
+
   }
+}
+
+//checkout occupation
+function checkoutOccupation(idnr) {
+  console.log("checkout occupation id:", idnr)
+  let checkoutTime = new Date()
+  let jsonText = `{"checkOutTime":"${checkoutTime}"}`
+
+  const response = fetch(`api/occupations/${idnr}`, {
+    method: 'PUT',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: jsonText
+  });
+
 }
 
 //delete record
