@@ -29,7 +29,7 @@ editBool = false;
 //get all tablenrs in database
 async function getTableNrs() {
   let tableNrs = {}
-  let tables = await (await (fetch(`http://localhost:3000/api/tables`))).json();
+  let tables = await (await (fetch(`api/tables`))).json();
 
   for (let i = 0; i < tables.length; i++) {
     tableNr = tables[i].number
@@ -43,7 +43,7 @@ async function getTableNrs() {
 //get all waiters in database
 async function getWaiters() {
   let waiters = {}
-  let accounts = await (await (fetch(`http://localhost:3000/api/accounts`))).json();
+  let accounts = await (await (fetch(`api/accounts`))).json();
 
   for (let i = 0; i < accounts.length; i++) {
     role = accounts[i].role
@@ -96,7 +96,7 @@ function getDateString(timeString) {
 async function showRecords(modelName) {
   await updateVariables();
   //retrieve data
-  let collections = await (await (fetch(`http://localhost:3000/api/${modelName}`))).json();
+  let collections = await (await (fetch(`api/${modelName}`))).json();
   let dbVar = dbVariables[modelName]
 
   //create table and headings
@@ -223,7 +223,7 @@ function deleteRecord(modelName, idnr) {
 
   let jsonText = `{"_id":"${idnr}"}`
 
-  const response = fetch(`http://localhost:3000/api/${modelName}/${idnr}`, {
+  const response = fetch(`api/${modelName}/${idnr}`, {
     method: 'DELETE',
     headers: {
       'Accept': 'application/json',
@@ -255,7 +255,7 @@ function updateRecord(modelName, idnr) {
 
   console.log(jsonText);
 
-  const response = fetch(`http://localhost:3000/api/${modelName}/${idnr}`, {
+  const response = fetch(`api/${modelName}/${idnr}`, {
     method: 'PUT',
     headers: {
       'Accept': 'application/json',
@@ -287,7 +287,7 @@ function addNewRecord(modelName) {
   console.log(jsonText);
 
   //post to database
-  const response = fetch(`http://localhost:3000/api/${modelName}`, {
+  const response = fetch(`api/${modelName}`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
