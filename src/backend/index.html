@@ -20,9 +20,9 @@
       <nav class="navbar fixed-top navbar-light bg-light">
         <div class="container-fluid">
           <a class="navbar-brand" href="#tables">Tables</a>
-          <a class="navbar-brand" href="#menuItemsCollections">Menu</a>
+          <a class="navbar-brand" href="#menu">Menu</a>
           <a class="navbar-brand" href="#accountsCollections">Accounts</a>
-          <a class="navbar-brand" href="#occupationsCollections">occupations</a>
+          <a class="navbar-brand" href="#occupationsCollections">Occupations</a>
         </div>
       </nav>
 
@@ -31,7 +31,7 @@
       <!--<h2>Database collections:</h2>-->
       <div class="allTables">
         <h4 id="tables">
-          TABLES <a href="http://localhost:3000/api/tables">json</a>
+          TABLES <a href="api/tables">json</a>
         </h4>
         <div
           id="tablesCollections"
@@ -39,18 +39,26 @@
         ></div>
         <br />
 
-        <h4>
-          MENU <a href="http://localhost:3000/api/menuItems">json</a><br />
+        <div id="menu">
+          <br>
+          <br>
+          <br>
+          <h4>
+          MENU <a href="api/menuItems">json</a><br />
         </h4>
         <div
           id="menuItemsCollections"
           class="table-responsive table-bordered"
         ></div>
+
+        </div>
+
+        
         <br />
 
         <br />
         <h4>
-          ACCOUNTS <a href="http://localhost:3000/api/accounts">json</a><br />
+          ACCOUNTS <a href="api/accounts">json</a><br />
         </h4>
         <div
           id="accountsCollections"
@@ -59,8 +67,8 @@
 
         <br />
         <h4>
-          OCCUPATIONS <a href="http://localhost:3000/api/occupations">json</a>
-          <a href="http://localhost:3000/api/occupations/current"
+          OCCUPATIONS <a href="api/occupations">json</a>
+          <a href="api/occupations/current"
             >(currently occupied json)</a
           >
         </h4>
@@ -71,10 +79,11 @@
 
         <br />
       </div>
-
+    <a href="/placeOrder">place order form</a> 
+    <br>
     <button type="button" id="editMode">EDIT RECORDS</button>
 
-    <h4 id="tables">
+    <!-- <h4 id="tables">
       TABLES <a href="http://localhost:3000/api/tables">json</a>
     </h4>
     <div id="tablesCollections" class="table-responsive"></div>
@@ -97,10 +106,13 @@
         >(currently occupied json)</a
       >
     </h4>
-    <div id="occupationsCollections"></div>
+    <div id="occupationsCollections"></div> -->
 
     <br />
-    <a href="http://localhost:3000/placeOrder">place order form</a>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"></script>
+    
     <script src="index.js"></script>
   </body>
-</html>
+</html> 
