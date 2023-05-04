@@ -1,10 +1,6 @@
 //global variables
 let tables = []
-let menu = [{name: "burger", item_id:"45", category:"1"}, {name: "hummus", item_id:"5", category:"1"}, {name: "pizza", item_id:"4", category:"1"},
-{name: "ceasar salad",  item_id:"43", category:"3"}, {name: "seasonal salad", item_id:"22", category:"3"}, {name: "pea soup", item_id:"65", category:"2"},
-{name: "prawn coctail", item_id:"12", category:"2"}, {name: "ice cream", item_id:"7", category:"4"}, {name: "chocolate cake", item_id:"99", category:"4"},
-{name: "french fries", item_id:"11", category:"5"}, {name: "grilled vegetables", item_id:"112", category:"5"}
-]
+let menu = []
 let categories = []
 let newOrder = []
 
@@ -16,7 +12,6 @@ async function logJSONData(APIendpoint) {
 }
 
 async function postData(APIendpoint, data) {
-  // Default options are marked with *
   const response = await fetch(`http://127.0.0.1:3000/${APIendpoint}`, {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
     headers: {
@@ -28,9 +23,8 @@ async function postData(APIendpoint, data) {
 }
 
 async function putData(APIendpoint, data) {
-    // Default options are marked with *
     const response = await fetch(`http://127.0.0.1:3000/${APIendpoint}`, {
-      method: "PUT", // *GET, POST, PUT, DELETE, etc.
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },

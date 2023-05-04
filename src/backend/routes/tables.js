@@ -4,7 +4,7 @@ const { getAllTables, addTable, updateTable, deleteTable, getTable } = require('
 
 
 // Show all
-router.get('/', getAllTables); // sends the req and res aoutomatically
+router.get('/', getAllTables); // sends the req and res automatically
 
 // Get
 router.get('/:id', getTable);

@@ -39,4 +39,4 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // LISTENING ON PORT 
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Server listening port to ${port}...`));
+app.listen(port, () => console.log(`Server listening on port ${port}...`));
