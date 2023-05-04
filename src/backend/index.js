@@ -1,6 +1,7 @@
 
 //available roles
 const roles = { "admin": "admin", "waiter": "waiter", "cook": "cook" }
+const categories = { "main": "main", "side": "side", "starter": "starter", "snack": "snack", "soup": "soup", "dessert": "dessert" }
 let tableNrs = {};
 let waiters = {};
 
@@ -11,7 +12,7 @@ let dbVariables = {
 
   "menuItems": [["name", "Dish", "text", true],
   ["price", "Price", "number", false],
-  ["category", "Category", "text", false]],
+  ["category", "Category", categories, false]],
   "accounts": [["firstName", "First Name", "text", true],
   ["lastName", "Last Name", "text", true],
   ["username", "Username", "text", true],
