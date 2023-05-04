@@ -62,7 +62,7 @@ body{
   float: right;
 }
 
-a{
+button{
   outline: none;
   border: none;
   width: 320px;
@@ -78,10 +78,9 @@ a{
   background: white;
 }
 
-.form .a:hover{
+.form button:hover{
   border-left: solid 8px rgba(255, 255, 255, 0.5);
-  border-right: solid 8px #b56b6b;
- 
+  border-right: solid 8px #b56b6b; 
 }
 
 /* Responsive CSS */
