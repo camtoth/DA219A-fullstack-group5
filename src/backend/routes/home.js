@@ -12,14 +12,6 @@ router.get('/login', function (req, res) {
   res.sendFile(path.join(__dirname, '../../frontend/login/login.html' ));
 });
 
-router.get('/admin', function (req, res) {
-  res.sendFile(path.join(__dirname, '../../frontend/admin/index.html'));
-});
-
-router.get('/admin/placeOrder', function (req, res) {
-  res.sendFile(path.join(__dirname, '../../frontend/admin/placeOrder.html'));
-});
-
 
 
 
