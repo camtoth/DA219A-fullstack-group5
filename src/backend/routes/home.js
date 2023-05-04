@@ -8,11 +8,6 @@ router.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, '../../frontend/about/about.html' ));
 });
 
-router.get('/login', function (req, res) {
-  res.sendFile(path.join(__dirname, '../../frontend/login/login.html' ));
-});
-
-
 
 
 module.exports = router;  
