@@ -333,6 +333,7 @@ function addNewRecord(modelName) {
     }
 
   }
+  console.log("hsllo")
 }
 
 document.getElementById("editMode").addEventListener('click', event => {

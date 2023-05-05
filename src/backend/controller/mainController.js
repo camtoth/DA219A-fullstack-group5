@@ -116,7 +116,7 @@ async function addRecord(modelName, req) {
       console.log("record with key value is already present");
     } else {
       dbInfo[modelName].model.insertMany(newRecord);
-      statuscode = 201;
+      statuscode = 200;
       data = newRecord;
       console.log("data added!");
     }

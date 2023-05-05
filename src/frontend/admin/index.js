@@ -1,5 +1,9 @@
 //available roles
 const roles = { admin: "admin", waiter: "waiter", cook: "cook" };
+
+//available categories
+const categories = { "main": "main", "side": "side", "starter": "starter", "snack": "snack", "soup": "soup", "dessert": "dessert" }
+
 let tableNrs = {};
 let waiters = {};
 
@@ -13,7 +17,7 @@ let dbVariables = {
   menuItems: [
     ["name", "Dish", "text", true],
     ["price", "Price", "number", false],
-    ["category", "Category", "text", false],
+    ["category", "Category", categories, false],
   ],
   accounts: [
     ["firstName", "First Name", "text", true],
@@ -128,9 +132,8 @@ async function showRecords(modelName) {
   for (let i = 0; i < dbVar.length; i++) {
     html += `<th>${dbVar[i][1]}</th>`;
   } //headers
-  html += `<th>${
-    modelName === "occupations" ? "Orders" : ""
-  }</th><th></th></tr>`;
+  html += `<th>${modelName === "occupations" ? "Orders" : ""
+    }</th><th></th></tr>`;
 
   //loop through all records
   for (let i = 0; i < collections.length; i++) {
@@ -148,9 +151,8 @@ async function showRecords(modelName) {
       //check if variable has a list selection
       if (typeof varType === "object") {
         //list type
-        html += `<td><select ${
-          dbVar[j][3] || !editBool ? "disabled" : ""
-        } id="${modelName}_${dbVar[j][0]}_${collection._id}">`;
+        html += `<td><select ${dbVar[j][3] || !editBool ? "disabled" : ""
+          } id="${modelName}_${dbVar[j][0]}_${collection._id}">`;
         for (let option in varType) {
           if (option == value) {
             html += `<option value="${option}" selected="selected">${varType[option]}</option>`;
@@ -161,9 +163,8 @@ async function showRecords(modelName) {
         html += `</select></td>`;
       } else {
         //normal type
-        html += `<td><input ${
-          dbVar[j][3] || !editBool ? "disabled" : ""
-        }  type="${varType}" 
+        html += `<td><input ${dbVar[j][3] || !editBool ? "disabled" : ""
+          }  type="${varType}" 
       id="${modelName}_${dbVar[j][0]}_${collection._id}" 
       value = "${value}"></input></td>`;
       }
@@ -264,30 +265,16 @@ function checkoutOccupation(idnr) {
   let checkoutTime = new Date();
   let jsonText = `{"checkOutTime":"${checkoutTime}"}`;
 
-  const response = fetch(`../api/occupations/${idnr}`, {
-    method: "PUT",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: jsonText,
-  });
+  //post to database
+  sendRequest(`../api/occupations/${idnr}`, "PUT", jsonText);
 }
 
 //delete record
 function deleteRecord(modelName, idnr) {
-  console.log(modelName, idnr);
-
   let jsonText = `{"_id":"${idnr}"}`;
 
-  const response = fetch(`../api/${modelName}/${idnr}`, {
-    method: "DELETE",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: jsonText,
-  });
+  //post to database
+  sendRequest(`../api/${modelName}/${idnr}`, "DELETE", jsonText);
 }
 
 //update record
@@ -311,16 +298,28 @@ function updateRecord(modelName, idnr) {
   jsonText = jsonText.slice(0, jsonText.length - 1);
   jsonText += `}`;
 
-  console.log(jsonText);
+  //post to database
+  sendRequest(`../api/${modelName}/${idnr}`, "PUT", jsonText);
+}
 
-  const response = fetch(`../api/${modelName}/${idnr}`, {
-    method: "PUT",
+//send http request
+async function sendRequest(htmlString, httpMethod, jsonText) {
+
+  const response = await fetch(htmlString, {
+    method: httpMethod,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
     body: jsonText,
   });
+
+  if (response.status === 200) {
+    console.log("succes")
+    start();
+  } else {
+    console.log("something went wrong")
+  }
 }
 
 //add new record
@@ -347,23 +346,7 @@ function addNewRecord(modelName) {
   console.log(jsonText);
 
   //post to database
-  const response = fetch(`../api/${modelName}`, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: jsonText,
-  });
-
-  //reset fields
-  for (let i = 0; i < dbVar.length; i++) {
-    let varType = dbVar[i][2];
-
-    if (varType !== "DATE") {
-      document.getElementById(`new_${modelName}_${dbVar[i][0]}`).value = "";
-    }
-  }
+  sendRequest(`../api/${modelName}`, "POST", jsonText);
 }
 
 document.getElementById("editMode").addEventListener("click", (event) => {
