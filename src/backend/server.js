@@ -38,7 +38,7 @@ app.use(cors({
 
 // Main Routes
 app.use('/', home);
-app.use('/login', login);
+//app.use('/login', login);
 app.use('/api/tables', tables);
 app.use('/api/occupations', occupations);
 app.use('/api/menuItems', menuItems);

@@ -1,5 +1,10 @@
+// I moved everything to home.js (this file is no longer used)
+
 const express = require('express');
 const router = express.Router();
+
+const cookieParser = require("cookie-parser")
+router.use(cookieParser())
 const path = require('path');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt')
@@ -17,7 +22,9 @@ router.get('/', function (req, res) {
 // Admin
 router.get('/admin', function (req, res) {
   // Access cookie
-  //const cookieJwt = req.cookies.jwt;
+  const cookieJwt = req.cookies.jwt;
+  console.log("test")
+  console.log(cookieJwt)
 
   res.sendFile(path.join(__dirname, '../../frontend/admin/index.html'));
 });
@@ -70,9 +77,9 @@ router.post('/', async (req, res) => {
 
       // Successful log in
       if (current_Role == "admin") {
-        //res.redirect("/admin")
+        res.redirect("/login/admin")
         console.log("logged admin");
-      } else if (current_Role == "waiter"){
+      } else if (current_Role == "waiter") {
         console.log("Logged waiter");
         //res.redirect("/users/" + user.userID)
         // res.redirect("/granted")

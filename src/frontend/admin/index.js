@@ -181,7 +181,13 @@ async function showRecords(modelName) {
       }
       html += `<td><button type="button" id="delete_${modelName}_${collection._id}">X</button></td>`;
     }
-    html += `<td><a href="../api/${modelName}/${collection._id}">json</a></td>`;
+
+    if (modelName === "accounts") {
+      html += `<td><a href="../api/${modelName}/${collection.username}">json</a></td>`;
+    } else {
+      html += `<td><a href="../api/${modelName}/${collection._id}">json</a></td>`;
+    }
+
     html += `</tr>`;
   }
 
