@@ -84,10 +84,16 @@ async function addOrder() {
     //loop through list
     for (let i = 0; i < collections.length; i++) {
       let portion = document.getElementById(`portion_${collections[i]._id}`).value
-      let comment = document.getElementById(`comment_${collections[i]._id}`).value
+      let commentArray = document.getElementById(`comment_${collections[i]._id}`).value.split(";");
+      let comment;
 
-      if (portion > 0) {
+      for (let p = 0; p < portion; p++) {
 
+        if (p < commentArray.length) {
+          comment = commentArray[p];
+        } else {
+          comment = "";
+        }
         let jsonText = `{"orders":
       {"menuItemID": "${collections[i]._id}",
       "comment": "${comment}",
