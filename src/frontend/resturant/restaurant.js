@@ -4,6 +4,9 @@ let current = []
 let menu = []
 let categories = []
 let newOrder = []
+let selectedTableID;
+let selectedTableNumber;
+
 
 async function logJSONData(APIendpoint) {
     const response = await fetch(`http://127.0.0.1:3000/${APIendpoint}`)
@@ -12,26 +15,33 @@ async function logJSONData(APIendpoint) {
     return jsonData
 }
 
-async function postData(APIendpoint, data) {
+async function postData(APIendpoint, JSONdata) {
   const response = await fetch(`http://127.0.0.1:3000/${APIendpoint}`, {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data), // body data type must match "Content-Type" header
+    body: JSONdata, // body data type must match "Content-Type" header
   });
   return response.json(); // parses JSON response into native JavaScript objects
 }
 
-async function putData(APIendpoint, data) {
+async function putData(APIendpoint, JSONdata) {
     const response = await fetch(`http://127.0.0.1:3000/${APIendpoint}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data), // body data type must match "Content-Type" header
+      body:JSONdata, // body data type must match "Content-Type" header
     });
     return response.json(); // parses JSON response into native JavaScript objects
+}
+
+function placeOrder() {
+    let orderToPlace = JSON.stringify({tableID: current.find(e => e.tableID == selectedTableID)._id, orders: newOrder})
+    console.log(orderToPlace)
+    putData(`api/occupations/placeOrder/${selectedTableID}`, orderToPlace)
+    init()
 }
 
 function getCategories() {
@@ -43,7 +53,7 @@ function getCategories() {
 }
 
 function addItem(id, itemName) {
-    newOrder.push({menuItemID: id, instanceID: getNumberOfItemsWithSameId(id) + 1, menuItemName: itemName, comment: "test"}) //push the iteminstance object
+    newOrder.push({menuItemID: id, instanceID: getNumberOfItemsWithSameId(id) + 1, menuItemName: itemName, comment: ""}) //push the iteminstance object
     console.log(newOrder)
     renderNewOrder()
 }
@@ -99,7 +109,7 @@ function renderTables(){
             htmlToRender +=
             `<div class="col mx-1 my-2">
                 <div class="row justify-content-between">
-                    <div class="d-flex col-8 mx-auto justify-content-center"><button type="button" id=${table._id} class="btn btn-primary">Table ${table.number}</button>
+                    <div class="d-flex col-8 mx-auto justify-content-center"><button type="button" id=${table._id} data-tablenumber= ${table.number} data-occupied="true" class="js-table-button btn btn-primary">Table ${table.number}</button>
                     </div>
             </div></div></div>`
         }
@@ -107,12 +117,29 @@ function renderTables(){
             htmlToRender +=
             `<div class="col mx-1 my-2">
                 <div class="row justify-content-between">
-                    <div class="d-flex col-8 mx-auto justify-content-center"><button type="button" id=${table._id} class="btn btn-secondary">Table ${table.number}</button>
+                    <div class="d-flex col-8 mx-auto justify-content-center"><button type="button" id=${table._id} data-tablenumber= ${table.number} data-occupied="false" class="js-table-button btn btn-secondary">Table ${table.number}</button>
                     </div>
             </div></div></div>`
         }
     })
     htmlTablesDiv.innerHTML = htmlToRender
+    const tablesHTML = document.querySelectorAll('.js-table-button')
+    tablesHTML.forEach(table => {
+        //update the selected table each time a table button is clicked and re-render Current order tab
+        table.addEventListener('click', table => {
+            selectedTableID = table.currentTarget.id
+            selectedTableNumber = table.currentTarget.dataset.tablenumber
+            renderNewOrder()
+            if(table.currentTarget.dataset.occupied == "true") {
+                renderPlacedOrder()
+            }
+        })
+    })
+}
+
+function renderPlacedOrder() {
+    const selectedTableOrders = current.find(e => e.tableID == selectedTableID).orders
+    console.log(selectedTableOrders) //render this in the placed order tab
 }
 
 function renderMenuCategories(){
@@ -170,7 +197,7 @@ function renderNewOrder(){
     newOrder.sort((a,b) => (a.menuItemID > b.menuItemID) ? 1 : ((b.menuItemID > a.menuItemID) ? -1 : 0))
     console.log(newOrder)
     const htmlTablesDiv = document.getElementById('js-newordercontainer')
-	let htmlToRender = ''
+	let htmlToRender = `<h6>Table ${selectedTableNumber}</h6>`
     for (let i = 0; i < newOrder.length; i++){
         //console.log(tables[i])
         htmlToRender +=
@@ -218,6 +245,11 @@ function initEvents() {
 			handleChangeMenu(quantity.currentTarget.value, quantity.currentTarget.dataset.id, quantity.currentTarget.dataset.name)
 		})
 	})
+    const placeOrderButton = document.querySelector('.js-place-order-button')
+    placeOrderButton.addEventListener('click', placeOrderButton => {
+        placeOrder()
+    })
+    
 }
 
 // init
