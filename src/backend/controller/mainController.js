@@ -3,6 +3,8 @@ const MenuItems = require("../model/MenuItems")
 const Accounts = require("../model/Accounts")
 const Occupation = require("../model/Occupation");
 
+const bcrypt = require('bcrypt')
+
 const dbInfo = {
   "tables": { "model": Tables, "validate": ["number"] },
   "menuItems": { "model": MenuItems, "validate": ["name"] },
@@ -93,11 +95,17 @@ async function getRecord(modelName, req) {
 //create new data record
 async function addRecord(modelName, req) {
   console.log("trying to add a new record..");
+  let data = req.body;
   let statuscode;
-  let data;
+
+  //encypt password
+  if (Object.keys(data).includes("password")) {
+    let dbEncryption = await bcrypt.hash(data.password, 10)
+    data.password = dbEncryption;
+  }
 
   //create new record
-  const newRecord = new dbInfo[modelName].model(req.body);
+  const newRecord = new dbInfo[modelName].model(data);
 
   //validate data
   try {
@@ -123,6 +131,7 @@ async function addRecord(modelName, req) {
 
   } catch (err) {
     statuscode = 400;
+    console.log(err);
     data = { error: "Validation error, missing required fields." };
     console.log("data had invalid format.");
   }

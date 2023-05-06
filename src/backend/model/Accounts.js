@@ -19,7 +19,7 @@ const schema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-        maxlength: 20
+        maxlength: 100
     },
     role: {
         type: String,

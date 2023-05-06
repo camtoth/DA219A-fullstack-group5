@@ -34,7 +34,12 @@ router.get('/adminpage', checkPermission, async function (req, res) {
   res.sendFile(path.join(__dirname, '../../frontend/admin/index.html'));
 });
 
-// Resturant
+//place order test page for admin
+router.get('/placeOrder', function (req, res) {
+  res.sendFile(path.join(__dirname, '../../frontend/admin/placeOrder.html'));
+});
+
+// Restaurant
 router.get('/waiterpage/:id', function (req, res) {
   res.sendFile(path.join(__dirname, '../../frontend/resturant/restaurant.html'));
 });
