@@ -114,6 +114,11 @@ function handleChangeMenu (inputValue, menuItemID, menuItemName) {
     }
 };
 
+function flushNewOrder () {
+    newOrder = []
+    init()
+}
+
 // render functions
 function renderTables(){
     const htmlTablesDiv = document.getElementById('js-tablescontainer')
@@ -142,6 +147,9 @@ function renderTables(){
     tablesHTML.forEach(table => {
         //update the selected table each time a table button is clicked and re-render Current order tab
         table.addEventListener('click', table => {
+            if (selectedTableID != table.currentTarget.id) {
+                flushNewOrder()
+            }
             selectedTableID = table.currentTarget.id
             selectedTableNumber = table.currentTarget.dataset.tablenumber
             renderNewOrder()
