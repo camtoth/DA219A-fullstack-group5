@@ -48,6 +48,7 @@ async function placeOrder() {
     }
     await new Promise(resolve => setTimeout(resolve, 2000)) //to wait for db to update before reloading
     init()
+    renderPlacedOrder()
 }
 
 async function checkout() {
@@ -116,7 +117,8 @@ function handleChangeMenu (inputValue, menuItemID, menuItemName) {
 
 function flushNewOrder () {
     newOrder = []
-    init()
+    console.log(newOrder)
+    renderMenuCategories()
 }
 
 // render functions
@@ -184,6 +186,23 @@ function renderMenuCategories(){
         htmlToRender += `</ul></div></div>`
         htmlCategoryTitleDiv.innerHTML = htmlToRender
     }   
+    const menuCheckboxes = document.querySelectorAll('input[type=checkbox]')
+	menuCheckboxes.forEach(checkbox => {
+		checkbox.addEventListener('change', checkbox => {
+			if (checkbox.currentTarget.checked){
+				addItem(checkbox.currentTarget.dataset.id, checkbox.currentTarget.value)
+			} else {
+				removeAllItemsWithId(checkbox.currentTarget.dataset.id)
+			}
+		})
+	})
+    const quantityInputs = document.querySelectorAll('input[type=number]')
+	quantityInputs.forEach(quantity => {
+		quantity.addEventListener('change', quantity => {
+            quantity.currentTarget.value == 0 ? document.getElementById(quantity.currentTarget.dataset.id + "Checkbox").checked = false : document.getElementById(quantity.currentTarget.dataset.id + "Checkbox").checked = true
+			handleChangeMenu(quantity.currentTarget.value, quantity.currentTarget.dataset.id, quantity.currentTarget.dataset.name)
+		})
+	})
 }
 
 function renderMenuItems(htmlCategoryID, category){
@@ -268,23 +287,6 @@ function renderNewOrder(){
 
 // init events after everything has been loaded from db
 function initEvents() {
-    const menuCheckboxes = document.querySelectorAll('input[type=checkbox]')
-	menuCheckboxes.forEach(checkbox => {
-		checkbox.addEventListener('change', checkbox => {
-			if (checkbox.currentTarget.checked){
-				addItem(checkbox.currentTarget.dataset.id, checkbox.currentTarget.value)
-			} else {
-				removeAllItemsWithId(checkbox.currentTarget.dataset.id)
-			}
-		})
-	})
-    const quantityInputs = document.querySelectorAll('input[type=number]')
-	quantityInputs.forEach(quantity => {
-		quantity.addEventListener('change', quantity => {
-            quantity.currentTarget.value == 0 ? document.getElementById(quantity.currentTarget.dataset.id + "Checkbox").checked = false : document.getElementById(quantity.currentTarget.dataset.id + "Checkbox").checked = true
-			handleChangeMenu(quantity.currentTarget.value, quantity.currentTarget.dataset.id, quantity.currentTarget.dataset.name)
-		})
-	})
     const placeOrderButton = document.querySelector('.js-place-order-button')
     placeOrderButton.addEventListener('click', placeOrderButton => {
         placeOrder()
@@ -301,12 +303,14 @@ async function init() {
     tables = await logJSONData("api/tables")
     current = await logJSONData("api/occupations/current")
     menu = await logJSONData("api/menuItems/")
-    current.forEach(occupation => {
-        occupation.orders.forEach(item => {
-            const menuItemName = menu.find(e => e._id == item.menuItemID).name
-            item.menuItemName = menuItemName
+    if(!current?.error) {
+        current.forEach(occupation => {
+            occupation.orders.forEach(item => {
+                const menuItemName = menu.find(e => e._id == item.menuItemID).name
+                item.menuItemName = menuItemName
+            })
         })
-    })
+    }
     console.log(tables)
     console.log(current)
     //logJSONData("api/occupations/")
