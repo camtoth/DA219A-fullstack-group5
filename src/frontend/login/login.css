@@ -21,23 +21,27 @@ body{
   position: absolute;
   width: 320px;
   text-align: center;
+  margin-bottom: 93px;
+ 
+ 
 }
 
 .form i{
   z-index: 1;
-  color: #fffcfc;
+  color: #ffffff;
   font-size: 65px;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 
 .form .signup-form{
   display: none;
 }
 
+
 .form .user-input{
   width: 320px;
   height: 55px;
-  margin-bottom: 30px;
+  margin-bottom: 13px;
   outline: none;
   border: none;
   background: white;
@@ -50,8 +54,8 @@ body{
 }
 
 .form .user-input:hover, .form .user-input:focus, .form .user-input:active{
-  border-left: solid 8px #f39a8d;
-  border-right: solid 8px #f39a8d;
+    border-left: solid 8px #b56b6b;
+   border-right: solid 8px #b56b6b;
   
 }
 
@@ -76,10 +80,11 @@ button{
   transition-property: border-left, border-right, box-shadow;
   padding: 10px 10px;
   background: white;
+ margin-top: 17px;
 }
 
 .form button:hover{
-  border-left: solid 8px rgba(255, 255, 255, 0.5);
+  border-left: solid 8px #b56b6b;
   border-right: solid 8px #b56b6b; 
 }
 
@@ -100,7 +105,7 @@ button{
 }
 
 .background-fluid {
-  background-image: url("https://images.pexels.com/photos/4022139/pexels-photo-4022139.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+background: url("https://images.pexels.com/photos/1028599/pexels-photo-1028599.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
   background-size: cover;
   background-position: center;
 
@@ -108,4 +113,27 @@ button{
   justify-content: center;
   align-items: center;
   background-repeat: no-repeat;
+}
+
+#navbarNavAltMarkup{
+color: rgb(254, 252, 252);
+margin-top: 528px;
+text-align: center;
+background-color: rgb(242, 242, 234);
+background-attachment: fixed;
+word-spacing: 50px;
+padding-top: 15px;
+padding-bottom: 15px;
+font-size: 19px;
+width: 1209px;
+
+
+}
+
+a{
+  color: black;
+
+}
+a:hover{
+  color: grey;
 }
