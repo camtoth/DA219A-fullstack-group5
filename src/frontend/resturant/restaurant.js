@@ -121,7 +121,7 @@ function flushNewOrder () {
 
 // render functions
 function renderTables(){
-    const htmlTablesDiv = document.getElementById('js-tablescontainer')
+    const htmlDiv = document.getElementById('js-tablescontainer')
     //let tablesToRender = []
 	let htmlToRender = ''
     tables.forEach(table => {
@@ -142,7 +142,7 @@ function renderTables(){
             </div></div></div>`
         }
     })
-    htmlTablesDiv.innerHTML = htmlToRender
+    htmlDiv.innerHTML = htmlToRender
     const tablesHTML = document.querySelectorAll('.js-table-button')
     tablesHTML.forEach(table => {
         //update the selected table each time a table button is clicked and re-render Current order tab
@@ -158,11 +158,6 @@ function renderTables(){
             }
         })
     })
-}
-
-function renderPlacedOrder() {
-    const selectedTableOrders = current.find(e => e.tableID == selectedTableID).orders
-    console.log(selectedTableOrders) //render this in the placed order tab
 }
 
 function renderMenuCategories(){
@@ -216,10 +211,32 @@ function renderMenuItems(htmlCategoryID, category){
     return htmlToRender
 }
 
+function renderPlacedOrder() {
+    const selectedTableOrders = current.find(e => e.tableID == selectedTableID).orders
+    selectedTableOrders.sort((a,b) => (a.menuItemID > b.menuItemID) ? 1 : ((b.menuItemID > a.menuItemID) ? -1 : 0))
+    //console.log(selectedTableOrders)
+    const htmlDiv = document.getElementById('js-placedorderscontainer')
+    let htmlToRender = `<h6>Table ${selectedTableNumber}</h6>`
+    selectedTableOrders.forEach(item => {
+        htmlToRender +=
+        `<li class="list-group-item">
+            <div class="row row-cols-auto align-items-center justify-content-between">
+                <div class="col "><h6>${item.menuItemName}</h6>
+                </div>
+                <div class="col-md-6 align-items-center">
+                    ${item.comment}
+                </div>
+            </div>
+        </li>
+        `
+    })
+    htmlDiv.innerHTML = htmlToRender
+}
+
 function renderNewOrder(){
     newOrder.sort((a,b) => (a.menuItemID > b.menuItemID) ? 1 : ((b.menuItemID > a.menuItemID) ? -1 : 0))
     console.log(newOrder)
-    const htmlTablesDiv = document.getElementById('js-newordercontainer')
+    const htmlDiv = document.getElementById('js-newordercontainer')
 	let htmlToRender = `<h6>Table ${selectedTableNumber}</h6>`
     for (let i = 0; i < newOrder.length; i++){
         //console.log(tables[i])
@@ -238,7 +255,7 @@ function renderNewOrder(){
         </li>
         `
     }
-    htmlTablesDiv.innerHTML = htmlToRender
+    htmlDiv.innerHTML = htmlToRender
     //take comment textbox input
     const commentTextboxes = document.querySelectorAll('textarea')
     commentTextboxes.forEach(textbox => {
