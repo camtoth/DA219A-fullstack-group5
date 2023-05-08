@@ -1,5 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
 input{
     &::-webkit-inner-spin-button{
       opacity:1;
     } 
   }
+
+#bkImg{
+  background: url('https://images.pexels.com/photos/15130552/pexels-photo-15130552.jpeg?auto=compress&cs=tinysrgb&w=600');
+}
+
+  .flex-container{
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 40px;
+    padding-top: 30px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+   font-family: 'EB Garamond', serif;
+  }
+
+  #navbarNavAltMarkup{
+color: rgb(254, 252, 252);
+margin-top: 0px;
+background-attachment: fixed;
+  font-family: serif;
+word-spacing: 60px;
+padding-top: 10px;
+padding-bottom: 0px;
+font-size: 19px;
+width: 1209px;
+padding-left: 500px;
+background-color:white;
+
+
+}
+
+#js-menu-accordion{
+  font-weight: 600;
+ 
+}
+
+#pb{
+ background-color: white;
+ color: black;
+ border-color: black;
+ font-size: 19px;
+   margin-top: 10px;
+}
+
+#pb:hover{
+  background-color: rgb(175, 174, 174);
+}
+
+#checkB{
+  margin-top: 10px;
+ background-color: white;
+ color: black;
+ border-color: black;
+ font-size: 19px;
+}
+
+#checkB:hover{
+    background-color: rgb(175, 174, 174);
+}
+
+#tabs-placed-order-tab{
+  color:white;
+    font-weight:500;
+    font-size: 19px;
+}
+
+#tabs-placed-order-tab{
+  color: black;
+
+
+
+}
+
+#tabs-current-order-tab{
+   color:white;
+     font-weight:500; 
+       font-size: 19px;
+}
+
+#tabs-current-order-tab{
+  color: black;
+}
+
+
+
+#tabs-tabContent{
+  color: white;
+}
+
+#nav-list{
+    display: rgb(146, 146, 146);
+    float: left;
+    background:rgb(146, 146, 146);
+}
+#nav-list a {
+    display: block;
+    float: left;
+    margin-right: 17px;
+    padding: 5px 8px;
+    text-decoration: none;
+    font: 20px Georgia, "Times New Roman", Times, serif;
+    color: #FFFFFF;
+}
+#nav-list a:hover {
+    text-decoration: underline;
+    background: #FFA500;
+    color: #FFFFFF;
+}
+#nav-list a:active {
+    background: #FFA500;
+    color:black;
+}
