@@ -50,8 +50,13 @@ async function placeOrder() {
     init()
 }
 
-function checkout() {
-    console.log("checking out")
+async function checkout() {
+    const selectedTableOrders = current.find(e => e.tableID == selectedTableID).orders
+    let checkoutTime = new Date()
+    putData(`api/occupations/${current.find(e => e.tableID == selectedTableID)._id}`, JSON.stringify({checkOutTime: checkoutTime}))
+    //todo: render modal with order to check out
+    await new Promise(resolve => setTimeout(resolve, 2000)) //to wait for db to update before reloading
+    init()
 }
 
 function getCategories() {
@@ -270,11 +275,17 @@ function initEvents() {
 async function init() {
     tables = await logJSONData("api/tables")
     current = await logJSONData("api/occupations/current")
+    menu = await logJSONData("api/menuItems/")
+    current.forEach(occupation => {
+        occupation.orders.forEach(item => {
+            const menuItemName = menu.find(e => e._id == item.menuItemID).name
+            item.menuItemName = menuItemName
+        })
+    })
     console.log(tables)
     console.log(current)
-    logJSONData("api/occupations/")
-    menu = await logJSONData("api/menuItems/")
-    //console.log(menu)
+    //logJSONData("api/occupations/")
+    console.log(menu)
 	renderTables()
     renderMenuCategories()
     initEvents()
