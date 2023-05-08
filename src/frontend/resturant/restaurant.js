@@ -47,17 +47,15 @@ async function placeOrder() {
         postData(`api/occupations`, orderToPlace)
     }
     await new Promise(resolve => setTimeout(resolve, 2000)) //to wait for db to update before reloading
-    init()
-    renderPlacedOrder()
+    location.reload()
 }
 
 async function checkout() {
     const selectedTableOrders = current.find(e => e.tableID == selectedTableID).orders
     let checkoutTime = new Date()
     putData(`api/occupations/${current.find(e => e.tableID == selectedTableID)._id}`, JSON.stringify({checkOutTime: checkoutTime}))
-    //todo: render modal with order to check out
     await new Promise(resolve => setTimeout(resolve, 2000)) //to wait for db to update before reloading
-    init()
+    location.reload()
 }
 
 function getCategories() {
@@ -115,10 +113,11 @@ function handleChangeMenu (inputValue, menuItemID, menuItemName) {
     }
 };
 
-function flushNewOrder () {
+function flushNewOrder() {
     newOrder = []
     console.log(newOrder)
-    renderMenuCategories()
+    console.log("changing table")
+    document.querySelectorAll('input[type=checkbox]').forEach(el => el.checked = false);
 }
 
 // render functions
@@ -285,11 +284,40 @@ function renderNewOrder(){
     })
 }
 
+function showCheckoutModal() {
+    const htmlDiv = document.getElementById('js-checkout-modal')
+    let htmlToRender = ''
+    if(current.find(e => e.tableID == selectedTableID)) {
+        const selectedTableOrders = current.find(e => e.tableID == selectedTableID).orders
+        selectedTableOrders.sort((a,b) => (a.menuItemID > b.menuItemID) ? 1 : ((b.menuItemID > a.menuItemID) ? -1 : 0))
+        selectedTableOrders.forEach(item => {
+            htmlToRender +=
+            `<li class="list-group-item">
+                <div class="row row-cols-auto align-items-center justify-content-between">
+                    <div class="col "><h6>${item.menuItemName}</h6>
+                    </div>
+                    <div class="col-md-6 align-items-center">
+                        ${item.comment}
+                    </div>
+                </div>
+            </li>
+            `
+        })
+    } else {
+        htmlToRender += "No table selected"
+    }
+    htmlDiv.innerHTML = htmlToRender
+}
+
 // init events after everything has been loaded from db
 function initEvents() {
     const placeOrderButton = document.querySelector('.js-place-order-button')
     placeOrderButton.addEventListener('click', placeOrderButton => {
         placeOrder()
+    })
+    const checkoutModalButton = document.querySelector('.js-checkout-modal-button')
+    checkoutModalButton.addEventListener('click', checkoutModalButton => {
+        showCheckoutModal()
     })
     const checkoutButton = document.querySelector('.js-checkout-button')
     checkoutButton.addEventListener('click', checkoutButton => {
