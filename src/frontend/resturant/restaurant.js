@@ -38,15 +38,20 @@ async function putData(APIendpoint, JSONdata) {
 }
 
 async function placeOrder() {
-    let orderToPlace = JSON.stringify({tableID: selectedTableID, waiterID: "64569b00b931d3131de2403e", orders: newOrder}) //todo: get waiterID from auth
-    console.log(orderToPlace)
+    let orderToPlace
     if(!current?.error && current.find(e => e.tableID == selectedTableID)) { // already existing occupation
+        orderToPlace = JSON.stringify({orders: newOrder}) //todo: get waiterID from auth
         putData(`api/occupations/placeOrder/${current.find(e => e.tableID == selectedTableID)._id}`, orderToPlace)
     } else { //new occupation
+        orderToPlace = JSON.stringify({tableID: selectedTableID, waiterID: "64569b00b931d3131de2403e", orders: newOrder}) //todo: get waiterID from auth
         postData(`api/occupations`, orderToPlace)
     }
     await new Promise(resolve => setTimeout(resolve, 2000)) //to wait for db to update before reloading
     init()
+}
+
+function checkout() {
+    console.log("checking out")
 }
 
 function getCategories() {
@@ -253,6 +258,10 @@ function initEvents() {
     const placeOrderButton = document.querySelector('.js-place-order-button')
     placeOrderButton.addEventListener('click', placeOrderButton => {
         placeOrder()
+    })
+    const checkoutButton = document.querySelector('.js-checkout-button')
+    checkoutButton.addEventListener('click', checkoutButton => {
+        checkout()
     })
     
 }
