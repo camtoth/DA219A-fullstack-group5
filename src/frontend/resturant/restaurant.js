@@ -37,10 +37,15 @@ async function putData(APIendpoint, JSONdata) {
     return response.json(); // parses JSON response into native JavaScript objects
 }
 
-function placeOrder() {
-    let orderToPlace = JSON.stringify({tableID: current.find(e => e.tableID == selectedTableID)._id, orders: newOrder})
+async function placeOrder() {
+    let orderToPlace = JSON.stringify({tableID: selectedTableID, waiterID: "64569b00b931d3131de2403e", orders: newOrder}) //todo: get waiterID from auth
     console.log(orderToPlace)
-    putData(`api/occupations/placeOrder/${selectedTableID}`, orderToPlace)
+    if(!current?.error && current.find(e => e.tableID == selectedTableID)) { // already existing occupation
+        putData(`api/occupations/placeOrder/${current.find(e => e.tableID == selectedTableID)._id}`, orderToPlace)
+    } else { //new occupation
+        postData(`api/occupations`, orderToPlace)
+    }
+    await new Promise(resolve => setTimeout(resolve, 2000)) //to wait for db to update before reloading
     init()
 }
 
@@ -105,7 +110,7 @@ function renderTables(){
     //let tablesToRender = []
 	let htmlToRender = ''
     tables.forEach(table => {
-        if (current.some(element => element.tableID == table._id)){
+        if (!current?.error && current.some(element => element.tableID == table._id)){
             htmlToRender +=
             `<div class="col mx-1 my-2">
                 <div class="row justify-content-between">
