@@ -5,8 +5,9 @@ const jwt = require('jsonwebtoken');
 //specifies which routes need permission and who can access it
 const urlPermissions = {
   "/login": { "role": ["guest"] },
-  "/adminpage": { "role": ["admin"], "id": false },
-  "/waiterpage": { "role": ["admin", "waiter"], "id": true }
+  "/admin": { "role": ["admin"], "id": false },
+  "/placeOrder": { "role": ["admin"], "id": false },
+  "/waiter": { "role": ["admin", "waiter"], "id": true }
 }
 
 //check page permission (middleware)
@@ -19,7 +20,7 @@ async function checkPermission(req, res, next) {
   //check if page needs permission
   for (let url in urlPermissions) {
     if (orgUrl.includes(url)) {
-      requiredRoles = urlPermissions[orgUrl].role;
+      requiredRoles = urlPermissions[url].role;
       break;
     }
   }
@@ -54,6 +55,30 @@ async function checkPermission(req, res, next) {
   }
 
 }
+
+//check login status (middleware)
+async function checkLogin(req, res, next) {
+  let userRole = "guest";
+
+  try {
+    //decode & read user cookie
+    const cookieJwt = req.cookies.jwt;
+    const decryptedtoken = jwt.verify(cookieJwt, process.env.SECRET_PRIVATE_KEY)
+    let username = decryptedtoken.username;
+    let password = decryptedtoken.password;
+    userRole = await getUserRole(username, password);
+  } catch (error) {
+  }
+
+  if (userRole === "guest") {
+    next()
+  } else if (userRole === "admin") {
+    res.redirect("/admin")
+  } else if (userRole === "waiter") {
+    res.redirect(`/waiter/${username}`)
+  }
+}
+
 
 //check if user exists and return userType/role
 async function getUserRole(username, password) {
@@ -108,14 +133,14 @@ async function loginUser(req, res) {
     // Successful log in
     if (userRole == "admin") {
       console.log("logged admin");
-      res.redirect("/adminpage")
+      res.redirect("/admin")
 
     } else if (userRole == "waiter") {
-      res.redirect(`/waiterpage/${username}`)
+      res.redirect(`/waiter/${username}`)
       console.log("logged waiter");
     }
   }
 }
 
 
-module.exports = { loginUser, checkPermission };
+module.exports = { loginUser, checkPermission, checkLogin };

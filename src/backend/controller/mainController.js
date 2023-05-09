@@ -41,6 +41,12 @@ async function updateRecord(modelName, req) {
   let data = req.body;
   const filter = { "_id": req.params.id };
 
+  //encypt password
+  if (Object.keys(data).includes("password")) {
+    let dbEncryption = await bcrypt.hash(data.password, 10)
+    data.password = dbEncryption;
+  }
+
   try {
     await dbInfo[modelName].model.updateOne(filter, data);
     statuscode = 200;

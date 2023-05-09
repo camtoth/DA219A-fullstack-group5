@@ -14,7 +14,7 @@ const sitePermission = {
   "/waiterpage": { "role": ["admin", "waiter"] }
 }
 
-const { loginUser, checkPermission } = require('../controller/loginController')
+const { loginUser, checkPermission, checkLogin } = require('../controller/loginController')
 
 // mainpage backend team
 router.get('/', function (req, res) {
@@ -22,7 +22,7 @@ router.get('/', function (req, res) {
 });
 
 //login page (TO DO: need to do a redirect when already logged in)
-router.get('/login', function (req, res) {
+router.get('/login', checkLogin, function (req, res) {
   res.sendFile(path.join(__dirname, '../../frontend/login/login.html'));
 });
 
@@ -30,17 +30,17 @@ router.get('/login', function (req, res) {
 router.post('/login', loginUser)
 
 // Admin
-router.get('/adminpage', checkPermission, async function (req, res) {
+router.get('/admin', checkPermission, async function (req, res) {
   res.sendFile(path.join(__dirname, '../../frontend/admin/index.html'));
 });
 
 //place order test page for admin
-router.get('/placeOrder', function (req, res) {
+router.get('/placeOrder', checkPermission, function (req, res) {
   res.sendFile(path.join(__dirname, '../../frontend/admin/placeOrder.html'));
 });
 
 // Restaurant
-router.get('/waiterpage/:id', function (req, res) {
+router.get('/waiter/:id', checkPermission, function (req, res) {
   res.sendFile(path.join(__dirname, '../../frontend/resturant/restaurant.html'));
 });
 
