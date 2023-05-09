@@ -18,7 +18,7 @@ app.use(express.static('../frontend', {
 
 app.use('', express.static(path.join(__dirname, '../frontend')));
 
-const login = require('./routes/login')
+//const login = require('./routes/login')
 const home = require('./routes/home')
 const tables = require('./routes/tables');
 const occupations = require('./routes/occupations');
