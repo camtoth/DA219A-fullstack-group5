@@ -1,3 +1,4 @@
+
 //available roles
 const roles = { admin: "admin", waiter: "waiter", cook: "cook" };
 
@@ -124,7 +125,9 @@ function getDateString(timeString) {
 async function showRecords(modelName) {
   await updateVariables();
   //retrieve data
+
   let collections = await (await fetch(`../api/${modelName}`)).json();
+
   let dbVar = dbVariables[modelName];
 
   //create table and headings
@@ -177,7 +180,11 @@ async function showRecords(modelName) {
       //show orders button
       if (modelName === "occupations") {
         html += `<td><a href="../api/${modelName}/orders/${collection._id}">orders</a></td>`;
-        html += `<td><button type="button" id="checkout_${collection._id}">Checkout</button></td>`;
+        if (collection.checkOutTime == null) {
+          html += `<td><button type="button" id="checkout_${collection._id}">Checkout</button></td>`;
+        }
+        else html += `<td><button type="button" id="checkout_${collection._id}" disabled>Checked out</button></td>`;
+
       }
       html += `<td><button type="button" id="delete_${modelName}_${collection._id}">X</button></td>`;
     }
@@ -372,3 +379,74 @@ async function start() {
 }
 
 start();
+
+/* Chart */
+
+async function getTop3Dishes() {
+  // Get all occupations
+  let occupations = await (await fetch(`../api/occupations`)).json();
+
+  // Filter out the objects that do not have a checkoutTime
+  const checkedOutOccupations = occupations.filter(obj => obj.checkOutTime != null);
+
+  // Get all orders
+  const orders = checkedOutOccupations.flatMap(obj => obj.orders);
+
+  let menuItems = [];
+  let allMenuItems = await (await fetch(`../api/menuItems`)).json();
+
+  orders.forEach(element => {
+    // Find mathcing item
+    const menuItem = menuItems.find(obj => obj.menuItemID === element.menuItemID);
+
+    if (menuItem != null) {
+      // If the id in the array - increase count
+      menuItem.count = menuItem.count + 1
+
+    } else {
+      // add to arry with count 1
+      menuItems.push({
+        menuItemID: element.menuItemID,
+        name: allMenuItems.find(obj => obj._id === element.menuItemID).name,
+        count: 1
+      })
+    }
+
+  });
+
+  // Sort out
+  const sortedArr = menuItems.sort((a, b) => b.count - a.count);
+
+  // Get the first 5 objects
+  let firstFiveTopOrderedDishes = sortedArr.slice(0, 5);
+
+  return firstFiveTopOrderedDishes;
+}
+
+async function drawStatistics() {
+  let data = await getTop3Dishes();
+
+  let dishNames = data.flatMap(obj => obj.name);
+  let dishOrderCounts = data.flatMap(obj => obj.count);
+
+  var canvasElement = document.getElementById('statChart')
+  var config = {
+    type: 'bar',
+    data: {
+      labels: dishNames,
+      datasets: [
+        { 
+          lable: '# of orders ', 
+          data: dishOrderCounts 
+        }]
+    }
+  }
+
+  var statChart = new Chart(canvasElement, config)
+
+}
+
+drawStatistics()
+
+
+

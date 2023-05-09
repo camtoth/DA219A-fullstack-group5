@@ -1,94 +1,99 @@
  @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=EB+Garamond:ital,wght@0,600;1,400;1,600;1,700&family=Mulish:wght@500&family=Nunito+Sans:wght@500&family=Poppins:wght@300;500&family=Source+Sans+Pro:wght@400;600&display=swap');
 
 
-*{
-  margin: 0;
-  padding: 0;
-}
- .header1{
-  text-align: center;
-  padding-top: 90px;
- 
-  font-size: 35px;
- font-family: 'EB Garamond', serif;
-}
-.allTables{
- margin: 0px 40px 0px 40px;
- 
-}
+ * {
+   margin: 0;
+   padding: 0;
+ }
 
-#jasonLinks{
- color: rgb(69, 67, 67);
-}
+ .header1 {
+   text-align: center;
+   padding-top: 90px;
 
-#jasonLinks:hover{
-  color: grey;
-}
-h4{
-font-weight:800;
-text-align: center;
- font-family: serif;
-}
+   font-size: 35px;
+   font-family: 'EB Garamond', serif;
+ }
 
-.backGround{
-   background-image:url('https://images.pexels.com/photos/4022139/pexels-photo-4022139.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+ .allTables {
+   margin: 0px 40px 0px 40px;
+
+ }
+
+ #jasonLinks {
+   color: rgb(69, 67, 67);
+ }
+
+ #jasonLinks:hover {
+   color: grey;
+ }
+
+ h4 {
+   font-weight: 800;
+   text-align: center;
+   font-family: serif;
+ }
+
+ .backGround {
+   background-image: url('https://images.pexels.com/photos/4022139/pexels-photo-4022139.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
    background-size: auto;
- 
-   
-  
-}
-.table{
-  color: rgb(0, 0, 0);
-  font-family: serif;
-}
-
-
-a{
-  color: black;
-
-}
-a:hover{
-  color: grey;
-}
- #pb{
-  margin-bottom: 20px;
-  margin-top: 10px;
  }
 
- #ob{
-  margin-bottom: 20px;
-    margin-top: 10px;
+ .table {
+   color: rgb(0, 0, 0);
+   font-family: serif;
  }
 
- #navbarNavAltMarkup{
-padding-left: 474px;
-background-color: rgb(242, 242, 234);
-width: 1400;
-word-spacing: 0px;
-font-size: 19px;
- font-family:  serif;
-background-attachment: fixed;
-padding-top: 9px;
-padding-bottom: 10px;
-margin-bottom: 4;
-word-spacing: 30cm;
-text-align: center;
+
+ a {
+   color: black;
 
  }
 
-#navbarLink:hover{
-  color: grey;
-}
- #navbarLink{
-  color: black;
+ a:hover {
+   color: grey;
  }
-#navbar-top{
-    color: black;
-}
-#navbar-top:hover{
-    color: grey;
-}
 
-#editMode{
-size: 10px;
-}
+ #pb {
+   margin-bottom: 20px;
+   margin-top: 10px;
+ }
+
+ #ob {
+   margin-bottom: 20px;
+   margin-top: 10px;
+ }
+
+ #navbarNavAltMarkup {
+   padding-left: 474px;
+   background-color: rgb(242, 242, 234);
+   width: 1400;
+   word-spacing: 0px;
+   font-size: 19px;
+   font-family: serif;
+   background-attachment: fixed;
+   padding-top: 9px;
+   padding-bottom: 10px;
+   margin-bottom: 4;
+   word-spacing: 30cm;
+   text-align: center;
+ }
+
+ #navbarLink:hover {
+   color: grey;
+ }
+
+ #navbarLink {
+   color: black;
+ }
+
+ #navbar-top {
+   color: black;
+ }
+
+ #navbar-top:hover {
+   color: grey;
+ }
+
+ #editMode {
+   size: 10px;
+ }
