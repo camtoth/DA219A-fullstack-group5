@@ -64,16 +64,16 @@
  }
 
  #navbarNavAltMarkup {
-   padding-left: 474px;
+   padding-left: 482px;
    background-color: rgb(242, 242, 234);
    width: 1400;
    word-spacing: 0px;
    font-size: 19px;
    font-family: serif;
    background-attachment: fixed;
-   padding-top: 9px;
-   padding-bottom: 10px;
-   margin-bottom: 4;
+   padding-top: 8px;
+   padding-bottom: 8px;
+   margin-top: 10px;
    word-spacing: 30cm;
    text-align: center;
  }

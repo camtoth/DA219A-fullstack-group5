@@ -1,12 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  text-decoration: none;
-}
+
 input{
     &::-webkit-inner-spin-button{
       opacity:1;
@@ -14,34 +9,52 @@ input{
   }
 
 #bkImg{
-  background: url('https://images.pexels.com/photos/15130552/pexels-photo-15130552.jpeg?auto=compress&cs=tinysrgb&w=600');
+ background-color: white;
+  background-size: contain
+  
 }
+
+
 
   .flex-container{
     margin-left: 40px;
     margin-right: 40px;
-    margin-top: 40px;
+    margin-top: 50px;
     padding-top: 30px;
-    padding-bottom: 10px;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-bottom: 0px;
+    padding-left: 40px;
+    padding-right: 40px;
    font-family: 'EB Garamond', serif;
   }
 
   #navbarNavAltMarkup{
 color: rgb(254, 252, 252);
-margin-top: 0px;
+margin-top: 30px;
 background-attachment: fixed;
   font-family: serif;
 word-spacing: 60px;
 padding-top: 10px;
 padding-bottom: 0px;
 font-size: 19px;
-width: 1209px;
-padding-left: 500px;
+width: 1509px;
+padding-left: 550px;
 background-color:white;
 
 
+}
+
+.nav-link{
+  color: #000000;
+     font: 20px Georgia, "Times New Roman", Times, serif;
+     text-align: right;
+  border: #000000;
+}
+
+.nav-link:hover{
+  color: grey;
+     font: 20px Georgia, "Times New Roman", Times, serif;
+     text-align: right;
+  
 }
 
 #js-menu-accordion{
@@ -99,13 +112,14 @@ background-color:white;
 
 
 #tabs-tabContent{
-  color: white;
+  color: black;
 }
 
 #nav-list{
     display: rgb(146, 146, 146);
     float: left;
     background:rgb(146, 146, 146);
+    position: fixed;
 }
 #nav-list a {
     display: block;
