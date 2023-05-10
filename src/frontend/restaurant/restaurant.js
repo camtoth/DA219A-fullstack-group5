@@ -37,7 +37,7 @@ async function putData(APIendpoint, JSONdata) {
 }
 
 async function placeOrder() {
-    let orderToPlace
+  let orderToPlace
     if(!current?.error && current.find(e => e.tableID == selectedTableID)) { // already existing occupation
         orderToPlace = JSON.stringify({orders: newOrder}) //todo: get waiterID from auth
         putData(`api/occupations/placeOrder/${current.find(e => e.tableID == selectedTableID)._id}`, orderToPlace)
@@ -45,18 +45,24 @@ async function placeOrder() {
         orderToPlace = JSON.stringify({tableID: selectedTableID, waiterID: "64569b00b931d3131de2403e", orders: newOrder}) //todo: get waiterID from auth
         postData(`api/occupations`, orderToPlace)
     }
+    showLoadingOverlay()
     await new Promise(resolve => setTimeout(resolve, 2000)) //to wait for db to update before reloading
     location.reload()
 }
 
 async function checkout() {
-    const selectedTableOrders = current.find(e => e.tableID == selectedTableID).orders
-    let checkoutTime = new Date()
-    putData(`api/occupations/${current.find(e => e.tableID == selectedTableID)._id}`, JSON.stringify({checkOutTime: checkoutTime}))
-    
+  const htmlDiv = document.getElementById('checkout-modal')
+  const selectedTableOrders = current.find(e => e.tableID == selectedTableID).orders
+  const selectedTableID_id = current.find(e => e.tableID == selectedTableID)._id
+  let checkoutTime = new Date()
+  putData(`api/occupations/${selectedTableID_id}`, JSON.stringify({checkOutTime: checkoutTime}))
+  htmlDiv.addEventListener('hidden.bs.modal', event => {
     showLoadingOverlay()
-    await new Promise(resolve => setTimeout(resolve, 2000)) //to wait for db to update before reloading
+  })
+
+  setTimeout(() => {
     location.reload()
+  }, 2000)
 }
 
 function getCategories() {
@@ -359,8 +365,7 @@ function hideLoadingOverlay() {
 function showLoadingOverlay() {
   const htmlDiv = document.querySelector('.loading-overlay')
     htmlDiv.style.opacity = '0.5'
-    setTimeout(() => {
-      htmlDiv.style.display = 'block'}, 200)
+    htmlDiv.style.display = 'flex'
 }
 
 // init events after everything has been loaded from db
