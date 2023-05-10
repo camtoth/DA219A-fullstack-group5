@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+ @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=EB+Garamond:ital,wght@0,600;1,400;1,600;1,700&family=Mulish:wght@500&family=Nunito+Sans:wght@500&family=Poppins:wght@300;500&family=Source+Sans+Pro:wght@400;600&display=swap');
 
 *{
   margin: 0;
@@ -7,12 +8,15 @@
   text-decoration: none;
 }
 
-body{
-  height: 100vh;
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+.whole{
+  height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #ffffff;
+  margin-top: 20px;
 }
 
 .form{
@@ -108,32 +112,49 @@ button{
 background: url("https://images.pexels.com/photos/1028599/pexels-photo-1028599.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
   background-size: cover;
   background-position: center;
-
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+
   background-repeat: no-repeat;
 }
 
-#navbarNavAltMarkup{
-color: rgb(254, 252, 252);
-margin-top: 528px;
-text-align: center;
-background-color: rgb(242, 242, 234);
-background-attachment: fixed;
-word-spacing: 50px;
-padding-top: 15px;
-padding-bottom: 15px;
-font-size: 19px;
-width: 1209px;
+a:link, a:visited {
+  background-color: white;
+  color: grey;
+  padding: 8px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 19px;
+  margin-top: 10px;
+  margin-left: 10px;
+  border-radius: 10px;
+}
 
 
+
+a:hover{
+    border-left: solid 8px #b56b6b;
+  border-right: solid 8px #b56b6b;
 }
 
 a{
   color: black;
-
 }
-a:hover{
-  color: grey;
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: #f8f9fa;
+   color: black;
+   text-align: center;
+   padding-top: 10px;
+   padding-bottom: 10px;
+     font-family: 'Dancing Script', cursive;
+}
+
+i{
+   color: black;
+  
+ 
 }

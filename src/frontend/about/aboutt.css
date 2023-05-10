@@ -8,6 +8,7 @@ a:link, a:visited {
   display: inline-block;
 }
 
+
 a:hover, a:active {
   background-color: rgb(237, 222, 222);
 }
@@ -64,3 +65,4 @@ font-weight: bold;
   font-family: 'Dancing Script', cursive;
   font-size: 45px;
 }
+
