@@ -74,6 +74,11 @@ function getCategories() {
 }
 
 function addItem(id, itemName) {
+  if (newOrder.length == 0){
+    let htmlDiv = document.querySelector('#tabs-tab button[data-bs-target="#tabs-current-order"]')
+    console.log(htmlDiv)
+    bootstrap.Tab.getInstance(htmlDiv).show()
+  }
   newOrder.push({
     menuItemID: id,
     instanceID: getNumberOfItemsWithSameId(id) + 1,
@@ -382,7 +387,14 @@ function initEvents() {
     checkoutButton.addEventListener('click', checkoutButton => {
       checkout()
     })
-    
+    const triggerTabList = document.querySelectorAll('#tabs-tab button')
+    triggerTabList.forEach(triggerEl => {
+    const tabTrigger = new bootstrap.Tab(triggerEl)
+    triggerEl.addEventListener('click', event => {
+      event.preventDefault()
+      tabTrigger.show()
+    })
+  })
 }
 
 // init
@@ -405,7 +417,6 @@ async function init() {
   console.log(menu);
   renderTables();
   renderMenuCategories();
-
   initEvents();
 }
 
