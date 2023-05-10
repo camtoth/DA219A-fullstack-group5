@@ -18,17 +18,22 @@
 
 <body id="body">
   <div class="backGround">
-    <div></div>
 
     <nav class="navbar fixed-top navbar-light bg-light">
       <div class="container-fluid">
-        <a id="navbar-top" class="navbar-brand" href="#table">Tables</a>
+        <a id="navbar-top" class="navbar-brand" href="../about/about.html">About</a>
+        <a id="navbar-top" class="navbar-brand"  href="#table">Tables</a>
         <a id="navbar-top" class="navbar-brand" href="#menu">Menu</a>
         <a id="navbar-top" class="navbar-brand" href="#account">Accounts</a>
         <a id="navbar-top" class="navbar-brand" href="#booking">Bookings</a>
         <a id="navbar-top" class="navbar-brand" href="#statistics">Statistics</a>
         <a id="navbar-top" class="navbar-brand" href="/waiter/waiter">Waiter's View</a>
-       <a id="navbar-top" class="navbar-brand"href="../login/login.html">Log out</a>
+       <a id="navbar-top" class="navbar-brand"href="../login/login.html">Log out
+         <svg id="logout" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+  <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+</svg>
+       </a>
       </div>
     </nav>
 
@@ -41,7 +46,10 @@
         <br />
         <br />
         <button class="btn btn-light" type="button" id="editMode">EDIT RECORDS</button>
-        <h4>TABLES <a class="nav-link active" aria-current="page" id="jasonLinks" href="api/tables">json</a></h4>
+        <h4>TABLES  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tablet-landscape" viewBox="0 0 16 16">
+  <path d="M1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4zm-1 8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v8z"/>
+  <path d="M14 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0z"/>
+</svg><a class="nav-link active" aria-current="page" id="jasonLinks" href="api/tables">json</a></h4>
       </div>
 
       <div id="tablesCollections" class="table table-responsive table-bordered border border-1 border-dark"></div>
@@ -50,7 +58,9 @@
         <br />
         <br />
         <br />
-        <h4>MENU <br><a class="nav-link active" aria-current="page" id="jasonLinks" href="api/menuItems">json</a></h4>
+        <h4>MENU <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-menu-button-wide-fill" viewBox="0 0 16 16">
+  <path d="M1.5 0A1.5 1.5 0 0 0 0 1.5v2A1.5 1.5 0 0 0 1.5 5h13A1.5 1.5 0 0 0 16 3.5v-2A1.5 1.5 0 0 0 14.5 0h-13zm1 2h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1zm9.927.427A.25.25 0 0 1 12.604 2h.792a.25.25 0 0 1 .177.427l-.396.396a.25.25 0 0 1-.354 0l-.396-.396zM0 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8zm1 3v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2H1zm14-1V8a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2h14zM2 8.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0 4a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z"/>
+</svg> <br><a class="nav-link active" aria-current="page" id="jasonLinks" href="api/menuItems">json</a></h4>
       </div>
       <div id="menuItemsCollections" class="table-responsive table-bordered  border border-1 border-dark"></div>
 
@@ -59,48 +69,55 @@
         <br />
         <br />
         <br />
-        <h4>ACCOUNTS <a class="nav-link active" aria-current="page" id="jasonLinks" href="api/accounts">json</a></h4>
+        <h4>ACCOUNTS  <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+</svg><a class="nav-link active" aria-current="page" id="jasonLinks" href="api/accounts">json</a> </h4>
       </div>
       <div id="accountsCollections" class="table-responsive table-bordered  border border-1 border-dark"></div> 
 
       <br />
       <br>
-       <br />
-       <br />
+      <br />
+      <br />
       <br />
    
        <h1 id="booking"></h1>
            <br />
          <br />
-      <h4>
-        Bookings <a class="nav-link active" aria-current="page" id="jasonLinks" href="api/occupations">json</a>
+     <br> <h4> 
+        BOOKINGS <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ui-checks" viewBox="0 0 16 16">
+  <path d="M7 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-1zM2 1a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2zm0 8a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2H2zm.854-3.646a.5.5 0 0 1-.708 0l-1-1a.5.5 0 1 1 .708-.708l.646.647 1.646-1.647a.5.5 0 1 1 .708.708l-2 2zm0 8a.5.5 0 0 1-.708 0l-1-1a.5.5 0 0 1 .708-.708l.646.647 1.646-1.647a.5.5 0 0 1 .708.708l-2 2zM7 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-1zm0-5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 8a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+</svg> <a class="nav-link active" aria-current="page" id="jasonLinks" href="api/occupations">json</a>
 
       </h4>
 
       <div id="occupationsCollections" class="table-responsive table-bordered  border border-1 border-dark"></div>
 
       <a type="button" class="btn btn-light" id="pb" href="/placeOrder">place order form</a>
-      <a class="btn btn-light" type="button" id="ob" href="api/occupations/current">currently occupied json</a>
+      <a class="btn btn-light" type="button" id="ob" href="api/occupations/current">Currently occupied json</a>      <br />
+      
 
         <!-- Chart -->
-      <br>
-      <br>
-       <br />
-      <br />
-       <br />
-    <div id="statistics">
-      <h4 id="header4">Most Sold Dishes TOP 5 Statistics</h4>
+      
+      <h1 id="statistics"></h1>
+    <div >
+      <h4 id="header4">Most Sold Dishes TOP 5 Statistics <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator-fill" viewBox="0 0 16 16">
+  <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm2 .5v2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0-.5.5zm0 4v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zM4.5 9a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM4 12.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zM7.5 6a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM7 9.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zm.5 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM10 6.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zm.5 2.5a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 0-.5-.5h-1z"/>
+</svg></h4>
 
       <canvas id="statChart" class="mh-400px"></canvas>
-    </div>
-
-
-    </div>
-
+</div>
+</div>
     
   <div class="footer">
-  <p>In Dining Dashboard We Serve You With LOVE
+  <p > <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-balloon-heart-fill" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8.49 10.92C19.412 3.382 11.28-2.387 8 .986 4.719-2.387-3.413 3.382 7.51 10.92l-.234.468a.25.25 0 1 0 .448.224l.04-.08c.009.17.024.315.051.45.068.344.208.622.448 1.102l.013.028c.212.422.182.85.05 1.246-.135.402-.366.751-.534 1.003a.25.25 0 0 0 .416.278l.004-.007c.166-.248.431-.646.588-1.115.16-.479.212-1.051-.076-1.629-.258-.515-.365-.732-.419-1.004a2.376 2.376 0 0 1-.037-.289l.008.017a.25.25 0 1 0 .448-.224l-.235-.468ZM6.726 1.269c-1.167-.61-2.8-.142-3.454 1.135-.237.463-.36 1.08-.202 1.85.055.27.467.197.527-.071.285-1.256 1.177-2.462 2.989-2.528.234-.008.348-.278.14-.386Z"/>
+</svg> In Dining Dashboard We Serve You With LOVE  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-balloon-heart-fill" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8.49 10.92C19.412 3.382 11.28-2.387 8 .986 4.719-2.387-3.413 3.382 7.51 10.92l-.234.468a.25.25 0 1 0 .448.224l.04-.08c.009.17.024.315.051.45.068.344.208.622.448 1.102l.013.028c.212.422.182.85.05 1.246-.135.402-.366.751-.534 1.003a.25.25 0 0 0 .416.278l.004-.007c.166-.248.431-.646.588-1.115.16-.479.212-1.051-.076-1.629-.258-.515-.365-.732-.419-1.004a2.376 2.376 0 0 1-.037-.289l.008.017a.25.25 0 1 0 .448-.224l-.235-.468ZM6.726 1.269c-1.167-.61-2.8-.142-3.454 1.135-.237.463-.36 1.08-.202 1.85.055.27.467.197.527-.071.285-1.256 1.177-2.462 2.989-2.528.234-.008.348-.278.14-.386Z"/>
+</svg>
   </p>
+
   </div>
     <script src="../admin/index.js"></script>
 
