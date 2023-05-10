@@ -26,7 +26,7 @@
         <a id="navbar-top" class="navbar-brand" href="#menu">Menu</a>
         <a id="navbar-top" class="navbar-brand" href="#account">Accounts</a>
         <a id="navbar-top" class="navbar-brand" href="#booking">Bookings</a>
-        <a id="navbar-top" class="navbar-brand" href="#statistics">Statistics</a>
+        <a id="navbar-top" class="navbar-brand" href="#stat">Statistics</a>
         <a id="navbar-top" class="navbar-brand" href="/waiter/waiter">Waiter's View</a>
        <a id="navbar-top" class="navbar-brand"href="../login/login.html">Log out
          <svg id="logout" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
@@ -95,17 +95,15 @@
       <div id="occupationsCollections" class="table-responsive table-bordered  border border-1 border-dark"></div>
 
       <a type="button" class="btn btn-light" id="pb" href="/placeOrder">place order form</a>
-      <a class="btn btn-light" type="button" id="ob" href="api/occupations/current">Currently occupied json</a>      <br />
-      
-
+      <a class="btn btn-light" type="button" id="ob" href="api/occupations/current">Currently occupied json</a>   
+    
         <!-- Chart -->
       
-      <h1 id="statistics"></h1>
-    <div >
+      <h1 id="stat"></h1>
+    <div id="statistics">
       <h4 id="header4">Most Sold Dishes TOP 5 Statistics <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator-fill" viewBox="0 0 16 16">
   <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm2 .5v2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0-.5.5zm0 4v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zM4.5 9a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM4 12.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zM7.5 6a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM7 9.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zm.5 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM10 6.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zm.5 2.5a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 0-.5-.5h-1z"/>
 </svg></h4>
-
       <canvas id="statChart" class="mh-400px"></canvas>
 </div>
 </div>
