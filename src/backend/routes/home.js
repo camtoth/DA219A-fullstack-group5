@@ -41,7 +41,7 @@ router.get('/placeOrder', checkPermission, function (req, res) {
 
 // Restaurant
 router.get('/waiter/:id', checkPermission, function (req, res) {
-  res.sendFile(path.join(__dirname, '../../frontend/resturant/restaurant.html'));
+  res.sendFile(path.join(__dirname, '../../frontend/restaurant/restaurant.html'));
 });
 
 
