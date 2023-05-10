@@ -15,16 +15,16 @@
  }
 
  .allTables {
-   margin: 0px 50px 0px 50px;
+   margin: 0px 70px 0px 70px;
 
  }
 
  #jasonLinks {
-   color: rgb(69, 67, 67);
+     color: rgb(219, 144, 78);
  }
 
  #jasonLinks:hover {
-   color: grey;
+   color:rgb(239, 183, 133);
  }
 
  h4 {
@@ -34,7 +34,7 @@
  }
 
  .backGround {
-   background-image: url('https://images.pexels.com/photos/4022139/pexels-photo-4022139.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+   background-color: rgb(229, 216, 202);
    background-size: auto;
  }
 
@@ -45,62 +45,134 @@
 
 
  a {
-   color: black;
+  color: rgb(219, 144, 78);
+  font-size: 19px;
 
  }
 
  a:hover {
-   color: grey;
+color: rgb(239, 183, 133);
  }
 
  #pb {
    margin-bottom: 20px;
    margin-top: 10px;
+     background-color: rgb(232, 161, 98);
+     color: white;
+    font-weight: 500;
+    border: 9px;
+      transition: 0.5s;
+  transition-property: border-left, border-right, box-shadow;
+   font-family:  serif;
+    font-size: 17px;
+    border-color: white;
+    border-width: 30px;
+ }
+
+ #pb:hover{
+     border-left: solid 8px rgb(219, 144, 78);
+  border-right: solid 8px rgb(219, 144, 78);
  }
 
  #ob {
    margin-bottom: 20px;
    margin-top: 10px;
+    background-color: rgb(232, 161, 98);
+    color: white;
+    font-weight: 500;
+     border: 9px;
+       transition: 0.5s;
+  transition-property: border-left, border-right, box-shadow;
+   font-family: serif;
+    font-size: 17px;
+    border-color: white;
  }
 
+ #ob:hover{
+     border-left: solid 8px rgb(219, 144, 78);
+  border-right: solid 8px rgb(219, 144, 78);
+ }
 
 .container-fluid{
  font-family: serif;
   font-size: 19px;
+   border: 9px;
 }
 
 
  #editMode {
    size: 10px;
+  background-color: rgb(232, 161, 98);
+  color: white;
+  font-weight: 500;
+  transition: 0.5s;
+  transition-property: border-left, border-right, box-shadow;
+  font-family: serif;
+  font-size: 17px;
+  margin-top: 10px;
  }
 
+ #editMode:hover{
+   border-left: solid 8px  rgb(219, 144, 78);
+  border-right: solid 8px  rgb(219, 144, 78);
+
+ }
  .footer {
    position:sticky, absolute;
    left: 0;
-height: 50%;
+   height: 50%;
    width: 100%;
-   background-color: #f8f9fa;
-   color: black;
+   background-color:rgb(219, 144, 78);
+   color: white;
    text-align: center;
-   padding-top: 10px;
-     font-family: 'Dancing Script', cursive;
-     height: max-content;
-     margin-top: 18px;
-   padding-bottom: 10px;
+   padding-top: 12px;
+  font-family: 'Dancing Script', cursive;
+  height: max-content;
+   margin-top: 18px;
+   padding-bottom: 12px;
+  
 }
 
 #statistics{
   margin-left: 50px;
   margin-right: 50px;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   margin-top: 10px;
   padding: 60px 40px 10px 40px;
 }
 
 #header4{
-  font-size: 20px;
+  font-size: 22px;
 }
 p {
-    margin-top: 0;
+  margin-top: 0;
   margin-bottom: 0rem;
+  font-size: 24px;
+  
+ 
+}
+img, svg {
+    vertical-align:text-top;
+}
+
+#logout{
+  vertical-align: middle;
+}
+
+#acc{
+   vertical-align:baseline;
+   font-size: 30px;
+}
+
+.container-fluid{
+   background-color:rgb(219, 144, 78);
+   
+   padding-top: 10px;
+   padding-bottom: 9px;
+}
+
+#navbar-top{
+  color: white;
+font-weight: 500;
+  padding: 0;
 }

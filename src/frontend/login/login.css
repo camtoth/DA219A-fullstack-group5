@@ -58,8 +58,8 @@
 }
 
 .form .user-input:hover, .form .user-input:focus, .form .user-input:active{
-    border-left: solid 8px #b56b6b;
-   border-right: solid 8px #b56b6b;
+    border-left: solid 8px rgb(219, 144, 78);
+  border-right: solid 8px rgb(219, 144, 78); 
   
 }
 
@@ -88,8 +88,8 @@ button{
 }
 
 .form button:hover{
-  border-left: solid 8px #b56b6b;
-  border-right: solid 8px #b56b6b; 
+  border-left: solid 8px rgb(219, 144, 78);
+  border-right: solid 8px rgb(219, 144, 78); 
 }
 
 /* Responsive CSS */
@@ -118,23 +118,26 @@ background: url("https://images.pexels.com/photos/1028599/pexels-photo-1028599.j
 }
 
 a:link, a:visited {
-  background-color: white;
-  color: grey;
+  background-color: rgb(239, 183, 133);
+  color: white;
   padding: 8px 20px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 19px;
+  font-size: 20px;
   margin-top: 10px;
   margin-left: 10px;
-  border-radius: 10px;
+  border-radius: 9px;
+  font-weight: 500;
+    transition: 0.5s;
+  transition-property: border-left, border-right, box-shadow;
 }
 
 
 
 a:hover{
-    border-left: solid 8px #b56b6b;
-  border-right: solid 8px #b56b6b;
+    border-left: solid 8px rgb(219, 144, 78);
+  border-right: solid 8px rgb(219, 144, 78);
 }
 
 a{
@@ -145,16 +148,18 @@ a{
    left: 0;
    bottom: 0;
    width: 100%;
-   background-color: #f8f9fa;
-   color: black;
+   background-color: rgb(219, 144, 78);
+   color: white;
    text-align: center;
-   padding-top: 10px;
-   padding-bottom: 10px;
+   padding-top: 12px;
+   padding-bottom: 12px;
      font-family: 'Dancing Script', cursive;
+   
 }
 
-i{
-   color: black;
+p{
+   font-weight: 600;
+   font-size: 24px;
   
  
 }
