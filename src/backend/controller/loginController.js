@@ -65,6 +65,7 @@ async function checkLogin(req, res, next) {
     const cookieJwt = req.cookies.jwt;
     const decryptedtoken = jwt.verify(cookieJwt, process.env.SECRET_PRIVATE_KEY)
     let username = decryptedtoken.username;
+    let userID = decryptedtoken.userID;
     let password = decryptedtoken.password;
     userRole = await getUserRole(username, password);
   } catch (error) {
@@ -75,7 +76,7 @@ async function checkLogin(req, res, next) {
   } else if (userRole === "admin") {
     res.redirect("/admin")
   } else if (userRole === "waiter") {
-    res.redirect(`/waiter/${username}`)
+    res.redirect(`/waiter/${userID}`)
   }
 }
 
@@ -115,10 +116,18 @@ async function loginUser(req, res) {
   if (userRole == "guest") {
     res.redirect("/login")
   } else {
+
+    //find userId 
+    const userData = await Accounts.findOne({ username: username })
+    let userID = userData._id
+    console.log(userData._id)
+
+
     // Create a token object
     const payload = {
       username: username,
-      password: password
+      password: password,
+      userID: userID
     }
     // Create JWT token
     const token = jwt.sign(payload, process.env.SECRET_PRIVATE_KEY, { expiresIn: '1h' });
@@ -136,7 +145,7 @@ async function loginUser(req, res) {
       res.redirect("/admin")
 
     } else if (userRole == "waiter") {
-      res.redirect(`/waiter/${username}`)
+      res.redirect(`/waiter/${userID}`)
       console.log("logged waiter");
     }
   }

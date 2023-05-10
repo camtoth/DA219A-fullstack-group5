@@ -38,16 +38,16 @@ async function putData(APIendpoint, JSONdata) {
 
 async function placeOrder() {
   let orderToPlace
-    if(!current?.error && current.find(e => e.tableID == selectedTableID)) { // already existing occupation
-        orderToPlace = JSON.stringify({orders: newOrder}) //todo: get waiterID from auth
-        putData(`api/occupations/placeOrder/${current.find(e => e.tableID == selectedTableID)._id}`, orderToPlace)
-    } else { //new occupation
-        orderToPlace = JSON.stringify({tableID: selectedTableID, waiterID: "64569b00b931d3131de2403e", orders: newOrder}) //todo: get waiterID from auth
-        postData(`api/occupations`, orderToPlace)
-    }
-    showLoadingOverlay()
-    await new Promise(resolve => setTimeout(resolve, 2000)) //to wait for db to update before reloading
-    location.reload()
+  if (!current?.error && current.find(e => e.tableID == selectedTableID)) { // already existing occupation
+    orderToPlace = JSON.stringify({ orders: newOrder }) //todo: get waiterID from auth
+    putData(`api/occupations/placeOrder/${current.find(e => e.tableID == selectedTableID)._id}`, orderToPlace)
+  } else { //new occupation
+    orderToPlace = JSON.stringify({ tableID: selectedTableID, waiterID: "64569b00b931d3131de2403e", orders: newOrder }) //todo: get waiterID from auth
+    postData(`api/occupations`, orderToPlace)
+  }
+  showLoadingOverlay()
+  await new Promise(resolve => setTimeout(resolve, 2000)) //to wait for db to update before reloading
+  location.reload()
 }
 
 async function checkout() {
@@ -55,7 +55,7 @@ async function checkout() {
   const selectedTableOrders = current.find(e => e.tableID == selectedTableID).orders
   const selectedTableID_id = current.find(e => e.tableID == selectedTableID)._id
   let checkoutTime = new Date()
-  putData(`api/occupations/${selectedTableID_id}`, JSON.stringify({checkOutTime: checkoutTime}))
+  putData(`api/occupations/${selectedTableID_id}`, JSON.stringify({ checkOutTime: checkoutTime }))
   htmlDiv.addEventListener('hidden.bs.modal', event => {
     showLoadingOverlay()
   })
@@ -74,7 +74,7 @@ function getCategories() {
 }
 
 function addItem(id, itemName) {
-  if (newOrder.length == 0){
+  if (newOrder.length == 0) {
     let htmlDiv = document.querySelector('#tabs-tab button[data-bs-target="#tabs-current-order"]')
     console.log(htmlDiv)
     bootstrap.Tab.getInstance(htmlDiv).show()
@@ -103,7 +103,7 @@ function removeAllItemsWithId(id) {
 }
 
 //remove item from current order through "close button" in current orders tab
-function removeItemButton(menuItemID, instanceID){
+function removeItemButton(menuItemID, instanceID) {
   const itemToDelete = newOrder.find((item) => item.menuItemID == menuItemID && item.instanceID == instanceID)
   newOrder.pop(itemToDelete)
   renderNewOrder()
@@ -140,10 +140,10 @@ function handleChangeMenu(inputValue, menuItemID, menuItemName) {
 }
 
 function flushNewOrder() {
-    newOrder = []
-    console.log(newOrder)
-    console.log("changing table")
-    document.querySelectorAll('input[type=checkbox]').forEach(el => el.checked = false);
+  newOrder = []
+  console.log(newOrder)
+  console.log("changing table")
+  document.querySelectorAll('input[type=checkbox]').forEach(el => el.checked = false);
 }
 
 // render functions
@@ -199,7 +199,7 @@ function renderMenuCategories() {
   for (let i = 0; i < categories.length; i++) {
     //console.log(categories)
     htmlToRender +=
-        `<div class="accordion-item">
+      `<div class="accordion-item">
             <h2 class="accordion-header">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse${i}" aria-expanded="false" aria-controls="panelsStayOpen-collapse${i}" disabled>
                 ${categories[i]}
@@ -235,11 +235,11 @@ function renderMenuCategories() {
     quantity.addEventListener("change", (quantity) => {
       quantity.currentTarget.value == 0
         ? (document.getElementById(
-            quantity.currentTarget.dataset.id + "Checkbox"
-          ).checked = false)
+          quantity.currentTarget.dataset.id + "Checkbox"
+        ).checked = false)
         : (document.getElementById(
-            quantity.currentTarget.dataset.id + "Checkbox"
-          ).checked = true);
+          quantity.currentTarget.dataset.id + "Checkbox"
+        ).checked = true);
       handleChangeMenu(
         quantity.currentTarget.value,
         quantity.currentTarget.dataset.id,
@@ -320,27 +320,27 @@ function renderNewOrder() {
             </div>
         </li>
         `
-    }
-    htmlDiv.innerHTML = htmlToRender
-    //take comment textbox input
-    const commentTextboxes = document.querySelectorAll('textarea')
-    commentTextboxes.forEach(textbox => {
-        textbox.addEventListener('change', textbox => {
-            console.log(textbox.currentTarget.dataset)
-            addOrRemoveComment(textbox.currentTarget.dataset.itemid, textbox.currentTarget.dataset.instanceid, textbox.currentTarget.value)
-        })
+  }
+  htmlDiv.innerHTML = htmlToRender
+  //take comment textbox input
+  const commentTextboxes = document.querySelectorAll('textarea')
+  commentTextboxes.forEach(textbox => {
+    textbox.addEventListener('change', textbox => {
+      console.log(textbox.currentTarget.dataset)
+      addOrRemoveComment(textbox.currentTarget.dataset.itemid, textbox.currentTarget.dataset.instanceid, textbox.currentTarget.value)
     })
+  })
 }
 
 function showCheckoutModal() {
-    const htmlDiv = document.getElementById('js-checkout-modal')
-    let htmlToRender = ''
-    if(current.find(e => e.tableID == selectedTableID)) {
-        const selectedTableOrders = current.find(e => e.tableID == selectedTableID).orders
-        selectedTableOrders.sort((a,b) => (a.menuItemID > b.menuItemID) ? 1 : ((b.menuItemID > a.menuItemID) ? -1 : 0))
-        selectedTableOrders.forEach(item => {
-            htmlToRender +=
-            `<li class="list-group-item">
+  const htmlDiv = document.getElementById('js-checkout-modal')
+  let htmlToRender = ''
+  if (current.find(e => e.tableID == selectedTableID)) {
+    const selectedTableOrders = current.find(e => e.tableID == selectedTableID).orders
+    selectedTableOrders.sort((a, b) => (a.menuItemID > b.menuItemID) ? 1 : ((b.menuItemID > a.menuItemID) ? -1 : 0))
+    selectedTableOrders.forEach(item => {
+      htmlToRender +=
+        `<li class="list-group-item">
                 <div class="row row-cols-auto align-items-center justify-content-between">
                     <div class="col "><h6>${item.menuItemName}</h6>
                     </div>
@@ -350,45 +350,46 @@ function showCheckoutModal() {
                 </div>
             </li>
             `
-        })
-    } else {
-        htmlToRender += "No table selected"
-    }
-    htmlDiv.innerHTML = htmlToRender
+    })
+  } else {
+    htmlToRender += "No table selected"
+  }
+  htmlDiv.innerHTML = htmlToRender
 }
 
 function hideLoadingOverlay() {
   const htmlDiv = document.querySelector('.loading-overlay')
   window.addEventListener('load', () => {
     htmlDiv.style.opacity = '0'
-    
+
     setTimeout(() => {
-      htmlDiv.style.display = 'none'}, 200)
+      htmlDiv.style.display = 'none'
+    }, 200)
   })
 }
 
 function showLoadingOverlay() {
   const htmlDiv = document.querySelector('.loading-overlay')
-    htmlDiv.style.opacity = '0.5'
-    htmlDiv.style.display = 'flex'
+  htmlDiv.style.opacity = '0.5'
+  htmlDiv.style.display = 'flex'
 }
 
 // init events after everything has been loaded from db
 function initEvents() {
-    const placeOrderButton = document.querySelector('.js-place-order-button')
-    placeOrderButton.addEventListener('click', placeOrderButton => {
-        placeOrder()
-    })
-    const checkoutModalButton = document.querySelector('.js-checkout-modal-button')
-    checkoutModalButton.addEventListener('click', checkoutModalButton => {
-        showCheckoutModal()
-    })
-    const checkoutButton = document.querySelector('.js-checkout-button')
-    checkoutButton.addEventListener('click', checkoutButton => {
-      checkout()
-    })
-    const triggerTabList = document.querySelectorAll('#tabs-tab button')
-    triggerTabList.forEach(triggerEl => {
+  const placeOrderButton = document.querySelector('.js-place-order-button')
+  placeOrderButton.addEventListener('click', placeOrderButton => {
+    placeOrder()
+  })
+  const checkoutModalButton = document.querySelector('.js-checkout-modal-button')
+  checkoutModalButton.addEventListener('click', checkoutModalButton => {
+    showCheckoutModal()
+  })
+  const checkoutButton = document.querySelector('.js-checkout-button')
+  checkoutButton.addEventListener('click', checkoutButton => {
+    checkout()
+  })
+  const triggerTabList = document.querySelectorAll('#tabs-tab button')
+  triggerTabList.forEach(triggerEl => {
     const tabTrigger = new bootstrap.Tab(triggerEl)
     triggerEl.addEventListener('click', event => {
       event.preventDefault()
@@ -403,14 +404,28 @@ async function init() {
   tables = await logJSONData("api/tables");
   current = await logJSONData("api/occupations/current");
   menu = await logJSONData("api/menuItems/");
+
+  //dummy code GET USERID
+  let url = window.location.href
+  let userID = url.split("/").at(-1)
+  console.log("userID:", userID)
+
   if (!current?.error) {
     current.forEach((occupation) => {
+      //dummy code to search waiterID
+      console.log("test", occupation.waiterID, occupation.tableID)
+      if (occupation.waiterID === userID) {
+        console.log("from this waiter!", occupation.tableID, occupationwaiterID)
+      }
+
+
       occupation.orders.forEach((item) => {
         const menuItemName = menu.find((e) => e._id == item.menuItemID).name;
         item.menuItemName = menuItemName;
       });
     });
   }
+
   console.log(tables);
   console.log(current);
   //logJSONData("api/occupations/")
