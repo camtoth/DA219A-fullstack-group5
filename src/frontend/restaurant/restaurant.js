@@ -53,6 +53,8 @@ async function checkout() {
     const selectedTableOrders = current.find(e => e.tableID == selectedTableID).orders
     let checkoutTime = new Date()
     putData(`api/occupations/${current.find(e => e.tableID == selectedTableID)._id}`, JSON.stringify({checkOutTime: checkoutTime}))
+    
+    showLoadingOverlay()
     await new Promise(resolve => setTimeout(resolve, 2000)) //to wait for db to update before reloading
     location.reload()
 }
@@ -87,6 +89,13 @@ function removeAllItemsWithId(id) {
   newOrder = newOrder.filter((item) => item.menuItemID !== id);
   console.log(newOrder);
   renderNewOrder();
+}
+
+//remove item from current order through "close button" in current orders tab
+function removeItemButton(menuItemID, instanceID){
+  const itemToDelete = newOrder.find((item) => item.menuItemID == menuItemID && item.instanceID == instanceID)
+  newOrder.pop(itemToDelete)
+  renderNewOrder()
 }
 
 function getNumberOfItemsWithSameId(menuItemID) {
@@ -157,8 +166,12 @@ function renderTables() {
       if (selectedTableID != table.currentTarget.id) {
         flushNewOrder();
       }
-      selectedTableID = table.currentTarget.id;
-      selectedTableNumber = table.currentTarget.dataset.tablenumber;
+      selectedTableID = table.currentTarget.id
+      selectedTableNumber = table.currentTarget.dataset.tablenumber
+      document.getElementById('tabs-current-order-tab').disabled = false
+      document.querySelectorAll('.accordion-button').forEach(button => {
+        button.disabled = false
+      })
       renderNewOrder();
       if (table.currentTarget.dataset.occupied == "true") {
         renderPlacedOrder();
@@ -174,15 +187,16 @@ function renderMenuCategories() {
 
   for (let i = 0; i < categories.length; i++) {
     //console.log(categories)
-    htmlToRender += `<div class="accordion-item">
+    htmlToRender +=
+        `<div class="accordion-item">
             <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse${i}" aria-expanded="false" aria-controls="panelsStayOpen-collapse${i}">
-            ${categories[i]}
-          </button>
-        </h2>
-        <div id="panelsStayOpen-collapse${i}" class="accordion-collapse collapse">
-        <ul class="list-group rounded-0" id="js-menu${i}">
-        `;
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse${i}" aria-expanded="false" aria-controls="panelsStayOpen-collapse${i}" disabled>
+                ${categories[i]}
+              </button>
+            </h2>
+          <div id="panelsStayOpen-collapse${i}" class="accordion-collapse collapse">
+          <ul class="list-group rounded-0" id="js-menu${i}">
+          `;
 
     htmlCategoryTitleDiv.innerHTML = htmlToRender;
     htmlToRender += renderMenuItems(`js-menu${i}`, categories[i]);
@@ -190,6 +204,7 @@ function renderMenuCategories() {
     htmlToRender += `</ul></div></div>`;
     htmlCategoryTitleDiv.innerHTML = htmlToRender;
   }
+
   const menuCheckboxes = document.querySelectorAll("input[type=checkbox]");
   menuCheckboxes.forEach((checkbox) => {
     checkbox.addEventListener("change", (checkbox) => {
@@ -203,6 +218,7 @@ function renderMenuCategories() {
       }
     });
   });
+
   const quantityInputs = document.querySelectorAll("input[type=number]");
   quantityInputs.forEach((quantity) => {
     quantity.addEventListener("change", (quantity) => {
@@ -330,6 +346,23 @@ function showCheckoutModal() {
     htmlDiv.innerHTML = htmlToRender
 }
 
+function hideLoadingOverlay() {
+  const htmlDiv = document.querySelector('.loading-overlay')
+  window.addEventListener('load', () => {
+    htmlDiv.style.opacity = '0'
+    
+    setTimeout(() => {
+      htmlDiv.style.display = 'none'}, 200)
+  })
+}
+
+function showLoadingOverlay() {
+  const htmlDiv = document.querySelector('.loading-overlay')
+    htmlDiv.style.opacity = '0.5'
+    setTimeout(() => {
+      htmlDiv.style.display = 'block'}, 200)
+}
+
 // init events after everything has been loaded from db
 function initEvents() {
     const placeOrderButton = document.querySelector('.js-place-order-button')
@@ -342,13 +375,14 @@ function initEvents() {
     })
     const checkoutButton = document.querySelector('.js-checkout-button')
     checkoutButton.addEventListener('click', checkoutButton => {
-        checkout()
+      checkout()
     })
     
 }
 
 // init
 async function init() {
+  hideLoadingOverlay()
   tables = await logJSONData("api/tables");
   current = await logJSONData("api/occupations/current");
   menu = await logJSONData("api/menuItems/");
@@ -366,6 +400,7 @@ async function init() {
   console.log(menu);
   renderTables();
   renderMenuCategories();
+
   initEvents();
 }
 
