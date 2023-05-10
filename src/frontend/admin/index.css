@@ -193,7 +193,7 @@ img, svg {
 
 .container-fluid{
    background-color:rgb(219, 144, 78);
-   
+   margin-top: 0px;
    padding-top: 10px;
    padding-bottom: 9px;
 }
@@ -204,3 +204,11 @@ font-weight: 500;
   padding: 0;
 }
 
+.navbar{
+  padding-top: 0px;
+}
+
+.bg-light {
+    --bs-bg-opacity: 0; 
+     background-color: rgba(var(--bs-light-rgb),var(--bs-bg-opacity));
+}

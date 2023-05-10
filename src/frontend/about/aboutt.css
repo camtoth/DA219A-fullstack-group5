@@ -7,11 +7,15 @@ a:link, a:visited {
   text-decoration: none;
   display: inline-block;
   border-radius: 9px;
+  transition: 0.5s;
+  transition-property: border-left, border-right, box-shadow;
 }
 
 
 a:hover, a:active {
   background-color: rgb(237, 222, 222);
+    border-left: solid 8px rgb(239, 183, 133);
+  border-right: solid 8px rgb(239, 183, 133);
 }
 
 body, html {
