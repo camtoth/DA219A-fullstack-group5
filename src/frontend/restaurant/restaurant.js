@@ -89,13 +89,6 @@ function addItem(id, itemName) {
   renderNewOrder();
 }
 
-function removeItem(id) {
-  const itemToDelete = newOrder.find((item) => item.menuItemID == id);
-  newOrder.pop(itemToDelete);
-  console.log(newOrder);
-  renderNewOrder();
-}
-
 function removeAllItemsWithId(id) {
   newOrder = newOrder.filter((item) => item.menuItemID !== id);
   console.log(newOrder);
@@ -103,9 +96,14 @@ function removeAllItemsWithId(id) {
 }
 
 //remove item from current order through "close button" in current orders tab
-function removeItemButton(menuItemID, instanceID){
-  const itemToDelete = newOrder.find((item) => item.menuItemID == menuItemID && item.instanceID == instanceID)
-  newOrder.pop(itemToDelete)
+function removeItem(menuItemID, instanceID){
+  let itemToDelete
+  if(instanceID) {
+    itemToDelete = newOrder.find((item) => item.menuItemID == menuItemID && item.instanceID == instanceID)
+  } else {
+    itemToDelete = newOrder.find((item) => item.menuItemID == menuItemID);
+  }
+  newOrder.splice(newOrder.indexOf(itemToDelete), 1)
   renderNewOrder()
 }
 
@@ -186,6 +184,13 @@ function renderTables() {
       renderNewOrder();
       if (table.currentTarget.dataset.occupied == "true") {
         renderPlacedOrder();
+      } else {
+        const htmlDiv = document.getElementById("js-newordercontainer");
+        let htmlToRender = `
+        <h6>Table ${selectedTableNumber}</h6>
+        <h4>No orders have been placed yet.</h4>
+        `
+        htmlDiv.innerHTML = htmlToRender
       }
     });
   });
@@ -301,34 +306,47 @@ function renderPlacedOrder() {
 function renderNewOrder() {
   newOrder.sort((a, b) =>
     a.menuItemID > b.menuItemID ? 1 : b.menuItemID > a.menuItemID ? -1 : 0
-  );
-  console.log(newOrder);
+  )
   const htmlDiv = document.getElementById("js-newordercontainer");
   let htmlToRender = `<h6>Table ${selectedTableNumber}</h6>`;
-  for (let i = 0; i < newOrder.length; i++) {
-    //console.log(tables[i])
+  newOrder.forEach(item => {
     htmlToRender += `<li class="list-group-item">
             <div class="row row-cols-auto align-items-center justify-content-between">
-                <div class="col "><h6>${newOrder[i].menuItemName}</h6>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a comment here" data-itemid="${newOrder[i].menuItemID}" data-instanceid="${newOrder[i].instanceID}" id="${newOrder[i].menuItemID}Comment">${newOrder[i].comment}</textarea>
-                        <label for="${newOrder[i].menuItemID}Comment">Comment</label>
-                    </div>
+              <div class="col">
+                <button type="button" class="btn-close" id="removefromorder-button" aria-label="Close" data-itemid="${item.menuItemID}" data-instanceid="${item.instanceID}"></button>
+              </div>
+              <div class="col"><h6>${item.menuItemName}</h6>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-floating">
+                      <textarea class="form-control" placeholder="Leave a comment here" data-itemid="${item.menuItemID}" data-instanceid="${item.instanceID}" id="${item.menuItemID}Comment">${item.comment}</textarea>
+                      <label for="${item.menuItemID}Comment">Comment</label>
+                  </div>
                 </div>
             </div>
         </li>
         `
-    }
+    })
     htmlDiv.innerHTML = htmlToRender
     //take comment textbox input
     const commentTextboxes = document.querySelectorAll('textarea')
     commentTextboxes.forEach(textbox => {
         textbox.addEventListener('change', textbox => {
-            console.log(textbox.currentTarget.dataset)
+            //console.log(textbox.currentTarget.dataset)
             addOrRemoveComment(textbox.currentTarget.dataset.itemid, textbox.currentTarget.dataset.instanceid, textbox.currentTarget.value)
         })
+    })
+    const removeButtons = document.querySelectorAll('#removefromorder-button')
+    removeButtons.forEach(button => {
+      button.addEventListener('click', button => {
+        let numberOfItemsLeft = document.getElementById(`${button.currentTarget.dataset.itemid}Amount`)
+        if(numberOfItemsLeft.value == 1) {
+          document.getElementById(`${button.currentTarget.dataset.itemid}Checkbox`).checked = false
+        } else {
+          numberOfItemsLeft.value -= 1
+        }
+        removeItem(button.currentTarget.dataset.itemid, button.currentTarget.dataset.instanceid)
+      })
     })
 }
 
