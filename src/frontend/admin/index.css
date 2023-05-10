@@ -15,7 +15,7 @@
  }
 
  .allTables {
-   margin: 0px 40px 0px 40px;
+   margin: 0px 50px 0px 50px;
 
  }
 
@@ -63,36 +63,12 @@
    margin-top: 10px;
  }
 
- #navbarNavAltMarkup {
-   padding-left: 482px;
-   background-color: rgb(242, 242, 234);
-   width: 1400;
-   word-spacing: 0px;
-   font-size: 19px;
-   font-family: serif;
-   background-attachment: fixed;
-   padding-top: 8px;
-   padding-bottom: 8px;
-   margin-top: 10px;
-   word-spacing: 30cm;
-   text-align: center;
- }
 
- #navbarLink:hover {
-   color: grey;
- }
+.container-fluid{
+ font-family: serif;
+  font-size: 19px;
+}
 
- #navbarLink {
-   color: black;
- }
-
- #navbar-top {
-   color: black;
- }
-
- #navbar-top:hover {
-   color: grey;
- }
 
  #editMode {
    size: 10px;
@@ -101,14 +77,30 @@
  .footer {
    position:sticky, absolute;
    left: 0;
-
+height: 50%;
    width: 100%;
-   background-color: white;
+   background-color: #f8f9fa;
    color: black;
    text-align: center;
-   padding-top: 12px;
+   padding-top: 10px;
      font-family: 'Dancing Script', cursive;
      height: max-content;
      margin-top: 18px;
-     margin-bottom: 0rem;
+   padding-bottom: 10px;
+}
+
+#statistics{
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-bottom: 50px;
+  margin-top: 10px;
+  padding: 60px 40px 10px 40px;
+}
+
+#header4{
+  font-size: 20px;
+}
+p {
+    margin-top: 0;
+  margin-bottom: 0rem;
 }
