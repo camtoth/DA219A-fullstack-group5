@@ -20,7 +20,7 @@
  }
 
  #jasonLinks {
-     color: rgb(219, 144, 78);
+     color: rgb(214, 116, 29);
  }
 
  #jasonLinks:hover {
@@ -34,7 +34,7 @@
  }
 
  .backGround {
-   background-color: rgb(229, 216, 202);
+   background-color: rgb(223, 207, 190);
    background-size: auto;
  }
 
@@ -45,7 +45,7 @@
 
 
  a {
-  color: rgb(219, 144, 78);
+  color:rgb(214, 116, 29);
   font-size: 19px;
 
  }
@@ -57,7 +57,7 @@ color: rgb(239, 183, 133);
  #pb {
    margin-bottom: 20px;
    margin-top: 10px;
-     background-color: rgb(232, 161, 98);
+     background-color: rgb(219, 144, 78);
      color: white;
     font-weight: 500;
     border: 9px;
@@ -77,7 +77,7 @@ color: rgb(239, 183, 133);
  #ob {
    margin-bottom: 20px;
    margin-top: 10px;
-    background-color: rgb(232, 161, 98);
+    background-color: rgb(219, 144, 78);
     color: white;
     font-weight: 500;
      border: 9px;
@@ -100,9 +100,10 @@ color: rgb(239, 183, 133);
 }
 
 
+
  #editMode {
    size: 10px;
-  background-color: rgb(232, 161, 98);
+  background-color: rgb(219, 144, 78);
   color: white;
   font-weight: 500;
   transition: 0.5s;
@@ -202,6 +203,14 @@ img, svg {
   color: white;
 font-weight: 500;
   padding: 0;
+    transition: 0.5s;
+    transition-property: all;
+   
+
+}
+
+#navbar-top:hover{
+  background-color: rgb(234, 167, 109);
 }
 
 .navbar{
