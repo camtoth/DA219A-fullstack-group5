@@ -1,6 +1,6 @@
- @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=EB+Garamond:ital,wght@0,600;1,400;1,600;1,700&family=Mulish:wght@500&family=Nunito+Sans:wght@500&family=Poppins:wght@300;500&family=Source+Sans+Pro:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=EB+Garamond:ital,wght@0,600;1,400;1,600;1,700&family=Mulish:wght@500&family=Nunito+Sans:wght@500&family=Poppins:wght@300;500&family=Source+Sans+Pro:wght@400;600&display=swap');
 a:link, a:visited {
-  background-color: rgb(239, 183, 133);
+  background-color: rgb(241, 171, 110);
   color: white;
   padding: 8px 20px;
   text-align: center;
@@ -8,14 +8,15 @@ a:link, a:visited {
   display: inline-block;
   border-radius: 9px;
   transition: 0.5s;
-  transition-property: border-left, border-right, box-shadow;
+  transition-property:all;
+ 
 }
 
 
 a:hover, a:active {
 
-    border-left: solid 8px rgb(239, 183, 133);
-  border-right: solid 8px rgb(239, 183, 133);
+    border-left: solid 10px rgb(241, 171, 110);
+  border-right: solid 10px rgb(241, 171, 110);
 }
 
 body, html {
@@ -28,7 +29,7 @@ body, html {
 
 .bg-image {
   /* The image used */
-   background-image:url('https://images.pexels.com/photos/1652402/pexels-photo-1652402.jpeg?auto=compress&cs=tinysrgb&w=600');
+   background-image:url('https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=600');
 
   /* Add the blur effect */
   filter: blur(6px);
@@ -53,7 +54,7 @@ font-size: larger;
   background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
   color: white;
 font-weight: bold;
-  border: 3px solid #f1f1f1;
+  border: 3px solid  rgb(239, 180, 128);
   position: absolute;
   top: 50%;
   left: 50%;
