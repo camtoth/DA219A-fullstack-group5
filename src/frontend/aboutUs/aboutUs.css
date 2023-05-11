@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=EB+Garamond:ital,wght@0,600;1,400;1,600;1,700&family=Mulish:wght@500&family=Nunito+Sans:wght@500&family=Poppins:wght@300;500&family=Source+Sans+Pro:wght@400;600&display=swap');
 a:link, a:visited {
-  background-color: rgb(241, 171, 110);
+  background-color:  rgb(239, 156, 83);
   color: white;
   padding: 8px 20px;
   text-align: center;
@@ -29,7 +29,7 @@ body, html {
 
 .bg-image {
   /* The image used */
-   background-image:url('https://images.pexels.com/photos/3182784/pexels-photo-3182784.jpeg?auto=compress&cs=tinysrgb&w=600');
+   background-image:url('https://images.pexels.com/photos/3184296/pexels-photo-3184296.jpeg?auto=compress&cs=tinysrgb&w=600');
 
   /* Add the blur effect */
   filter: blur(8px);
@@ -49,11 +49,11 @@ body, html {
 .bg-text {
 font-family: 'EB Garamond', serif;
 
-font-size: larger;
+font-size: 20px;
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
   color: white;
-font-weight: bold;
+
   border: 2px solid  rgb(237, 191, 151);
   position: absolute;
   top: 50%;
