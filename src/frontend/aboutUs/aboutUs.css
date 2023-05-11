@@ -29,11 +29,11 @@ body, html {
 
 .bg-image {
   /* The image used */
-   background-image:url('https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=600');
+   background-image:url('https://images.pexels.com/photos/3182784/pexels-photo-3182784.jpeg?auto=compress&cs=tinysrgb&w=600');
 
   /* Add the blur effect */
-  filter: blur(6px);
-  -webkit-filter: blur(6px);
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
 
   /* Full height */
   height: 100%;
@@ -54,7 +54,7 @@ font-size: larger;
   background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
   color: white;
 font-weight: bold;
-  border: 3px solid  rgb(239, 180, 128);
+  border: 2px solid  rgb(237, 191, 151);
   position: absolute;
   top: 50%;
   left: 50%;

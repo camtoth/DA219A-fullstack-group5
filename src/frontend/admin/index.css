@@ -137,7 +137,7 @@ color: rgb(239, 183, 133);
 #statistics{
   margin-left: 50px;
   margin-right: 50px;
-  margin-bottom: 20px;
+  margin-bottom: 23px;
   margin-top: 10px;
   padding: 65px 40px 10px 40px;
   
@@ -196,7 +196,7 @@ img, svg {
    background-color:rgb(219, 144, 78);
    margin-top: 0px;
    padding-top: 10px;
-   padding-bottom: 9px;
+   padding-bottom: 10px;
 }
 
 #navbar-top{
