@@ -1,0 +1,74 @@
+ @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=EB+Garamond:ital,wght@0,600;1,400;1,600;1,700&family=Mulish:wght@500&family=Nunito+Sans:wght@500&family=Poppins:wght@300;500&family=Source+Sans+Pro:wght@400;600&display=swap');
+a:link, a:visited {
+  background-color: rgb(241, 171, 110);
+  color: white;
+  padding: 8px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 9px;
+  transition: 0.5s;
+  transition-property:all;
+ 
+}
+
+
+a:hover, a:active {
+
+    border-left: solid 10px rgb(241, 171, 110);
+  border-right: solid 10px rgb(241, 171, 110);
+}
+
+body, html {
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.bg-image {
+  /* The image used */
+   background-image:url('https://images.pexels.com/photos/1652402/pexels-photo-1652402.jpeg?auto=compress&cs=tinysrgb&w=600');
+
+  /* Add the blur effect */
+  filter: blur(6px);
+  -webkit-filter: blur(6px);
+
+  /* Full height */
+  height: 100%;
+  
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+/* Position text in the middle of the page/image */
+.bg-text {
+font-family: 'EB Garamond', serif;
+
+font-size: larger;
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
+  color: white;
+font-weight: bold;
+  border: 3px solid  rgb(239, 180, 128);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 80%;
+  padding: 20px;
+  text-align: center;
+  font-weight: 500;
+
+}
+
+.bg-text .header1{
+  font-family: 'Dancing Script', cursive;
+  font-size: 45px;
+}
+
