@@ -1,39 +1,40 @@
 //global variables
-let tables = [];
-let current = [];
-let menu = [];
-let categories = [];
-let newOrder = [];
-let selectedTableID;
-let selectedTableNumber;
+let tables = []
+let current = []
+let menu = []
+let categories = []
+let newOrder = []
+let selectedTableID
+let selectedTableNumber
+let userID
 
 async function logJSONData(APIendpoint) {
-  const response = await fetch(`http://127.0.0.1:3000/${APIendpoint}`);
-  const jsonData = await response.json();
+  const response = await fetch(`http://127.0.0.1:3000/${APIendpoint}`)
+  const jsonData = await response.json()
   //console.log(jsonData)
-  return jsonData;
+  return jsonData
 }
 
 async function postData(APIendpoint, JSONdata) {
   const response = await fetch(`http://127.0.0.1:3000/${APIendpoint}`, {
-    method: "POST", // *GET, POST, PUT, DELETE, etc.
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSONdata, // body data type must match "Content-Type" header
-  });
-  return response.json(); // parses JSON response into native JavaScript objects
+  })
+  return response.json() // parses JSON response into native JavaScript objects
 }
 
 async function putData(APIendpoint, JSONdata) {
   const response = await fetch(`http://127.0.0.1:3000/${APIendpoint}`, {
-    method: "PUT",
+    method: 'PUT',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSONdata, // body data type must match "Content-Type" header
-  });
-  return response.json(); // parses JSON response into native JavaScript objects
+  })
+  return response.json() // parses JSON response into native JavaScript objects
 }
 
 async function placeOrder() {
@@ -42,8 +43,8 @@ async function placeOrder() {
     orderToPlace = JSON.stringify({ orders: newOrder }) //todo: get waiterID from auth
     putData(`api/occupations/placeOrder/${current.find(e => e.tableID == selectedTableID)._id}`, orderToPlace)
   } else { //new occupation
-    orderToPlace = JSON.stringify({ tableID: selectedTableID, waiterID: "64569b00b931d3131de2403e", orders: newOrder }) //todo: get waiterID from auth
-    postData(`api/occupations`, orderToPlace)
+    orderToPlace = JSON.stringify({ tableID: selectedTableID, waiterID: userID, orders: newOrder }) //todo: get waiterID from auth
+    postData('api/occupations', orderToPlace)
   }
   showLoadingOverlay()
   await new Promise(resolve => setTimeout(resolve, 2000)) //to wait for db to update before reloading
@@ -68,7 +69,7 @@ async function checkout() {
 function getCategories() {
   for (let i = 0; i < menu.length; i++) {
     if (!categories.includes(menu[i].category)) {
-      categories.push(menu[i].category);
+      categories.push(menu[i].category)
     }
   }
 }
@@ -83,16 +84,16 @@ function addItem(id, itemName) {
     menuItemID: id,
     instanceID: getNumberOfItemsWithSameId(id) + 1,
     menuItemName: itemName,
-    comment: "",
-  }); //push the iteminstance object
-  console.log(newOrder);
-  renderNewOrder();
+    comment: '',
+  }) //push the iteminstance object
+  console.log(newOrder)
+  renderNewOrder()
 }
 
 function removeAllItemsWithId(id) {
-  newOrder = newOrder.filter((item) => item.menuItemID !== id);
-  console.log(newOrder);
-  renderNewOrder();
+  newOrder = newOrder.filter((item) => item.menuItemID !== id)
+  console.log(newOrder)
+  renderNewOrder()
 }
 
 //remove item from current order through "close button" in current orders tab
@@ -101,38 +102,38 @@ function removeItem(menuItemID, instanceID){
   if(instanceID) {
     itemToDelete = newOrder.find((item) => item.menuItemID == menuItemID && item.instanceID == instanceID)
   } else {
-    itemToDelete = newOrder.find((item) => item.menuItemID == menuItemID);
+    itemToDelete = newOrder.find((item) => item.menuItemID == menuItemID)
   }
   newOrder.splice(newOrder.indexOf(itemToDelete), 1)
   renderNewOrder()
 }
 
 function getNumberOfItemsWithSameId(menuItemID) {
-  return newOrder.filter((item) => item.menuItemID === menuItemID).length;
+  return newOrder.filter((item) => item.menuItemID === menuItemID).length
 }
 
 function addOrRemoveComment(menuItemID, instanceID, commentValue) {
   const itemToComment = newOrder.find(
     (item) => item.menuItemID == menuItemID && item.instanceID == instanceID
-  );
-  itemToComment.comment = commentValue;
+  )
+  itemToComment.comment = commentValue
 }
 
 // called when changing quantity of menu item
 function handleChangeMenu(inputValue, menuItemID, menuItemName) {
-  const value = inputValue;
-  const currentItemCount = getNumberOfItemsWithSameId(menuItemID);
-  console.log(currentItemCount);
-  let numberOfItemsToChange;
+  const value = inputValue
+  const currentItemCount = getNumberOfItemsWithSameId(menuItemID)
+  console.log(currentItemCount)
+  let numberOfItemsToChange
   if (value > currentItemCount) {
-    numberOfItemsToChange = value - currentItemCount;
+    numberOfItemsToChange = value - currentItemCount
     for (let i = 0; i < numberOfItemsToChange; i++) {
-      addItem(menuItemID, menuItemName);
+      addItem(menuItemID, menuItemName)
     }
   } else {
-    numberOfItemsToChange = currentItemCount - value;
+    numberOfItemsToChange = currentItemCount - value
     for (let i = 0; i < numberOfItemsToChange; i++) {
-      removeItem(menuItemID);
+      removeItem(menuItemID)
     }
   }
 }
@@ -140,15 +141,15 @@ function handleChangeMenu(inputValue, menuItemID, menuItemName) {
 function flushNewOrder() {
   newOrder = []
   console.log(newOrder)
-  console.log("changing table")
-  document.querySelectorAll('input[type=checkbox]').forEach(el => el.checked = false);
+  console.log('changing table')
+  document.querySelectorAll('input[type=checkbox]').forEach(el => el.checked = false)
 }
 
 // render functions
 function renderTables() {
-  const htmlDiv = document.getElementById("js-tablescontainer");
+  const htmlDiv = document.getElementById('js-tablescontainer')
   //let tablesToRender = []
-  let htmlToRender = "";
+  let htmlToRender = ''
   tables.forEach((table) => {
     if (
       !current?.error &&
@@ -158,22 +159,22 @@ function renderTables() {
                 <div class="row justify-content-between">
                     <div class="d-flex col-8 mx-auto justify-content-center"><button type="button" id=${table._id} data-tablenumber= ${table.number} data-occupied="true" class="js-table-button btn btn-primary">Table ${table.number}</button>
                     </div>
-            </div></div></div>`;
+            </div></div></div>`
     } else {
       htmlToRender += `<div class="col mx-1 my-2">
                 <div class="row justify-content-between">
                     <div class="d-flex col-8 mx-auto justify-content-center"><button type="button" id=${table._id} data-tablenumber= ${table.number} data-occupied="false" class="js-table-button btn btn-secondary">Table ${table.number}</button>
                     </div>
-            </div></div></div>`;
+            </div></div></div>`
     }
-  });
-  htmlDiv.innerHTML = htmlToRender;
-  const tablesHTML = document.querySelectorAll(".js-table-button");
+  })
+  htmlDiv.innerHTML = htmlToRender
+  const tablesHTML = document.querySelectorAll('.js-table-button')
   tablesHTML.forEach((table) => {
     //update the selected table each time a table button is clicked and re-render Current order tab
-    table.addEventListener("click", (table) => {
+    table.addEventListener('click', (table) => {
       if (selectedTableID != table.currentTarget.id) {
-        flushNewOrder();
+        flushNewOrder()
       }
       selectedTableID = table.currentTarget.id
       selectedTableNumber = table.currentTarget.dataset.tablenumber
@@ -181,25 +182,25 @@ function renderTables() {
       document.querySelectorAll('.accordion-button').forEach(button => {
         button.disabled = false
       })
-      renderNewOrder();
-      if (table.currentTarget.dataset.occupied == "true") {
-        renderPlacedOrder();
+      renderNewOrder()
+      if (table.currentTarget.dataset.occupied == 'true') {
+        renderPlacedOrder()
       } else {
-        const htmlDiv = document.getElementById("js-newordercontainer");
+        const htmlDiv = document.getElementById('js-newordercontainer')
         let htmlToRender = `
         <h6>Table ${selectedTableNumber}</h6>
         <h4>No orders have been placed yet.</h4>
         `
         htmlDiv.innerHTML = htmlToRender
       }
-    });
-  });
+    })
+  })
 }
 
 function renderMenuCategories() {
-  getCategories();
-  const htmlCategoryTitleDiv = document.getElementById("js-menu-accordion");
-  let htmlToRender = "";
+  getCategories()
+  const htmlCategoryTitleDiv = document.getElementById('js-menu-accordion')
+  let htmlToRender = ''
 
   for (let i = 0; i < categories.length; i++) {
     //console.log(categories)
@@ -212,51 +213,51 @@ function renderMenuCategories() {
             </h2>
           <div id="panelsStayOpen-collapse${i}" class="accordion-collapse collapse">
           <ul class="list-group rounded-0" id="js-menu${i}">
-          `;
+          `
 
-    htmlCategoryTitleDiv.innerHTML = htmlToRender;
-    htmlToRender += renderMenuItems(`js-menu${i}`, categories[i]);
+    htmlCategoryTitleDiv.innerHTML = htmlToRender
+    htmlToRender += renderMenuItems(`js-menu${i}`, categories[i])
 
-    htmlToRender += `</ul></div></div>`;
-    htmlCategoryTitleDiv.innerHTML = htmlToRender;
+    htmlToRender += '</ul></div></div>'
+    htmlCategoryTitleDiv.innerHTML = htmlToRender
   }
 
-  const menuCheckboxes = document.querySelectorAll("input[type=checkbox]");
+  const menuCheckboxes = document.querySelectorAll('input[type=checkbox]')
   menuCheckboxes.forEach((checkbox) => {
-    checkbox.addEventListener("change", (checkbox) => {
+    checkbox.addEventListener('change', (checkbox) => {
       if (checkbox.currentTarget.checked) {
         addItem(
           checkbox.currentTarget.dataset.id,
           checkbox.currentTarget.value
-        );
+        )
       } else {
-        removeAllItemsWithId(checkbox.currentTarget.dataset.id);
+        removeAllItemsWithId(checkbox.currentTarget.dataset.id)
       }
-    });
-  });
+    })
+  })
 
-  const quantityInputs = document.querySelectorAll("input[type=number]");
+  const quantityInputs = document.querySelectorAll('input[type=number]')
   quantityInputs.forEach((quantity) => {
-    quantity.addEventListener("change", (quantity) => {
+    quantity.addEventListener('change', (quantity) => {
       quantity.currentTarget.value == 0
         ? (document.getElementById(
-          quantity.currentTarget.dataset.id + "Checkbox"
+          quantity.currentTarget.dataset.id + 'Checkbox'
         ).checked = false)
         : (document.getElementById(
-          quantity.currentTarget.dataset.id + "Checkbox"
-        ).checked = true);
+          quantity.currentTarget.dataset.id + 'Checkbox'
+        ).checked = true)
       handleChangeMenu(
         quantity.currentTarget.value,
         quantity.currentTarget.dataset.id,
         quantity.currentTarget.dataset.name
-      );
-    });
-  });
+      )
+    })
+  })
 }
 
 function renderMenuItems(htmlCategoryID, category) {
-  const htmlMenuDiv = document.getElementById(htmlCategoryID);
-  let htmlToRender = "";
+  const htmlMenuDiv = document.getElementById(htmlCategoryID)
+  let htmlToRender = ''
   menu.forEach((item) => {
     if (item.category == category) {
       htmlToRender += `<li class="list-group-item">
@@ -272,22 +273,22 @@ function renderMenuItems(htmlCategoryID, category) {
                         <input class="form-control" style="width: 80px" type="number" min="0" data-name="${item.name}" data-id="${item._id}" id="${item._id}Amount" value="1" onkeydown="return false">
                     </div>
                 </form>
-            </li>`;
+            </li>`
     }
-  });
-  return htmlToRender;
+  })
+  return htmlToRender
 }
 
 function renderPlacedOrder() {
   const selectedTableOrders = current.find(
     (e) => e.tableID == selectedTableID
-  ).orders;
+  ).orders
   selectedTableOrders.sort((a, b) =>
     a.menuItemID > b.menuItemID ? 1 : b.menuItemID > a.menuItemID ? -1 : 0
-  );
+  )
   //console.log(selectedTableOrders)
-  const htmlDiv = document.getElementById("js-placedorderscontainer");
-  let htmlToRender = `<h6>Table ${selectedTableNumber}</h6>`;
+  const htmlDiv = document.getElementById('js-placedorderscontainer')
+  let htmlToRender = `<h6>Table ${selectedTableNumber}</h6>`
   selectedTableOrders.forEach((item) => {
     htmlToRender += `<li class="list-group-item">
             <div class="row row-cols-auto align-items-center justify-content-between">
@@ -298,17 +299,17 @@ function renderPlacedOrder() {
                 </div>
             </div>
         </li>
-        `;
-  });
-  htmlDiv.innerHTML = htmlToRender;
+        `
+  })
+  htmlDiv.innerHTML = htmlToRender
 }
 
 function renderNewOrder() {
   newOrder.sort((a, b) =>
     a.menuItemID > b.menuItemID ? 1 : b.menuItemID > a.menuItemID ? -1 : 0
   )
-  const htmlDiv = document.getElementById("js-newordercontainer");
-  let htmlToRender = `<h6>Table ${selectedTableNumber}</h6>`;
+  const htmlDiv = document.getElementById('js-newordercontainer')
+  let htmlToRender = `<h6>Table ${selectedTableNumber}</h6>`
   newOrder.forEach(item => {
     htmlToRender += `<li class="list-group-item">
             <div class="row row-cols-auto align-items-center justify-content-between">
@@ -326,28 +327,28 @@ function renderNewOrder() {
             </div>
         </li>
         `
+  })
+  htmlDiv.innerHTML = htmlToRender
+  //take comment textbox input
+  const commentTextboxes = document.querySelectorAll('textarea')
+  commentTextboxes.forEach(textbox => {
+    textbox.addEventListener('change', textbox => {
+      //console.log(textbox.currentTarget.dataset)
+      addOrRemoveComment(textbox.currentTarget.dataset.itemid, textbox.currentTarget.dataset.instanceid, textbox.currentTarget.value)
     })
-    htmlDiv.innerHTML = htmlToRender
-    //take comment textbox input
-    const commentTextboxes = document.querySelectorAll('textarea')
-    commentTextboxes.forEach(textbox => {
-        textbox.addEventListener('change', textbox => {
-            //console.log(textbox.currentTarget.dataset)
-            addOrRemoveComment(textbox.currentTarget.dataset.itemid, textbox.currentTarget.dataset.instanceid, textbox.currentTarget.value)
-        })
+  })
+  const removeButtons = document.querySelectorAll('#removefromorder-button')
+  removeButtons.forEach(button => {
+    button.addEventListener('click', button => {
+      let numberOfItemsLeft = document.getElementById(`${button.currentTarget.dataset.itemid}Amount`)
+      if(numberOfItemsLeft.value == 1) {
+        document.getElementById(`${button.currentTarget.dataset.itemid}Checkbox`).checked = false
+      } else {
+        numberOfItemsLeft.value -= 1
+      }
+      removeItem(button.currentTarget.dataset.itemid, button.currentTarget.dataset.instanceid)
     })
-    const removeButtons = document.querySelectorAll('#removefromorder-button')
-    removeButtons.forEach(button => {
-      button.addEventListener('click', button => {
-        let numberOfItemsLeft = document.getElementById(`${button.currentTarget.dataset.itemid}Amount`)
-        if(numberOfItemsLeft.value == 1) {
-          document.getElementById(`${button.currentTarget.dataset.itemid}Checkbox`).checked = false
-        } else {
-          numberOfItemsLeft.value -= 1
-        }
-        removeItem(button.currentTarget.dataset.itemid, button.currentTarget.dataset.instanceid)
-      })
-    })
+  })
 }
 
 function showCheckoutModal() {
@@ -370,7 +371,7 @@ function showCheckoutModal() {
             `
     })
   } else {
-    htmlToRender += "No table selected"
+    htmlToRender += 'No table selected'
   }
   htmlDiv.innerHTML = htmlToRender
 }
@@ -419,38 +420,38 @@ function initEvents() {
 // init
 async function init() {
   hideLoadingOverlay()
-  tables = await logJSONData("api/tables");
-  current = await logJSONData("api/occupations/current");
-  menu = await logJSONData("api/menuItems/");
+  tables = await logJSONData('api/tables')
+  current = await logJSONData('api/occupations/current')
+  menu = await logJSONData('api/menuItems/')
 
   //dummy code GET USERID
   let url = window.location.href
-  let userID = url.split("/").at(-1)
-  console.log("userID:", userID)
+  userID = url.split('/').at(-1)
+  console.log('userID:', userID)
 
   if (!current?.error) {
     current.forEach((occupation) => {
       //dummy code to search waiterID
-      console.log("test", occupation.waiterID, occupation.tableID)
+      console.log('test', occupation.waiterID, occupation.tableID)
       if (occupation.waiterID === userID) {
-        console.log("from this waiter!", occupation.tableID, occupationwaiterID)
+        console.log('from this waiter!', occupation.tableID, occupationwaiterID)
       }
 
 
       occupation.orders.forEach((item) => {
-        const menuItemName = menu.find((e) => e._id == item.menuItemID).name;
-        item.menuItemName = menuItemName;
-      });
-    });
+        const menuItemName = menu.find((e) => e._id == item.menuItemID).name
+        item.menuItemName = menuItemName
+      })
+    })
   }
 
-  console.log(tables);
-  console.log(current);
+  console.log(tables)
+  console.log(current)
   //logJSONData("api/occupations/")
-  console.log(menu);
-  renderTables();
-  renderMenuCategories();
-  initEvents();
+  console.log(menu)
+  renderTables()
+  renderMenuCategories()
+  initEvents()
 }
 
-init();
+init()
