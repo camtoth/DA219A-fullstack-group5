@@ -1,20 +1,19 @@
-// render functions
+// functions that render essential html elements
 function renderTables(tables, current, selectedTableID, selectedTableNumber) {
   const htmlDiv = document.getElementById('js-tablescontainer')
-  //let tablesToRender = []
   let htmlToRender = ''
   tables.forEach((table) => {
     if (
       !current?.error &&
         current.some((element) => element.tableID == table._id)
     ) {
-      htmlToRender += `<div class="col mx-1 my-2">
+      htmlToRender += `<div class="col mx-1 g-2 g-lg-3">
                   <div class="row justify-content-between">
                       <div class="d-flex col-8 mx-auto justify-content-center"><button type="button" id=${table._id} data-tablenumber= ${table.number} data-occupied="true" class="js-table-button btn btn-primary">Table ${table.number}</button>
                       </div>
               </div></div></div>`
     } else {
-      htmlToRender += `<div class="col mx-1 my-2">
+      htmlToRender += `<div class="col mx-1 g-2 g-lg-3">
                   <div class="row justify-content-between">
                       <div class="d-flex col-8 mx-auto justify-content-center"><button type="button" id=${table._id} data-tablenumber= ${table.number} data-occupied="false" class="js-table-button btn btn-secondary">Table ${table.number}</button>
                       </div>
@@ -72,7 +71,7 @@ function renderMenuItems(htmlCategoryID, category, menu) {
                       </div>
                       <div class="col-auto">
                           <label class="visually-hidden " for="${item._id}Amount">Amount</label>
-                          <input class="form-control" style="width: 80px" type="number" min="0" data-name="${item.name}" data-id="${item._id}" id="${item._id}Amount" value="1" onkeydown="return false">
+                          <input class="form-control" style="width: 60px" type="number" min="0" data-name="${item.name}" data-id="${item._id}" id="${item._id}Amount" value="1" onkeydown="return false">
                       </div>
                   </form>
               </li>`
