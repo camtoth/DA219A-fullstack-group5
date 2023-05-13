@@ -41,7 +41,7 @@ async function checkout() {
   }, 2000)
 }
 
-// called when changing quantity of menu item
+// called when changing quantity of a selected menu item
 function handleChangeMenu(inputValue, menuItemID, menuItemName) {
   const value = inputValue
   const currentItemCount = getNumberOfItemsWithSameId(menuItemID, newOrder)
@@ -75,8 +75,10 @@ function flushNewOrder() {
 function showCheckoutModal() {
   const htmlDiv = document.getElementById('js-checkout-modal')
   let htmlToRender = ''
-  if (current.find(e => e.tableID == selectedTableID)) {
-    const selectedTableOrders = current.find(e => e.tableID == selectedTableID).orders
+  const orderToCheckout = current.find(e => e.tableID == selectedTableID)
+  console.log(orderToCheckout)
+  if (orderToCheckout) {
+    const selectedTableOrders = orderToCheckout.orders
     selectedTableOrders.sort((a, b) => (a.menuItemID > b.menuItemID) ? 1 : ((b.menuItemID > a.menuItemID) ? -1 : 0))
     selectedTableOrders.forEach(item => {
       htmlToRender +=
@@ -94,6 +96,11 @@ function showCheckoutModal() {
   } else {
     htmlToRender += 'No table selected'
   }
+  htmlToRender +=
+    `<hr>
+    <div class = "justify-content-end">
+      <b>Total price:</b> ${orderToCheckout?.totalPrice}
+    </div>`
   htmlDiv.innerHTML = htmlToRender
 }
 
@@ -234,31 +241,20 @@ async function init() {
   current = await logJSONData('api/occupations/current')
   menu = await logJSONData('api/menuItems/')
 
-  //dummy code GET USERID
+  //GET USERID
   let url = window.location.href
   userID = url.split('/').at(-1)
   console.log('userID:', userID)
 
   if (!current?.error) {
     current.forEach((occupation) => {
-      //dummy code to search waiterID
-      console.log('test', occupation.waiterID, occupation.tableID)
-      if (occupation.waiterID === userID) {
-        console.log('from this waiter!', occupation.tableID, occupation.waiterID)
-      }
-
-
       occupation.orders.forEach((item) => {
         const menuItemName = menu.find((e) => e._id == item.menuItemID).name
         item.menuItemName = menuItemName
       })
     })
   }
-
-  console.log(tables)
   console.log(current)
-  //logJSONData("api/occupations/")
-  console.log(menu)
   renderTables(tables, current, selectedTableID, selectedTableNumber)
   renderMenuCategories(categories, menu)
   initButtonsListeners()
