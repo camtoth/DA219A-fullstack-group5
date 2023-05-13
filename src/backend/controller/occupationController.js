@@ -130,6 +130,43 @@ async function getOccupationOrder(req, res) {
 async function addOccupationOrder(req, res) {
   const result = await pushRecord("occupation", req);
   res.status(result[0]).json(result[1]);
+}
+
+//determine TotalPrice
+async function updateTotalPrice(req, res) {
+  try {
+    //get orders
+    let result = await getRecord("occupation", req);
+    let orders = result[1][0].orders
+    let totalPrice = 0;
+
+    //get menu items
+    let menuItems = {};
+    result = await getAll("menuItems");
+    for (let i = 0; i < result[1].length; i++) {
+      menuItems[result[1][i]._id] = result[1][i].price
+    }
+
+    for (let i = 0; i < orders.length; i++) {
+      let itemID = orders[i].menuItemID
+      let itemPrice = menuItems[itemID]
+      totalPrice += itemPrice
+    }
+
+    const occupation = await Occupation
+      .findByIdAndUpdate(
+        req.params.id,
+        {
+          totalPrice: totalPrice
+        },
+        { new: true });
+
+    if (!occupation) return res.status(404).json({ error: 'ID not found' });
+
+    res.status(200).json(occupation)
+  } catch (error) {
+    res.status(500).json({ error: "Server error" + error })
+  }
 
 }
 
@@ -139,31 +176,5 @@ async function updateOccupation(req, res) {
   res.status(result[0]).json(result[1]);
 }
 
-// Update a record
-async function updateOccupation2(req, res) {
-  try {
 
-    const occupation = await Occupation
-      .findByIdAndUpdate(
-        req.params.id,
-        {
-          tableID: req.body.tableID,
-          waiterID: req.body.waiterID,
-          startTime: req.body.startTime,
-          totalPrice: req.body.totalPrice,
-          checkOutTime: req.body.checkOutTime
-        },
-        { new: true });
-
-    // If not found - when var is null -> !var == true
-    if (!occupation) return res.status(404).json({ error: 'ID not found' });
-
-    res.status(200).json(occupation)
-  } catch (error) {
-    res.status(500).json({ error: "Server error" + error })
-  }
-}
-
-
-
-module.exports = { getAllOccupations, addOccupation, updateOccupation, deleteOccupation, getCurrentOccupations, getOccupation, getOccupationOrder, addOccupationOrder };
+module.exports = { getAllOccupations, addOccupation, updateOccupation, deleteOccupation, getCurrentOccupations, getOccupation, getOccupationOrder, addOccupationOrder, updateTotalPrice };

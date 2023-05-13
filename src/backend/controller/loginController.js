@@ -15,12 +15,14 @@ async function checkPermission(req, res, next) {
   let orgUrl = req.originalUrl;
   let requiredRoles = [];
   let permission = false;
+  let requiredID;
   console.log(orgUrl)
 
   //check if page needs permission
   for (let url in urlPermissions) {
     if (orgUrl.includes(url)) {
       requiredRoles = urlPermissions[url].role;
+      requiredID = urlPermissions[url].id;
       break;
     }
   }
@@ -36,12 +38,24 @@ async function checkPermission(req, res, next) {
       const decryptedtoken = jwt.verify(cookieJwt, process.env.SECRET_PRIVATE_KEY)
       let username = decryptedtoken.username;
       let password = decryptedtoken.password;
+      let userID = decryptedtoken.userID;
       let userRole = await getUserRole(username, password);
       console.log(username)
 
+      //check role
       if (requiredRoles.includes(userRole)) {
         permission = true;
       }
+
+      //check userid if no admin
+      if ((requiredID) && (userRole != "admin")) {
+        let userIDUrl = orgUrl.split("/").at(-1)
+
+        if (userIDUrl != userID) {
+          permission = false;
+        }
+      }
+
     } catch (error) {
       console.log(error)
     }
@@ -59,13 +73,14 @@ async function checkPermission(req, res, next) {
 //check login status (middleware)
 async function checkLogin(req, res, next) {
   let userRole = "guest";
+  let userID;
 
   try {
     //decode & read user cookie
     const cookieJwt = req.cookies.jwt;
     const decryptedtoken = jwt.verify(cookieJwt, process.env.SECRET_PRIVATE_KEY)
     let username = decryptedtoken.username;
-    let userID = decryptedtoken.userID;
+    userID = decryptedtoken.userID;
     let password = decryptedtoken.password;
     userRole = await getUserRole(username, password);
   } catch (error) {

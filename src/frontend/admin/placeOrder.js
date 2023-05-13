@@ -4,7 +4,7 @@ let table2occupation = {};
 //get all tablenrs in database
 async function getTableNrs() {
   let tableNrs = {}
-  let tables = await (await (fetch(`http://localhost:3000/api/tables`))).json();
+  let tables = await (await (fetch(`../api/tables`))).json();
 
   for (let i = 0; i < tables.length; i++) {
     tableNr = tables[i].number
@@ -17,7 +17,7 @@ async function getTableNrs() {
 
 
 async function showTables() {
-  let collections = await (await (fetch(`http://localhost:3000/api/occupations/current`))).json();
+  let collections = await (await (fetch(`../api/occupations/current`))).json();
   let tableNrs = await getTableNrs();
   console.log(collections)
 
@@ -44,7 +44,7 @@ async function showTables() {
 
 async function showMenu() {
   //retrieve data
-  let collections = await (await (fetch(`http://localhost:3000/api/menuItems`))).json();
+  let collections = await (await (fetch(`../api/menuItems`))).json();
 
   //title
   let html = `
@@ -79,7 +79,7 @@ async function addOrder() {
     console.log("specify id")
   } else {
     //retrieve data
-    let collections = await (await (fetch(`http://localhost:3000/api/menuItems`))).json();
+    let collections = await (await (fetch(`../api/menuItems`))).json();
 
     //loop through list
     for (let i = 0; i < collections.length; i++) {
@@ -99,20 +99,47 @@ async function addOrder() {
       "comment": "${comment}",
       "completed": false}}`
 
+        //post to database
+        await sendRequest(`../api/occupations/placeOrder/${idnr}`, "PUT", jsonText);
 
-        const response = fetch(`http://localhost:3000/api/occupations/placeOrder/${idnr}`, {
-          method: 'PUT',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: jsonText
-        });
+        /*
+                const response = fetch(`../api/occupations/placeOrder/${idnr}`, {
+                  method: 'PUT',
+                  headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                  },
+                  body: jsonText
+                });
+                */
       }
     }
+    await sendRequest(`../api/occupations/updateTotalPrice/${idnr}`, "PUT", "{}");
+
   }
 
 
+}
+
+//send http request
+async function sendRequest(htmlString, httpMethod, jsonText) {
+
+  const response = await fetch(htmlString, {
+    method: httpMethod,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: jsonText,
+  });
+
+  if (response.status === 200) {
+    console.log("succes")
+    showTables();
+    showMenu();
+  } else {
+    console.log("something went wrong")
+  }
 }
 
 document.getElementById("placeOrder").addEventListener('click', event => {

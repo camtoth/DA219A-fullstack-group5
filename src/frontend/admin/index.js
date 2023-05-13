@@ -435,9 +435,9 @@ async function drawStatistics() {
     data: {
       labels: dishNames,
       datasets: [
-        { 
-          lable: '# of orders ', 
-          data: dishOrderCounts 
+        {
+          lable: '# of orders ',
+          data: dishOrderCounts
         }]
     }
   }
