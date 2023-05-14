@@ -145,4 +145,35 @@ function renderNewOrder(newOrder, selectedTableID, selectedTableNumber) {
   htmlDiv.innerHTML = htmlToRender
 }
 
-export {renderTables, renderMenuCategories, renderPlacedOrder, renderNewOrder}
+function renderCheckoutModal(orderToCheckout){
+  const htmlDiv = document.getElementById('js-checkout-modal')
+  let htmlToRender = ''
+
+  if (orderToCheckout) {
+    const selectedTableOrders = orderToCheckout.orders
+    selectedTableOrders.sort((a, b) => (a.menuItemID > b.menuItemID) ? 1 : ((b.menuItemID > a.menuItemID) ? -1 : 0))
+    selectedTableOrders.forEach(item => {
+      htmlToRender +=
+        `<li class="list-group-item">
+                <div class="row row-cols-auto align-items-center justify-content-between">
+                    <div class="col "><h6>${item.menuItemName}</h6>
+                    </div>
+                    <div class="col-md-6 align-items-center">
+                        ${item.comment}
+                    </div>
+                </div>
+            </li>
+            `
+    })
+  } else {
+    htmlToRender += 'No table selected'
+  }
+  htmlToRender +=
+    `<hr>
+    <div class = "justify-content-end">
+      <b>Total price:</b> ${orderToCheckout?.totalPrice}
+    </div>`
+  htmlDiv.innerHTML = htmlToRender
+}
+
+export {renderTables, renderMenuCategories, renderPlacedOrder, renderNewOrder, renderCheckoutModal}
