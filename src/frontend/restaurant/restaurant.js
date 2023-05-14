@@ -1,4 +1,4 @@
-import {renderTables, renderMenuCategories, renderPlacedOrder, renderNewOrder} from './render.js'
+import {renderTables, renderMenuCategories, renderPlacedOrder, renderNewOrder, renderCheckoutModal, renderUsername} from './render.js'
 import {logJSONData, postData, putData, addItem, removeAllItemsWithId, removeItem, getNumberOfItemsWithSameId, addOrRemoveComment, getUserID, addItemnamesToOccupation, mapWaiterNamesToIDs} from './utils.js'
 
 
@@ -73,47 +73,24 @@ function flushNewOrder() {
   document.querySelectorAll('input[type=checkbox]').forEach(el => el.checked = false)
 }
 
-function showCheckoutModal() {
-  const htmlDiv = document.getElementById('js-checkout-modal')
-  let htmlToRender = ''
-  const orderToCheckout = current.find(e => e.tableID == selectedTableID)
+async function showCheckoutModal() {
+  let orderToCheckout = current.find(e => e.tableID == selectedTableID)
+  await putData(`api/occupations/updateTotalPrice/${orderToCheckout._id}`)
+  orderToCheckout = (await logJSONData(`api/occupations/${orderToCheckout._id}`))
+  orderToCheckout = (addItemnamesToOccupation(orderToCheckout, menu))[0]
   console.log(orderToCheckout)
-  if (orderToCheckout) {
-    const selectedTableOrders = orderToCheckout.orders
-    selectedTableOrders.sort((a, b) => (a.menuItemID > b.menuItemID) ? 1 : ((b.menuItemID > a.menuItemID) ? -1 : 0))
-    selectedTableOrders.forEach(item => {
-      htmlToRender +=
-        `<li class="list-group-item">
-                <div class="row row-cols-auto align-items-center justify-content-between">
-                    <div class="col "><h6>${item.menuItemName}</h6>
-                    </div>
-                    <div class="col-md-6 align-items-center">
-                        ${item.comment}
-                    </div>
-                </div>
-            </li>
-            `
-    })
-  } else {
-    htmlToRender += 'No table selected'
-  }
-  htmlToRender +=
-    `<hr>
-    <div class = "justify-content-end">
-      <b>Total price:</b> ${orderToCheckout?.totalPrice}
-    </div>`
-  htmlDiv.innerHTML = htmlToRender
+  renderCheckoutModal(orderToCheckout)
 }
 
 function hideLoadingOverlay() {
   const htmlDiv = document.querySelector('.loading-overlay')
-  window.addEventListener('load', () => {
+  //window.addEventListener('load', () => {
+  //  htmlDiv.style.opacity = '0'
+  setTimeout(() => {
     htmlDiv.style.opacity = '0'
-
-    setTimeout(() => {
-      htmlDiv.style.display = 'none'
-    }, 200)
-  })
+    htmlDiv.style.display = 'none'
+  }, 200)
+  //})
 }
 
 function showLoadingOverlay() {
@@ -155,6 +132,7 @@ function initMenuListeners() {
       }
       selectedTableID = table.currentTarget.id
       selectedTableNumber = table.currentTarget.dataset.tablenumber
+      document.getElementById('place-order-button').disabled = false
       document.getElementById('tabs-current-order-tab').disabled = false
       document.querySelectorAll('.accordion-button').forEach(button => {
         button.disabled = false
@@ -163,7 +141,9 @@ function initMenuListeners() {
       initCommentListeners()
       if (table.currentTarget.dataset.occupied == 'true') {
         renderPlacedOrder(current, selectedTableID, selectedTableNumber, userID, waiters)
+        document.getElementById('checkout-modal-button').disabled = false
       } else {
+        document.getElementById('checkout-modal-button').disabled = true
         const htmlDiv = document.getElementById('js-placedorderscontainer')
         let htmlToRender = `
           <h6>Table ${selectedTableNumber}</h6>
@@ -237,7 +217,6 @@ function initCommentListeners() {
 
 // init
 async function init() {
-  hideLoadingOverlay()
   tables = await logJSONData('api/tables')
   current = await logJSONData('api/occupations/current')
   menu = await logJSONData('api/menuItems')
@@ -245,6 +224,8 @@ async function init() {
   waiters = mapWaiterNamesToIDs(accounts)
   console.log(waiters)
   userID = getUserID()
+  hideLoadingOverlay()
+  renderUsername(waiters, userID)
   current = addItemnamesToOccupation(current, menu)
   console.log(current[0])
   renderTables(tables, current, selectedTableID, selectedTableNumber, userID)
