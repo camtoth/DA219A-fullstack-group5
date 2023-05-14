@@ -221,7 +221,7 @@ async function init() {
   current = await logJSONData('api/occupations/current')
   menu = await logJSONData('api/menuItems')
   let accounts = await logJSONData('api/accounts')
-  accounts = mapNamesToIDs(accounts)
+  //accounts = mapNamesToIDs(accounts)
   console.log(accounts)
   userID = getUserID()
   hideLoadingOverlay()

@@ -181,10 +181,10 @@ function renderCheckoutModal(orderToCheckout){
   htmlDiv.innerHTML = htmlToRender
 }
 
-function renderUsername(waiters, userID){
+function renderUsername(accounts, userID){
   const htmlDiv = document.getElementById('js-navbar-user')
   let htmlToRender = ''
-  const name = waiters.find((e) => e.waiterID == userID).firstName
+  const name = accounts.find((e) => e._id == userID).firstName
   htmlToRender += `Welcome, ${name}!`
   htmlDiv.innerHTML = htmlToRender
 }
