@@ -1,5 +1,5 @@
 import {renderTables, renderMenuCategories, renderPlacedOrder, renderNewOrder, renderCheckoutModal, renderUsername} from './render.js'
-import {logJSONData, postData, putData, addItem, removeAllItemsWithId, removeItem, getNumberOfItemsWithSameId, addOrRemoveComment, getUserID, addItemnamesToOccupation, mapNamesToIDs} from './utils.js'
+import {logJSONData, postData, putData, addItem, removeAllItemsWithId, removeItem, getNumberOfItemsWithSameId, addOrRemoveComment, getUserID, addItemnamesToOccupation, mapNamesToIDs, showTooltip, hideTooltip} from './utils.js'
 
 
 //global variables
@@ -133,6 +133,7 @@ function initMenuListeners() {
       selectedTableID = table.currentTarget.id
       selectedTableNumber = table.currentTarget.dataset.tablenumber
       document.getElementById('place-order-button').disabled = false
+      hideTooltip('place-order-button')
       document.getElementById('tabs-current-order-tab').disabled = false
       document.querySelectorAll('.accordion-button').forEach(button => {
         button.disabled = false
@@ -142,8 +143,10 @@ function initMenuListeners() {
       if (table.currentTarget.dataset.occupied == 'true') {
         renderPlacedOrder(current, selectedTableID, selectedTableNumber, userID, accounts)
         document.getElementById('checkout-modal-button').disabled = false
+        hideTooltip('checkout-modal-button')
       } else {
         document.getElementById('checkout-modal-button').disabled = true
+        showTooltip('checkout-modal-button')
         const htmlDiv = document.getElementById('js-placedorderscontainer')
         let htmlToRender = `
           <h6>Table ${selectedTableNumber}</h6>
@@ -215,6 +218,11 @@ function initCommentListeners() {
   })
 }
 
+function initTooltips() {
+  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+  const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+}
+
 // init
 async function init() {
   tables = await logJSONData('api/tables')
@@ -232,6 +240,7 @@ async function init() {
   renderMenuCategories(categories, menu)
   initButtonsListeners()
   initMenuListeners()
+  initTooltips()
 }
 
 init()

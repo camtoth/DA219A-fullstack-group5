@@ -100,4 +100,14 @@ function mapNamesToIDs(accounts){
   return accounts
 }
 
-export {logJSONData, postData, putData, addItem, removeAllItemsWithId, removeItem, getNumberOfItemsWithSameId, addOrRemoveComment, getUserID, addItemnamesToOccupation, mapNamesToIDs}
+function showTooltip(elementHtmlID) {
+  const tooltip = bootstrap.Tooltip.getOrCreateInstance(document.getElementById(elementHtmlID).parentNode)
+  tooltip.enable() 
+}
+
+function hideTooltip(elementHtmlID) {
+  const tooltip = bootstrap.Tooltip.getOrCreateInstance(document.getElementById(elementHtmlID).parentNode)
+  tooltip.disable() 
+}
+
+export {logJSONData, postData, putData, addItem, removeAllItemsWithId, removeItem, getNumberOfItemsWithSameId, addOrRemoveComment, getUserID, addItemnamesToOccupation, mapNamesToIDs, showTooltip, hideTooltip}
