@@ -39,12 +39,15 @@ function addItem(id, itemName, newOrder) {
     menuItemName: itemName,
     comment: '',
   }) //push the iteminstance object
-  //console.log(newOrder)
+  document.getElementById('place-order-button').disabled = false
   return newOrder
 }
 
 function removeAllItemsWithId(id, newOrder) {
   newOrder = newOrder.filter((item) => item.menuItemID !== id)
+  if(newOrder.length == 0) {
+    document.getElementById('place-order-button').disabled = true
+  }
   return newOrder
 }
 
@@ -57,6 +60,9 @@ function removeItem(menuItemID, instanceID, newOrder){
     itemToDelete = newOrder.find((item) => item.menuItemID == menuItemID)
   }
   newOrder.splice(newOrder.indexOf(itemToDelete), 1)
+  if(newOrder.length == 0) {
+    document.getElementById('place-order-button').disabled = true
+  }
   return newOrder
 }
 

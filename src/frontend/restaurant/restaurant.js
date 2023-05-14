@@ -43,7 +43,7 @@ async function checkout() {
 }
 
 // called when changing quantity of a selected menu item
-function handleChangeMenu(inputValue, menuItemID, menuItemName) {
+function handleMenuChange(inputValue, menuItemID, menuItemName) {
   const value = inputValue
   const currentItemCount = getNumberOfItemsWithSameId(menuItemID, newOrder)
   console.log(currentItemCount)
@@ -61,7 +61,6 @@ function handleChangeMenu(inputValue, menuItemID, menuItemName) {
       newOrder = removeItem(menuItemID, null, newOrder)
       renderNewOrder(newOrder, selectedTableID, selectedTableNumber)
       initCommentListeners()
-
     }
   }
 }
@@ -132,7 +131,7 @@ function initMenuListeners() {
       }
       selectedTableID = table.currentTarget.id
       selectedTableNumber = table.currentTarget.dataset.tablenumber
-      document.getElementById('place-order-button').disabled = false
+      //document.getElementById('place-order-button').disabled = false
       hideTooltip('place-order-button')
       document.getElementById('tabs-current-order-tab').disabled = false
       document.querySelectorAll('.accordion-button').forEach(button => {
@@ -184,7 +183,7 @@ function initMenuListeners() {
         : (document.getElementById(
           quantity.currentTarget.dataset.id + 'Checkbox'
         ).checked = true)
-      handleChangeMenu(
+      handleMenuChange(
         quantity.currentTarget.value,
         quantity.currentTarget.dataset.id,
         quantity.currentTarget.dataset.name
