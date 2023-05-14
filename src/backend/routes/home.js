@@ -8,11 +8,6 @@ const bcrypt = require('bcrypt')
 
 router.use(cookieParser())
 
-//specifies which routes need permission and who can access it
-const sitePermission = {
-  "/adminpage": { "role": ["admin"] },
-  "/waiterpage": { "role": ["admin", "waiter"] }
-}
 
 const { loginUser, checkPermission, checkLogin } = require('../controller/loginController')
 
@@ -26,12 +21,21 @@ router.get('/login', checkLogin, function (req, res) {
   res.sendFile(path.join(__dirname, '../../frontend/login/login.html'));
 });
 
+router.get('/logout', function (req, res) {
+  try {
+    res.clearCookie('jwt')
+    res.redirect('/login')
+  } catch (error) {
+    res.status(500).send(error)
+  }
+});
+
 //post login input
 router.post('/login', loginUser)
 
 // Admin
 router.get('/admin', checkPermission, async function (req, res) {
-  res.sendFile(path.join(__dirname, '../../frontend/admin/index.html'));
+  res.sendFile(path.join(__dirname, '../../frontend/admin/admin.html'));
 });
 
 //place order test page for admin
