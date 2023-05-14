@@ -160,3 +160,9 @@ background-color:white;
   align-items: center;
   transition: all 0.2s;
 }
+
+.accordion-button:disabled {
+  background-color: lightgray;
+  opacity: 0.8;
+  transition: all 0.2s;
+}
