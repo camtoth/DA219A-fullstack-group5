@@ -89,7 +89,7 @@ async function checkLogin(req, res, next) {
   if (userRole === "guest") {
     next()
   } else if (userRole === "admin") {
-    res.redirect("/admin")
+    res.redirect(`/admin/${userID}`)
   } else if (userRole === "waiter") {
     res.redirect(`/waiter/${userID}`)
   }
@@ -157,7 +157,7 @@ async function loginUser(req, res) {
     // Successful log in
     if (userRole == "admin") {
       console.log("logged admin");
-      res.redirect("/admin")
+      res.redirect(`/admin/${userID}`)
 
     } else if (userRole == "waiter") {
       res.redirect(`/waiter/${userID}`)
