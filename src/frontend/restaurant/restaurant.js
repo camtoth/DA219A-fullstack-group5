@@ -1,5 +1,5 @@
 import {renderTables, renderMenuCategories, renderPlacedOrder, renderNewOrder, renderCheckoutModal, renderUsername} from './render.js'
-import {logJSONData, postData, putData, addItem, removeAllItemsWithId, removeItem, getNumberOfItemsWithSameId, addOrRemoveComment, getUserID, addItemnamesToOccupation, mapWaiterNamesToIDs} from './utils.js'
+import {logJSONData, postData, putData, addItem, removeAllItemsWithId, removeItem, getNumberOfItemsWithSameId, addOrRemoveComment, getUserID, addItemnamesToOccupation, mapNamesToIDs} from './utils.js'
 
 
 //global variables
@@ -221,11 +221,11 @@ async function init() {
   current = await logJSONData('api/occupations/current')
   menu = await logJSONData('api/menuItems')
   let accounts = await logJSONData('api/accounts')
-  waiters = mapWaiterNamesToIDs(accounts)
-  console.log(waiters)
+  accounts = mapNamesToIDs(accounts)
+  console.log(accounts)
   userID = getUserID()
   hideLoadingOverlay()
-  renderUsername(waiters, userID)
+  renderUsername(accounts, userID)
   current = addItemnamesToOccupation(current, menu)
   console.log(current[0])
   renderTables(tables, current, selectedTableID, selectedTableNumber, userID)
