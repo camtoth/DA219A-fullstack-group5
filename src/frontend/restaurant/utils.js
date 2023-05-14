@@ -4,7 +4,7 @@ async function logJSONData(APIendpoint) {
   //console.log(jsonData)
   return jsonData
 }
-  
+
 async function postData(APIendpoint, JSONdata) {
   const response = await fetch(`http://127.0.0.1:3000/${APIendpoint}`, {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -15,7 +15,7 @@ async function postData(APIendpoint, JSONdata) {
   })
   return response.json() // parses JSON response into native JavaScript objects
 }
-  
+
 async function putData(APIendpoint, JSONdata) {
   const response = await fetch(`http://127.0.0.1:3000/${APIendpoint}`, {
     method: 'PUT',
@@ -42,12 +42,12 @@ function addItem(id, itemName, newOrder) {
   //console.log(newOrder)
   return newOrder
 }
-  
+
 function removeAllItemsWithId(id, newOrder) {
   newOrder = newOrder.filter((item) => item.menuItemID !== id)
   return newOrder
 }
-  
+
 //remove item from current order through "close button" in current orders tab
 function removeItem(menuItemID, instanceID, newOrder){
   let itemToDelete
@@ -59,11 +59,11 @@ function removeItem(menuItemID, instanceID, newOrder){
   newOrder.splice(newOrder.indexOf(itemToDelete), 1)
   return newOrder
 }
-  
+
 function getNumberOfItemsWithSameId(menuItemID, newOrder) {
   return newOrder.filter((item) => item.menuItemID === menuItemID).length
 }
-  
+
 function addOrRemoveComment(menuItemID, instanceID, commentValue, newOrder) {
   const itemToComment = newOrder.find(
     (item) => item.menuItemID == menuItemID && item.instanceID == instanceID
