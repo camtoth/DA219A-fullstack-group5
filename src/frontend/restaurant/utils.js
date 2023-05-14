@@ -91,13 +91,13 @@ function addItemnamesToOccupation(current, menu){
   return current
 }
 
-function mapWaiterNamesToIDs(accounts){
-  let waiters = accounts
-    .filter(e => e.role == 'waiter')
+function mapNamesToIDs(accounts){
+  accounts = accounts
+    //.filter(e => e.role == 'waiter')
     .map(e => {
-      return { waiterID: e._id, firstName: e.firstName, lastName: e.lastName}
+      return {waiterID: e._id, firstName: e.firstName, lastName: e.lastName, role: e.role}
     })
-  return waiters
+  return accounts
 }
 
-export {logJSONData, postData, putData, addItem, removeAllItemsWithId, removeItem, getNumberOfItemsWithSameId, addOrRemoveComment, getUserID, addItemnamesToOccupation, mapWaiterNamesToIDs}
+export {logJSONData, postData, putData, addItem, removeAllItemsWithId, removeItem, getNumberOfItemsWithSameId, addOrRemoveComment, getUserID, addItemnamesToOccupation, mapNamesToIDs}

@@ -92,13 +92,13 @@ function renderMenuItems(htmlCategoryID, category, menu) {
   return htmlToRender
 }
   
-function renderPlacedOrder(current, selectedTableID, selectedTableNumber, userID, waiters) {
+function renderPlacedOrder(current, selectedTableID, selectedTableNumber, userID, accounts) {
   const selectedTable = current.find((e) => e.tableID == selectedTableID)
   const selectedTableOrders = selectedTable.orders
   selectedTableOrders.sort((a, b) =>
     a.menuItemID > b.menuItemID ? 1 : b.menuItemID > a.menuItemID ? -1 : 0
   )
-  const tableWaiter = waiters.find(e => e.waiterID == selectedTable.waiterID)
+  const tableWaiter = accounts.find(e => e.waiterID == selectedTable.waiterID)
   //console.log(selectedTableOrders)
   const htmlDiv = document.getElementById('js-placedorderscontainer')
   let htmlToRender = `<h6>Table ${selectedTableNumber}</h6>`
@@ -155,36 +155,44 @@ function renderCheckoutModal(orderToCheckout){
   let htmlToRender = ''
 
   if (orderToCheckout) {
+    htmlToRender += `<ul class="list-group list-group-flush">`
     const selectedTableOrders = orderToCheckout.orders
     selectedTableOrders.sort((a, b) => (a.menuItemID > b.menuItemID) ? 1 : ((b.menuItemID > a.menuItemID) ? -1 : 0))
     selectedTableOrders.forEach(item => {
       htmlToRender +=
-        `<li class="list-group-item">
-                <div class="row row-cols-auto align-items-center justify-content-between">
-                    <div class="col "><h6>${item.menuItemName}</h6>
-                    </div>
-                    <div class="col-md-6 align-items-center">
-                        ${item.comment}
-                    </div>
-                </div>
-            </li>
-            `
+        `
+        <li class="list-group-item">
+          <div class="row align-items-center justify-content-between">
+            <div class="col-md-6">
+              <h6>${item.menuItemName}</h6>
+            </div>
+            <div class="col-md-6 text-truncate">
+              ${item.comment}
+            </div>
+          </div>
+        </li>
+        `
     })
   } else {
     htmlToRender += 'No table selected'
   }
+  htmlToRender += `</ul>`
   htmlToRender +=
-    `<hr>
-    <div class = "justify-content-end">
-      <b>Total price:</b> ${orderToCheckout?.totalPrice}
-    </div>`
+    `
+    <hr>
+    <div>
+      <p>
+        <b>Total price:</b> ${orderToCheckout?.totalPrice}
+      </p>
+    </div>
+    `
   htmlDiv.innerHTML = htmlToRender
 }
 
-function renderUsername(waiters, userID){
+function renderUsername(accounts, userID){
   const htmlDiv = document.getElementById('js-navbar-user')
   let htmlToRender = ''
-  const name = waiters.find((e) => e.waiterID == userID).firstName
+  const name = accounts.find((e) => e.waiterID == userID).firstName
   htmlToRender += `Welcome, ${name}!`
   htmlDiv.innerHTML = htmlToRender
 }

@@ -34,7 +34,7 @@ router.get('/logout', function (req, res) {
 router.post('/login', loginUser)
 
 // Admin
-router.get('/admin', checkPermission, async function (req, res) {
+router.get('/admin/:id', checkPermission, async function (req, res) {
   res.sendFile(path.join(__dirname, '../../frontend/admin/admin.html'));
 });
 

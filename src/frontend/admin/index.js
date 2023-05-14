@@ -450,12 +450,20 @@ async function drawStatistics() {
         }]
     }
   }
-
   var statChart = new Chart(canvasElement, config)
-
 }
 
 drawStatistics()
+
+// Get admin id
+function getUserID(){
+  let url = window.location.href
+  let userID = url.split('/').at(-1)
+  console.log('userID:', userID)
+  return userID
+}
+
+document.getElementById("waiters-view-link").href = `../waiter/${getUserID()}`;
 
 
 
