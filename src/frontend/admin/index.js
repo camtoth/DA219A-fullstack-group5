@@ -11,28 +11,28 @@ let waiters = {};
 // [varname in model, description on html, variable type,key value]
 let dbVariables = {
   tables: [
-    ["number", "Table number", "number", true],
+    ["number", "Table number", "number", false],
     ["seats", "Max. seat capacity", "number", false],
   ],
 
   menuItems: [
-    ["name", "Dish", "text", true],
+    ["name", "Dish", "text", false],
     ["price", "Price", "number", false],
     ["category", "Category", categories, false],
   ],
   accounts: [
-    ["firstName", "First Name", "text", true],
-    ["lastName", "Last Name", "text", true],
-    ["username", "Username", "text", true],
+    ["firstName", "First Name", "text", false],
+    ["lastName", "Last Name", "text", false],
+    ["username", "Username", "text", false],
     ["password", "Password", "password", false],
     ["role", "Role", roles, false],
   ],
   occupations: [
-    ["tableID", "Table number", tableNrs, true],
-    ["waiterID", "Waiter username", waiters, true],
-    ["startTime", "Start time", "DATE", true],
-    ["checkOutTime", "Checkout time", "DATE", true],
-    ["totalPrice", "Total price", "number", true],
+    ["tableID", "Table number", tableNrs, false],
+    ["waiterID", "Waiter username", waiters, false],
+    ["startTime", "Start time", "DATE", false],
+    ["checkOutTime", "Checkout time", "DATE", false],
+    ["totalPrice", "Total price", "number", false],
   ],
 };
 //edit on or off
@@ -152,6 +152,7 @@ async function showRecords(modelName) {
         varType = "text";
       }
       //check if variable has a list selection
+      // MenuItems Cateofry select
       if (typeof varType === "object") {
         //list type
         html += `<td><select ${dbVar[j][3] || !editBool ? "disabled" : ""
@@ -166,11 +167,13 @@ async function showRecords(modelName) {
         html += `</select></td>`;
       } else {
         //normal type
+
         html += `<td><input ${dbVar[j][3] || !editBool ? "disabled" : ""
           }  type="${varType}" 
       id="${modelName}_${dbVar[j][0]}_${collection._id}" 
       value = "${value}"></input></td>`;
       }
+      // console.log(editBool, `${dbVar[j][3] || !editBool ? "disabled" : ""}`);
     }
 
     //add delete button
