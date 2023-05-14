@@ -164,12 +164,12 @@ background-color:white;
 }
 
 #tabs-current-order-tab{
-  background-color:   rgb(221, 131, 52);
+  background-color:  rgb(219, 158, 105);
   color: white;
 }
 
 #tabs-placed-order-tab{
-  background-color:  rgb(221, 131, 52);
+  background-color: rgb(219, 158, 105);
   color: white;
 }
 
@@ -275,9 +275,10 @@ a{
 }
 
 .btn-success{
- background-color: rgb(99, 99, 208);
+ background-color: rgb(85, 85, 209);
  border-color: white;
 }
+
 
 .btn-success:disabled{
   background-color: rgb(99, 99, 208) ;
@@ -286,4 +287,10 @@ a{
 
 .btn-success:hover{
   background-color: rgb(99, 99, 208);
+}
+
+.alert{
+  background-color:  rgb(224, 128, 43);
+  color: white;
+    font-family: 'EB Garamond', serif;
 }
