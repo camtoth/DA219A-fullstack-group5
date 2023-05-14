@@ -92,11 +92,11 @@ function addItemnamesToOccupation(current, menu){
 }
 
 function mapNamesToIDs(accounts){
-  /* accounts = accounts
-    .filter(e => e.role == 'waiter')
+  accounts = accounts
+    //.filter(e => e.role == 'waiter')
     .map(e => {
-      return { waiterID: e._id, firstName: e.firstName, lastName: e.lastName}
-    }) */
+      return {waiterID: e._id, firstName: e.firstName, lastName: e.lastName, role: e.role}
+    })
   return accounts
 }
 

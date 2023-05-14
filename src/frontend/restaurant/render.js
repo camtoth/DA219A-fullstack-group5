@@ -92,13 +92,13 @@ function renderMenuItems(htmlCategoryID, category, menu) {
   return htmlToRender
 }
   
-function renderPlacedOrder(current, selectedTableID, selectedTableNumber, userID, waiters) {
+function renderPlacedOrder(current, selectedTableID, selectedTableNumber, userID, accounts) {
   const selectedTable = current.find((e) => e.tableID == selectedTableID)
   const selectedTableOrders = selectedTable.orders
   selectedTableOrders.sort((a, b) =>
     a.menuItemID > b.menuItemID ? 1 : b.menuItemID > a.menuItemID ? -1 : 0
   )
-  const tableWaiter = waiters.find(e => e.waiterID == selectedTable.waiterID)
+  const tableWaiter = accounts.find(e => e.waiterID == selectedTable.waiterID)
   //console.log(selectedTableOrders)
   const htmlDiv = document.getElementById('js-placedorderscontainer')
   let htmlToRender = `<h6>Table ${selectedTableNumber}</h6>`
@@ -184,7 +184,7 @@ function renderCheckoutModal(orderToCheckout){
 function renderUsername(accounts, userID){
   const htmlDiv = document.getElementById('js-navbar-user')
   let htmlToRender = ''
-  const name = accounts.find((e) => e._id == userID).firstName
+  const name = accounts.find((e) => e.waiterID == userID).firstName
   htmlToRender += `Welcome, ${name}!`
   htmlDiv.innerHTML = htmlToRender
 }

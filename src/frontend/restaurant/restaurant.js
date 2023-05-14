@@ -8,7 +8,7 @@ let current = []
 let menu = []
 let categories = []
 let newOrder = []
-let waiters = []
+let accounts = []
 let selectedTableID
 let selectedTableNumber
 let userID
@@ -140,7 +140,7 @@ function initMenuListeners() {
       renderNewOrder(newOrder, selectedTableID, selectedTableNumber)
       initCommentListeners()
       if (table.currentTarget.dataset.occupied == 'true') {
-        renderPlacedOrder(current, selectedTableID, selectedTableNumber, userID, waiters)
+        renderPlacedOrder(current, selectedTableID, selectedTableNumber, userID, accounts)
         document.getElementById('checkout-modal-button').disabled = false
       } else {
         document.getElementById('checkout-modal-button').disabled = true
@@ -220,8 +220,8 @@ async function init() {
   tables = await logJSONData('api/tables')
   current = await logJSONData('api/occupations/current')
   menu = await logJSONData('api/menuItems')
-  let accounts = await logJSONData('api/accounts')
-  //accounts = mapNamesToIDs(accounts)
+  accounts = await logJSONData('api/accounts')
+  accounts = mapNamesToIDs(accounts)
   console.log(accounts)
   userID = getUserID()
   hideLoadingOverlay()
