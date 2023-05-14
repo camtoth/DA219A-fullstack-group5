@@ -69,7 +69,7 @@ function renderMenuCategories(categories, menu) {
 }
   
 function renderMenuItems(htmlCategoryID, category, menu) {
-  const htmlMenuDiv = document.getElementById(htmlCategoryID)
+  //const htmlMenuDiv = document.getElementById(htmlCategoryID)
   let htmlToRender = ''
   menu.forEach((item) => {
     if (item.category == category) {
@@ -102,7 +102,12 @@ function renderPlacedOrder(current, selectedTableID, selectedTableNumber, userID
   //console.log(selectedTableOrders)
   const htmlDiv = document.getElementById('js-placedorderscontainer')
   let htmlToRender = `<h6>Table ${selectedTableNumber}</h6>`
-  htmlToRender += `<h6>Waiter: ${tableWaiter.firstName}</h6>`
+  if (userID == tableWaiter.waiterID){
+    htmlToRender += `<h6>Waiter: ${tableWaiter.firstName}</h6>`
+  } else {
+    htmlToRender += `<h6><b>Waiter: ${tableWaiter.firstName}</b> ⚠ </h6>
+      `
+  }
   selectedTableOrders.forEach((item) => {
     htmlToRender += `<li class="list-group-item">
               <div class="row row-cols-auto align-items-center justify-content-between">
@@ -176,4 +181,12 @@ function renderCheckoutModal(orderToCheckout){
   htmlDiv.innerHTML = htmlToRender
 }
 
-export {renderTables, renderMenuCategories, renderPlacedOrder, renderNewOrder, renderCheckoutModal}
+function renderUsername(waiters, userID){
+  const htmlDiv = document.getElementById('js-navbar-user')
+  let htmlToRender = ''
+  const name = waiters.find((e) => e.waiterID == userID).firstName
+  htmlToRender += `Welcome, ${name}!`
+  htmlDiv.innerHTML = htmlToRender
+}
+
+export {renderTables, renderMenuCategories, renderPlacedOrder, renderNewOrder, renderCheckoutModal, renderUsername}
