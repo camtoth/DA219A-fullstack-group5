@@ -93,9 +93,12 @@
             <div class="accordion" id="js-menu-accordion">
             </div>
             <div class="row pt-2 justify-content-between">
-              <div class="d-grid gap-2 col-6 mx-auto"><button type="button" class="js-place-order-button btn btn-primary" id="place-order-button" disabled>Place order</button>
+              <div class="d-grid gap-2 col-6 mx-auto">
+                <button type="button" class="js-place-order-button btn btn-primary" id="place-order-button" disabled>Place order</button>
               </div>
-              <div class="d-grid gap-2 col-6 mx-auto"><button type="button" data-bs-toggle="modal" data-bs-target="#checkout-modal" class="js-checkout-modal-button btn btn-success" id="checkout-modal-button" disabled>Checkout</button>
+
+              <div class="d-grid gap-2 col-6 mx-auto">
+                <button type="button" data-bs-toggle="modal" data-bs-target="#checkout-modal" class="js-checkout-modal-button btn btn-success" id="checkout-modal-button" disabled>Checkout</button>
               </div>
             </div>
           </div>
@@ -115,7 +118,7 @@
           <div class="modal-body" id="js-checkout-modal">
           </div>
           <div class="modal-footer">
-          <button type="button" class="js-checkout-button btn btn-primary" data-bs-dismiss="modal">Checkout</button>
+          <button type="button" class="js-checkout-button btn btn-success" data-bs-dismiss="modal">Checkout</button>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
           </div>
       </div>
