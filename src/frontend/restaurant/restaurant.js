@@ -254,8 +254,8 @@ async function init() {
       })
     })
   }
-  console.log(current)
-  renderTables(tables, current, selectedTableID, selectedTableNumber)
+  console.log(current[0])
+  renderTables(tables, current, selectedTableID, selectedTableNumber, userID)
   renderMenuCategories(categories, menu)
   initButtonsListeners()
   initMenuListeners()

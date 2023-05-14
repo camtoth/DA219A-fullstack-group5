@@ -1,17 +1,28 @@
 // functions that render essential html elements
-function renderTables(tables, current, selectedTableID, selectedTableNumber) {
+function renderTables(tables, current, selectedTableID, selectedTableNumber, userID) {
   const htmlDiv = document.getElementById('js-tablescontainer')
   let htmlToRender = ''
   tables.forEach((table) => {
     if (
       !current?.error &&
-        current.some((element) => element.tableID == table._id)
+        current.some((e) => e.tableID == table._id)
     ) {
-      htmlToRender += `<div class="col mx-1 g-2 g-lg-3">
+      if (current.find((e) => e.tableID == table._id).waiterID == userID ) {
+        htmlToRender += `<div class="col mx-1 g-2 g-lg-3">
                   <div class="row justify-content-between">
-                      <div class="d-flex col-8 mx-auto justify-content-center"><button type="button" id=${table._id} data-tablenumber= ${table.number} data-occupied="true" class="js-table-button btn btn-primary">Table ${table.number}</button>
+                      <div class="d-flex col-8 mx-auto justify-content-center">
+                        <button type="button" id=${table._id} data-tablenumber= ${table.number} data-occupied="true" class="js-table-button btn btn-success">Table ${table.number}</button>
                       </div>
               </div></div></div>`
+      } else {
+        htmlToRender += `<div class="col mx-1 g-2 g-lg-3">
+                  <div class="row justify-content-between">
+                      <div class="d-flex col-8 mx-auto justify-content-center">
+                        <button type="button" id=${table._id} data-tablenumber= ${table.number} data-occupied="true" class="js-table-button btn btn-primary">Table ${table.number}</button>
+                      </div>
+              </div></div></div>`
+      }
+      
     } else {
       htmlToRender += `<div class="col mx-1 g-2 g-lg-3">
                   <div class="row justify-content-between">
