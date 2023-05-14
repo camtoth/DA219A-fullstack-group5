@@ -15,7 +15,7 @@
  }
 
  .allTables {
-   margin: 0px 70px 0px 70px;
+   margin: 0 10% 0 10%;
 
  }
 
@@ -99,10 +99,8 @@ color: rgb(239, 183, 133);
    border: 9px;
 }
 
-
-
  #editMode {
-   size: 10px;
+  size: 10px;
   background-color: rgb(219, 144, 78);
   color: white;
   font-weight: 500;
@@ -110,7 +108,6 @@ color: rgb(239, 183, 133);
   transition-property: border-left, border-right, box-shadow;
   font-family: serif;
   font-size: 17px;
-  margin-top: 10px;
  }
 
  #editMode:hover{
