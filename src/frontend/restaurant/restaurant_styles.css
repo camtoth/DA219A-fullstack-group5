@@ -258,11 +258,15 @@ a:link, a:visited {
   border-color: white;
 }
 
-
+.nav-link:hover{
+  color: white;
+    border-left: solid 5px rgb(219, 144, 78);
+  border-right: solid 5px rgb(219, 144, 78);
+}
 
 a:hover{
-    border-left: solid 8px rgb(219, 144, 78);
-  border-right: solid 8px rgb(219, 144, 78);
+   
+  color: white;
 }
 
 a{
