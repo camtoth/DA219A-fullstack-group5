@@ -316,6 +316,12 @@ function updateRecord(modelName, idnr) {
 
   //post to database
   sendRequest(`../api/${modelName}/${idnr}`, "PUT", jsonText);
+
+  if (editBool) {
+    editBool = false;
+  } else {
+    editBool = true;
+  }
 }
 
 //send http request
