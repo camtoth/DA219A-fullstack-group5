@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+ @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=EB+Garamond:ital,wght@0,600;1,400;1,600;1,700&family=Mulish:wght@500&family=Nunito+Sans:wght@500&family=Poppins:wght@300;500&family=Source+Sans+Pro:wght@400;600&display=swap');
 
 body {
   width: 100vw;
@@ -31,7 +31,7 @@ input{
    font-family: 'EB Garamond', serif;
   }
 
-  #navbarNavAltMarkup{
+ /* #navbarNavAltMarkup{
 color: rgb(254, 252, 252);
 margin-top: 30px;
 background-attachment: fixed;
@@ -43,9 +43,7 @@ font-size: 19px;
 width: 1509px;
 padding-left: 550px;
 background-color:white;
-
-
-}
+}*/
 
 .nav-link{
   color: #000000;
@@ -159,4 +157,92 @@ background-color:white;
   justify-content: center;
   align-items: center;
   transition: all 0.2s;
+}
+
+#tabs-current-order-tab{
+  color: white;
+}
+
+#tabs-placed-order-tab{
+  color: white;
+}
+
+/*.js-place-order-button{
+    transition: 0.55s;
+    transition-property: border-left, border-right, box-shadow;
+}
+
+
+.js-place-order-button:hover{
+  border-left: solid 8px rgb(219, 144, 78);
+  border-right: solid 8px rgb(219, 144, 78);
+}*/
+
+/*.js-checkout-modal-button{
+   transition: 0.55s;
+    transition-property: border-left, border-right, box-shadow;
+}
+
+.js-checkout-modal-button:hover{
+    border-left: solid 8px rgb(219, 144, 78);
+  border-right: solid 8px rgb(219, 144, 78);
+}*/
+
+.d-grid{
+     transition: 0.55s;
+    transition-property: border-left, border-right, box-shadow;
+}
+
+
+.d-grid:hover{
+       border-left: solid 8px rgb(219, 144, 78);
+  border-right: solid 8px rgb(219, 144, 78);
+}
+
+ .footer {
+   position:sticky, absolute;
+   left: 0;
+   height: 70%;
+   width: 100%;
+   background-color:rgb(219, 144, 78);
+   color: white;
+   text-align: center;
+   padding-top: 12px;
+  font-family: 'Dancing Script', cursive;
+  height: max-content;
+  padding-bottom: 12px;
+  
+}
+p {
+  margin-top: 0;
+  margin-bottom: 0rem;
+  font-size: 24px;
+}
+
+a:link, a:visited {
+  background-color: rgb(219, 144, 78);
+  color: white;
+  padding: 8px 14px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 17px;
+  margin-top: 10px;
+  margin-left: 10px;
+  border-radius: 9px;
+  font-weight: 500;
+  transition: 0.5s;
+  transition-property: border-left, border-right, box-shadow;
+   font-family: 'EB Garamond', serif;
+}
+
+
+
+a:hover{
+    border-left: solid 8px rgb(219, 144, 78);
+  border-right: solid 8px rgb(219, 144, 78);
+}
+
+a{
+  color: black;
 }
