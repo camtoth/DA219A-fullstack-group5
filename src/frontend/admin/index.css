@@ -194,45 +194,28 @@ img, svg {
 
 }
 
-#navbar-item{
-  color: white;
+.nav-item{
+
 font-weight: 500;
   padding: 0;
     transition: 0.5s;
     transition-property: all;
+    color: white;
    
 
 }
 
-#navbar-itemhover{
+.nav-item:hover{
   background-color: rgb(234, 167, 109);
 }
 
 .navbar{
   padding-top: 0px;
-  color: white;
-  align-items: center;
+ 
   
 }
 
 .bg-light {
     --bs-bg-opacity: 0; 
      background-color: rgba(var(--bs-light-rgb),var(--bs-bg-opacity));
-}
-
-.nav-link{
-color: white;
-padding-left: 20px;
-}
-
-.navbar-collaps{
-  color: white;
-}
-
-.navbar-nav{
-  color: white;
-}
-
-.dropdown-menu{
-  color: white;
 }
