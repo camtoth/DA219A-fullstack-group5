@@ -26,6 +26,15 @@ router.get('/login', checkLogin, function (req, res) {
   res.sendFile(path.join(__dirname, '../../frontend/login/login.html'));
 });
 
+router.get('/logout', function (req, res) {
+  try {
+    res.clearCookie('jwt')
+    res.redirect('/login')
+  } catch (error) {
+    res.status(500).send(error)    
+  }
+});
+
 //post login input
 router.post('/login', loginUser)
 
