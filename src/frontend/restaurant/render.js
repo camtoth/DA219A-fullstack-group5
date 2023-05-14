@@ -7,18 +7,19 @@ function renderTables(tables, current, selectedTableID, selectedTableNumber, use
       !current?.error &&
         current.some((e) => e.tableID == table._id)
     ) {
-      if (current.find((e) => e.tableID == table._id).waiterID == userID ) {
+      const currentWaiterID = current.find((e) => e.tableID == table._id).waiterID
+      if (currentWaiterID == userID) {
         htmlToRender += `<div class="col mx-1 g-2 g-lg-3">
                   <div class="row justify-content-between">
                       <div class="d-flex col-8 mx-auto justify-content-center">
-                        <button type="button" id=${table._id} data-tablenumber= ${table.number} data-occupied="true" class="js-table-button btn btn-success">Table ${table.number}</button>
+                        <button type="button" id=${table._id} data-tablenumber= ${table.number} data-occupied="true" data-waiterID=${currentWaiterID} class="js-table-button btn btn-success">Table ${table.number}</button>
                       </div>
               </div></div></div>`
       } else {
         htmlToRender += `<div class="col mx-1 g-2 g-lg-3">
                   <div class="row justify-content-between">
                       <div class="d-flex col-8 mx-auto justify-content-center">
-                        <button type="button" id=${table._id} data-tablenumber= ${table.number} data-occupied="true" class="js-table-button btn btn-primary">Table ${table.number}</button>
+                        <button type="button" id=${table._id} data-tablenumber= ${table.number} data-occupied="true" data-waiterID=${currentWaiterID} class="js-table-button btn btn-primary">Table ${table.number}</button>
                       </div>
               </div></div></div>`
       }
@@ -26,7 +27,7 @@ function renderTables(tables, current, selectedTableID, selectedTableNumber, use
     } else {
       htmlToRender += `<div class="col mx-1 g-2 g-lg-3">
                   <div class="row justify-content-between">
-                      <div class="d-flex col-8 mx-auto justify-content-center"><button type="button" id=${table._id} data-tablenumber= ${table.number} data-occupied="false" class="js-table-button btn btn-secondary">Table ${table.number}</button>
+                      <div class="d-flex col-8 mx-auto justify-content-center"><button type="button" id=${table._id} data-waiterID="NONE" data-tablenumber= ${table.number} data-occupied="false" class="js-table-button btn btn-secondary">Table ${table.number}</button>
                       </div>
               </div></div></div>`
     }
@@ -91,16 +92,17 @@ function renderMenuItems(htmlCategoryID, category, menu) {
   return htmlToRender
 }
   
-function renderPlacedOrder(current, selectedTableID, selectedTableNumber) {
-  const selectedTableOrders = current.find(
-    (e) => e.tableID == selectedTableID
-  ).orders
+function renderPlacedOrder(current, selectedTableID, selectedTableNumber, userID, waiters) {
+  const selectedTable = current.find((e) => e.tableID == selectedTableID)
+  const selectedTableOrders = selectedTable.orders
   selectedTableOrders.sort((a, b) =>
     a.menuItemID > b.menuItemID ? 1 : b.menuItemID > a.menuItemID ? -1 : 0
   )
+  const tableWaiter = waiters.find(e => e.waiterID == selectedTable.waiterID)
   //console.log(selectedTableOrders)
   const htmlDiv = document.getElementById('js-placedorderscontainer')
   let htmlToRender = `<h6>Table ${selectedTableNumber}</h6>`
+  htmlToRender += `<h6>Waiter: ${tableWaiter.firstName}</h6>`
   selectedTableOrders.forEach((item) => {
     htmlToRender += `<li class="list-group-item">
               <div class="row row-cols-auto align-items-center justify-content-between">

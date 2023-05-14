@@ -71,4 +71,33 @@ function addOrRemoveComment(menuItemID, instanceID, commentValue, newOrder) {
   itemToComment.comment = commentValue
 }
 
-export {logJSONData, postData, putData, addItem, removeAllItemsWithId, removeItem, getNumberOfItemsWithSameId, addOrRemoveComment}
+function getUserID(){
+  let url = window.location.href
+  let userID = url.split('/').at(-1)
+  console.log('userID:', userID)
+  return userID
+}
+
+//occupations don't contain menu item names, only ID's
+function addItemnamesToOccupation(current, menu){
+  if (!current?.error) {
+    current.forEach((occupation) => {
+      occupation.orders.forEach((item) => {
+        const menuItemName = menu.find((e) => e._id == item.menuItemID).name
+        item.menuItemName = menuItemName
+      })
+    })
+  }
+  return current
+}
+
+function mapWaiterNamesToIDs(accounts){
+  let waiters = accounts
+    .filter(e => e.role == 'waiter')
+    .map(e => {
+      return { waiterID: e._id, firstName: e.firstName, lastName: e.lastName}
+    })
+  return waiters
+}
+
+export {logJSONData, postData, putData, addItem, removeAllItemsWithId, removeItem, getNumberOfItemsWithSameId, addOrRemoveComment, getUserID, addItemnamesToOccupation, mapWaiterNamesToIDs}

@@ -1,5 +1,5 @@
 import {renderTables, renderMenuCategories, renderPlacedOrder, renderNewOrder} from './render.js'
-import {logJSONData, postData, putData, addItem, removeAllItemsWithId, removeItem, getNumberOfItemsWithSameId, addOrRemoveComment} from './utils.js'
+import {logJSONData, postData, putData, addItem, removeAllItemsWithId, removeItem, getNumberOfItemsWithSameId, addOrRemoveComment, getUserID, addItemnamesToOccupation, mapWaiterNamesToIDs} from './utils.js'
 
 
 //global variables
@@ -8,6 +8,7 @@ let current = []
 let menu = []
 let categories = []
 let newOrder = []
+let waiters = []
 let selectedTableID
 let selectedTableNumber
 let userID
@@ -161,7 +162,7 @@ function initMenuListeners() {
       renderNewOrder(newOrder, selectedTableID, selectedTableNumber)
       initCommentListeners()
       if (table.currentTarget.dataset.occupied == 'true') {
-        renderPlacedOrder(current, selectedTableID, selectedTableNumber)
+        renderPlacedOrder(current, selectedTableID, selectedTableNumber, userID, waiters)
       } else {
         const htmlDiv = document.getElementById('js-placedorderscontainer')
         let htmlToRender = `
@@ -239,21 +240,12 @@ async function init() {
   hideLoadingOverlay()
   tables = await logJSONData('api/tables')
   current = await logJSONData('api/occupations/current')
-  menu = await logJSONData('api/menuItems/')
-
-  //GET USERID
-  let url = window.location.href
-  userID = url.split('/').at(-1)
-  console.log('userID:', userID)
-
-  if (!current?.error) {
-    current.forEach((occupation) => {
-      occupation.orders.forEach((item) => {
-        const menuItemName = menu.find((e) => e._id == item.menuItemID).name
-        item.menuItemName = menuItemName
-      })
-    })
-  }
+  menu = await logJSONData('api/menuItems')
+  let accounts = await logJSONData('api/accounts')
+  waiters = mapWaiterNamesToIDs(accounts)
+  console.log(waiters)
+  userID = getUserID()
+  current = addItemnamesToOccupation(current, menu)
   console.log(current[0])
   renderTables(tables, current, selectedTableID, selectedTableNumber, userID)
   renderMenuCategories(categories, menu)
