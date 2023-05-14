@@ -164,12 +164,12 @@ background-color:white;
 }
 
 #tabs-current-order-tab{
-  background-color: rgb(219, 144, 78);
+  background-color:  rgb(219, 158, 105);
   color: white;
 }
 
 #tabs-placed-order-tab{
-  background-color: rgb(219, 144, 78);
+  background-color: rgb(219, 158, 105);
   color: white;
 }
 
@@ -243,6 +243,16 @@ a:link, a:visited {
 }
 
 
+.btn-primary{
+  background-color: rgb(204, 72, 49);
+  color: white;
+
+}
+.btn-primary:hover{
+  background-color: rgb(204, 72, 49);
+}
+
+
 
 a:hover{
     border-left: solid 8px rgb(219, 144, 78);
@@ -256,4 +266,8 @@ a{
   background-color: lightgray;
   opacity: 0.8;
   transition: all 0.2s;
+}
+
+.btn-success{
+ 
 }
