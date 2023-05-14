@@ -136,7 +136,7 @@ color: rgb(239, 183, 133);
   margin-right: 50px;
   margin-bottom: 23px;
   margin-top: 10px;
-  padding: 65px 40px 10px 40px;
+  padding: 55px 30px 10px 30px;
   
 }
 
@@ -191,12 +191,10 @@ img, svg {
 
 .container-fluid{
    background-color:rgb(219, 144, 78);
-   margin-top: 0px;
-   padding-top: 10px;
-   padding-bottom: 10px;
+
 }
 
-#navbar-top{
+#navbar-item{
   color: white;
 font-weight: 500;
   padding: 0;
@@ -206,15 +204,35 @@ font-weight: 500;
 
 }
 
-#navbar-top:hover{
+#navbar-itemhover{
   background-color: rgb(234, 167, 109);
 }
 
 .navbar{
   padding-top: 0px;
+  color: white;
+  align-items: center;
+  
 }
 
 .bg-light {
     --bs-bg-opacity: 0; 
      background-color: rgba(var(--bs-light-rgb),var(--bs-bg-opacity));
+}
+
+.nav-link{
+color: white;
+padding-left: 20px;
+}
+
+.navbar-collaps{
+  color: white;
+}
+
+.navbar-nav{
+  color: white;
+}
+
+.dropdown-menu{
+  color: white;
 }
