@@ -136,8 +136,8 @@ a:link, a:visited {
 
 
 a:hover{
-    border-left: solid 8px rgb(219, 144, 78);
-  border-right: solid 8px rgb(219, 144, 78);
+  border-left: solid 6px rgb(219, 144, 78);
+  border-right: solid 6px rgb(219, 144, 78);
 }
 
 a{
