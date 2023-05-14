@@ -1,4 +1,4 @@
-import {renderTables, renderMenuCategories, renderPlacedOrder, renderNewOrder, renderCheckoutModal} from './render.js'
+import {renderTables, renderMenuCategories, renderPlacedOrder, renderNewOrder, renderCheckoutModal, renderUsername} from './render.js'
 import {logJSONData, postData, putData, addItem, removeAllItemsWithId, removeItem, getNumberOfItemsWithSameId, addOrRemoveComment, getUserID, addItemnamesToOccupation, mapWaiterNamesToIDs} from './utils.js'
 
 
@@ -84,13 +84,13 @@ async function showCheckoutModal() {
 
 function hideLoadingOverlay() {
   const htmlDiv = document.querySelector('.loading-overlay')
-  window.addEventListener('load', () => {
+  //window.addEventListener('load', () => {
+  //  htmlDiv.style.opacity = '0'
+  setTimeout(() => {
     htmlDiv.style.opacity = '0'
-
-    setTimeout(() => {
-      htmlDiv.style.display = 'none'
-    }, 200)
-  })
+    htmlDiv.style.display = 'none'
+  }, 200)
+  //})
 }
 
 function showLoadingOverlay() {
@@ -217,7 +217,6 @@ function initCommentListeners() {
 
 // init
 async function init() {
-  hideLoadingOverlay()
   tables = await logJSONData('api/tables')
   current = await logJSONData('api/occupations/current')
   menu = await logJSONData('api/menuItems')
@@ -225,6 +224,8 @@ async function init() {
   waiters = mapWaiterNamesToIDs(accounts)
   console.log(waiters)
   userID = getUserID()
+  hideLoadingOverlay()
+  renderUsername(waiters, userID)
   current = addItemnamesToOccupation(current, menu)
   console.log(current[0])
   renderTables(tables, current, selectedTableID, selectedTableNumber, userID)

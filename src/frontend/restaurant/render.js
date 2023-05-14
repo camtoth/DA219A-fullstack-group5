@@ -69,7 +69,7 @@ function renderMenuCategories(categories, menu) {
 }
   
 function renderMenuItems(htmlCategoryID, category, menu) {
-  const htmlMenuDiv = document.getElementById(htmlCategoryID)
+  //const htmlMenuDiv = document.getElementById(htmlCategoryID)
   let htmlToRender = ''
   menu.forEach((item) => {
     if (item.category == category) {
@@ -176,4 +176,12 @@ function renderCheckoutModal(orderToCheckout){
   htmlDiv.innerHTML = htmlToRender
 }
 
-export {renderTables, renderMenuCategories, renderPlacedOrder, renderNewOrder, renderCheckoutModal}
+function renderUsername(waiters, userID){
+  const htmlDiv = document.getElementById('js-navbar-user')
+  let htmlToRender = ''
+  const name = waiters.find((e) => e.waiterID == userID).firstName
+  htmlToRender += `Welcome, ${name}!`
+  htmlDiv.innerHTML = htmlToRender
+}
+
+export {renderTables, renderMenuCategories, renderPlacedOrder, renderNewOrder, renderCheckoutModal, renderUsername}
