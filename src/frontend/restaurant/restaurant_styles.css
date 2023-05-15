@@ -4,6 +4,7 @@ body {
   width: 100vw;
   scrollbar-gutter: stable both-edges;
   overflow: auto;
+  font-family: serif;
 }
 
 input{
@@ -28,39 +29,22 @@ input{
     padding-bottom: 0px;
     padding-left: 40px;
     padding-right: 40px;
+ 
   }
 
- /* #navbarNavAltMarkup{
-color: rgb(254, 252, 252);
-margin-top: 30px;
-background-attachment: fixed;
-  font-family: serif;
-word-spacing: 60px;
-padding-top: 10px;
-padding-bottom: 0px;
-font-size: 19px;
-width: 1509px;
-padding-left: 550px;#pb{
- background-color: white;
- color: black;
- border-color: black;
- font-size: 19px;
-   margin-top: 10px;
-}
-background-color:white;
-}*/
 
 .nav-link{
   color: #000000;
-     font: 20px Georgia, "Times New Roman", Times, serif;
-     text-align: right;
+  font: 20px Georgia, "Times New Roman", Times, serif;
+  text-align: right;
   border: #000000;
+  transition: 0.1s;
 }
 
 .nav-link:hover{
-  color: grey;
-     font: 20px Georgia, "Times New Roman", Times, serif;
-     text-align: right;
+  color: white;
+  font: Georgia, "Times New Roman", Times, serif;
+  text-align: right;
   
 }
 
@@ -69,28 +53,6 @@ background-color:white;
  
 }
 
-#pb{
- background-color: white;
- color: black;
- font-size: 19px;
-   margin-top: 10px;
-}
-
-#pb:hover{
-  background-color: rgb(175, 174, 174);
-}
-
-#checkB{
-  margin-top: 10px;
- background-color: white;
- color: black;
- border-color: black;
- font-size: 19px;
-}
-
-#checkB:hover{
-    background-color: rgb(175, 174, 174);
-}
 
 #tabs-placed-order-tab{
   color:white;
@@ -121,30 +83,7 @@ background-color:white;
   color: black;
 }
 
-#nav-list{
-    display: rgb(146, 146, 146);
-    float: left;
-    background:rgb(146, 146, 146);
-    position: fixed;
-}
-#nav-list a {
-    display: block;
-    float: left;
-    margin-right: 17px;
-    padding: 5px 8px;
-    text-decoration: none;
-    font: 20px Georgia, "Times New Roman", Times, serif;
-    color: #FFFFFF;
-}
-#nav-list a:hover {
-    text-decoration: underline;
-    background: #FFA500;
-    color: #FFFFFF;
-}
-#nav-list a:active {
-    background: #FFA500;
-    color:black;
-}
+
 
 .loading-overlay {
   position: fixed;
@@ -173,37 +112,6 @@ background-color:white;
   color: white;
 }
 
-/*.js-place-order-button{
-    transition: 0.55s;
-    transition-property: border-left, border-right, box-shadow;
-}
-
-
-.js-place-order-button:hover{
-  border-left: solid 8px rgb(219, 144, 78);
-  border-right: solid 8px rgb(219, 144, 78);
-}*/
-
-/*.js-checkout-modal-button{
-   transition: 0.55s;
-    transition-property: border-left, border-right, box-shadow;
-}
-
-.js-checkout-modal-button:hover{
-    border-left: solid 8px rgb(219, 144, 78);
-  border-right: solid 8px rgb(219, 144, 78);
-}*/
-
-.d-grid{
-     transition: 0.55s;
-    transition-property: border-left, border-right, box-shadow;
-}
-
-
-.d-grid:hover{
-       border-left: solid 8px rgb(219, 144, 78);
-  border-right: solid 8px rgb(219, 144, 78);
-}
 
  .footer {
    position:sticky, absolute;
@@ -228,19 +136,23 @@ p {
 a:link, a:visited {
   background-color: rgb(219, 144, 78);
   color: white;
-  padding: 8px 14px;
+  padding: 8px 16px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 17px;
   margin-top: 10px;
-  margin-left: 10px;
   border-radius: 9px;
   font-weight: 500;
-  transition: 0.5s;
-  transition-property: border-left, border-right, box-shadow;
-   font-family: 'EB Garamond', serif;
+  transition:0.2s;
+  transition-property: all;
+  margin-right: 10px;
 }
+
+a:hover{
+  background-color:rgb(220, 154, 97) ;
+}
+
 
 
 .btn-primary{
@@ -251,27 +163,16 @@ a:link, a:visited {
 }
 .btn-primary:hover{
   background-color:  rgb(221, 131, 52);
+   border-color: white;
 }
 
 .btn-primary:disabled{
   background-color:  rgb(221, 131, 52);
   border-color: white;
+  transition: none;
 }
 
-.nav-link:hover{
-  color: white;
-    border-left: solid 5px rgb(219, 144, 78);
-  border-right: solid 5px rgb(219, 144, 78);
-}
 
-a:hover{
-   
-  color: white;
-}
-
-a{
-  color: black;
-}
 .accordion-button:disabled {
   background-color: lightgray;
   opacity: 0.8;
@@ -285,16 +186,17 @@ a{
 
 
 .btn-success:disabled{
-  background-color: rgb(99, 99, 208) ;
+  background-color: rgb(85, 85, 209) ;
   border-color: white;
 }
 
 .btn-success:hover{
-  background-color: rgb(99, 99, 208);
+  background-color: rgb(85, 85, 209);
+   border-color: white;
 }
 
 .alert{
   background-color:  rgb(224, 128, 43);
   color: white;
-    font-family: 'EB Garamond', serif;
+ 
 }
