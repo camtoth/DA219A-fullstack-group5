@@ -163,15 +163,16 @@ a:hover{
   border-color: white;
 }
 
-.btn-success:active{
+.btn-primary:active:focus{
+   background-color: rgb(18, 18, 139);
+  border-color: white;
+}
+
+.btn-success:active:focus{
     background-color: rgb(18, 18, 139);
      border-color: white;
 }
 
-.btn-primary:active{
-    background-color: rgb(18, 18, 139);
-     border-color: white;
-}
 
 .btn-primary:disabled{
    background-color: rgb(18, 18, 139);
@@ -188,8 +189,8 @@ a:hover{
    border-color: white;
 }
 
-.btn-success::hover{
-   background-color: rgb(85, 85, 209);
+.btn-success:active:focus{
+   background-color: rgb(11, 88, 205);
    border-color: white;
 }
 
