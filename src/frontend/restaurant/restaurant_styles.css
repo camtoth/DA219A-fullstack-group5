@@ -103,12 +103,12 @@ input{
 }
 
 #tabs-current-order-tab{
-  background-color:  rgb(219, 158, 105);
+  background-color:  rgb(224, 144, 43);
   color: white;
 }
 
 #tabs-placed-order-tab{
-  background-color: rgb(219, 158, 105);
+  background-color: rgb(224, 144, 43);
   color: white;
 }
 
@@ -118,7 +118,7 @@ input{
    left: 0;
    height: 70%;
    width: 100%;
-   background-color:rgb(219, 144, 78);
+   background-color:rgb(224, 144, 78);
    color: white;
    text-align: center;
    padding-top: 12px;
@@ -153,45 +153,49 @@ a:hover{
   background-color:rgb(220, 154, 97) ;
 }
 
-
-
-.btn-primary{
-  background-color:  rgb(224, 128, 43);
-  color: white;
-  border-color: white;
-
-}
-.btn-primary:hover{
-  background-color:  rgb(221, 131, 52);
-   border-color: white;
-}
-
-.btn-primary:disabled{
-  background-color:  rgb(221, 131, 52);
-  border-color: white;
-  transition: none;
-}
-
-
 .accordion-button:disabled {
   background-color: lightgray;
   opacity: 0.8;
   transition: all 0.2s;
 }
 
-.btn-success{
- background-color: rgb(85, 85, 209);
- border-color: white;
-}
-
-
-.btn-success:disabled{
-  background-color: rgb(85, 85, 209) ;
+.btn-primary{
+  background-color: rgb(18, 18, 139);
   border-color: white;
 }
 
+.btn-primary:hover{
+  background-color: rgb(18, 18, 139);
+  border-color: white;
+}
+
+.btn-primary:active{
+    background-color: rgb(27, 27, 201);
+     border-color: white;
+}
+
+.btn-primary:disabled{
+   background-color: rgb(18, 18, 139);
+   border-color: white;
+}
+
+.btn-success{
+ background-color: rgb(11, 88, 205);
+ border-color: white;
+}
+
 .btn-success:hover{
-  background-color: rgb(85, 85, 209);
+  background-color: rgb(11, 88, 205);
+   border-color: white;
+}
+
+.btn-success::hover{
+   background-color: rgb(85, 85, 209);
+   border-color: white;
+}
+
+.btn-success:disabled{
+     background-color: rgb(11, 88, 205);
    border-color: white;
 }
 
