@@ -1,4 +1,4 @@
- @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=EB+Garamond:ital,wght@0,600;1,400;1,600;1,700&family=Mulish:wght@500&family=Nunito+Sans:wght@500&family=Poppins:wght@300;500&family=Source+Sans+Pro:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=EB+Garamond:ital,wght@0,600;1,400;1,600;1,700&family=Mulish:wght@500&family=Nunito+Sans:wght@500&family=Poppins:wght@300;500&family=Source+Sans+Pro:wght@400;600&display=swap');
 
 body {
   width: 100vw;
@@ -10,80 +10,20 @@ body {
 input{
     &::-webkit-inner-spin-button{
       opacity:1;
-    } 
-  }
-
-#bkImg{
- background-color: white;
-  background-size: contain
-  
+  } 
 }
 
-
-
-  .flex-container{
-    margin-left: 40px;
-    margin-right: 40px;
-    margin-top: 50px;
-    padding-top: 30px;
-    padding-bottom: 0px;
-    padding-left: 40px;
-    padding-right: 40px;
- 
-  }
-
-
-.nav-link{
-  color: #000000;
-  font: 20px Georgia, "Times New Roman", Times, serif;
-  text-align: right;
-  border: #000000;
-  transition: 0.1s;
+:root {
+  --system-ui: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --button-primary-active: rgb(235, 134, 46);
+  --button-primary-inactive: rgb(224, 144, 78);
+  --button-success-active: rgb(80, 60, 144);
+  --button-success-inactive: rgb(98, 84, 144);
 }
 
-.nav-link:hover{
-  color: white;
-  font: Georgia, "Times New Roman", Times, serif;
-  text-align: right;
-  
+.emoji {
+  font-family: var(--system-ui);
 }
-
-#js-menu-accordion{
-  font-weight: 600;
- 
-}
-
-
-#tabs-placed-order-tab{
-  color:white;
-    font-weight:500;
-    font-size: 19px;
-}
-
-#tabs-placed-order-tab{
-  color: black;
-
-
-
-}
-
-#tabs-current-order-tab{
-   color:white;
-     font-weight:500; 
-       font-size: 19px;
-}
-
-#tabs-current-order-tab{
-  color: black;
-}
-
-
-
-#tabs-tabContent{
-  color: black;
-}
-
-
 
 .loading-overlay {
   position: fixed;
@@ -102,6 +42,36 @@ input{
   transition: all 0.2s;
 }
 
+.nav-link{
+  color: #000000;
+  font: 20px Georgia, "Times New Roman", Times, serif;
+  text-align: right;
+  border: #000000;
+  transition: 0.1s;
+}
+
+.nav-link:hover{
+  color: white;
+  font: Georgia, "Times New Roman", Times, serif;
+  text-align: right;
+}
+
+#js-menu-accordion{
+  font-weight: 600;
+}
+
+#tabs-placed-order-tab{
+  color:white;
+    font-weight:500;
+    font-size: 19px;
+}
+
+#tabs-current-order-tab{
+   color:white;
+     font-weight:500; 
+       font-size: 19px;
+}
+
 #tabs-current-order-tab{
   background-color:  rgb(224, 144, 43);
   color: white;
@@ -112,21 +82,20 @@ input{
   color: white;
 }
 
-
- .footer {
-   position:sticky, absolute;
-   left: 0;
-   height: 70%;
-   width: 100vw;
-   background-color:rgb(224, 144, 78);
-   color: white;
-   text-align: center;
-   padding-top: 12px;
+.footer {
+  position:sticky, absolute;
+  left: 0;
+  height: 70%;
+  width: 100vw;
+  background-color:rgb(224, 144, 78);
+  color: white;
+  text-align: center;
+  padding-top: 12px;
   font-family: 'Dancing Script', cursive;
   height: max-content;
   padding-bottom: 12px;
-  
 }
+
 p {
   margin-top: 0;
   margin-bottom: 0rem;
@@ -149,72 +118,51 @@ a:link, a:visited {
   margin-right: 10px;
 }
 
-a:hover{
-  background-color:rgb(220, 154, 97) ;
-}
-
-.btn-primary{
-  background-color: rgb(18, 18, 139);
-  border-color: white;
-}
-
-.btn-primary:hover{
-  background-color: rgb(18, 18, 139);
-  border-color: white;
-}
-
-.btn-primary:active:focus{
-   background-color: rgb(18, 18, 139);
-  border-color: white;
-}
-
-.btn-success:active:focus{
-    background-color: rgb(18, 18, 139);
-     border-color: white;
-}
-
-
-.btn-primary:disabled{
-   background-color: rgb(18, 18, 139);
-   border-color: white;
-}
-
-.btn-success{
- background-color: rgb(11, 88, 205);
- border-color: white;
-}
-
-.btn-success:hover{
-  background-color: rgb(11, 88, 205);
-   border-color: white;
-}
-
-.btn-success:active:focus{
-   background-color: rgb(11, 88, 205);
-   border-color: white;
-}
-
-.btn-success:disabled{
-     background-color: rgb(11, 88, 205);
-   border-color: white;
-}
-
 .alert{
-  background-color:  rgb(224, 128, 43);
+  background-color:  rgb(220, 154, 97);
   color: white;
- 
 }
 
 .accordion-button:disabled {
-  background-color: lightgray;
+  background-color:lightgray;
   opacity: 0.8;
   transition: all 0.2s;
 }
 
-:root {
-  --system-ui: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+.btn.btn-success {
+  color: #fff;
+  background-color: var(--button-success-inactive);
+  border-color: var(--button-success-inactive);
 }
 
-.emoji {
-  font-family: var(--system-ui);
+.btn.btn-success.active.focus,
+.btn.btn-success.active:focus,
+.btn.btn-success.active:hover,
+.btn.btn-success:active.focus,
+.btn.btn-success:active:focus,
+.btn.btn-success:active:hover {
+  color: #fff;
+  background-color: var(--button-success-active);
+  border-color: var(--button-success-active);
+  outline: none;
+  box-shadow: none;
+}
+
+.btn.btn-primary {
+  color: #fff;
+  background-color: var(--button-primary-inactive);
+  border-color: var(--button-primary-inactive);
+}
+
+.btn.btn-primary.active.focus,
+.btn.btn-primary.active:focus,
+.btn.btn-primary.active:hover,
+.btn.btn-primary:active.focus,
+.btn.btn-primary:active:focus,
+.btn.btn-primary:active:hover {
+  color: #fff;
+  background-color: var(--button-primary-active);
+  border-color: var(--button-primary-active);
+  outline: none;
+  box-shadow: none;
 }
