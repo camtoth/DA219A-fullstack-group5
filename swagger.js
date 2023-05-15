@@ -12,7 +12,11 @@ const doc = {
   schemes: ['http'],
 }
 
-swaggerAutogen(outputFile, endpointsFiles, doc)
+const options = {
+  openapi: '3.0.3'
+}
+
+swaggerAutogen(outputFile, endpointsFiles, doc, options)
 
 /* NOTE: if you use the express Router, you must pass in the 
    'endpointsFiles' only the root file where the route starts,
