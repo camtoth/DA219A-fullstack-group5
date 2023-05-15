@@ -163,7 +163,7 @@ a:hover{
   border-color: white;
 }
 
-.btn-success::hover{
+.btn-success:active{
     background-color: rgb(18, 18, 139);
      border-color: white;
 }
