@@ -153,12 +153,6 @@ a:hover{
   background-color:rgb(220, 154, 97) ;
 }
 
-.accordion-button:disabled {
-  background-color: lightgray;
-  opacity: 0.8;
-  transition: all 0.2s;
-}
-
 .btn-primary{
   background-color: rgb(18, 18, 139);
   border-color: white;
@@ -169,8 +163,13 @@ a:hover{
   border-color: white;
 }
 
+.btn-success::hover{
+    background-color: rgb(18, 18, 139);
+     border-color: white;
+}
+
 .btn-primary:active{
-    background-color: rgb(27, 27, 201);
+    background-color: rgb(18, 18, 139);
      border-color: white;
 }
 
@@ -203,4 +202,9 @@ a:hover{
   background-color:  rgb(224, 128, 43);
   color: white;
  
+}
+.accordion-button:disabled {
+  background-color: lightgray;
+  opacity: 0.8;
+  transition: all 0.2s;
 }
