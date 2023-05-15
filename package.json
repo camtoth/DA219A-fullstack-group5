@@ -16,6 +16,7 @@
   "devDependencies": {
     "eslint": "^8.40.0",
     "nodemon": "^2.0.22",
+    "swagger-autogen": "^2.23.1",
     "swagger-ui-express": "^4.6.2"
   },
   "name": "da219a-fullstack-group5",
@@ -25,13 +26,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon ./src/backend/server.js",
-    "setup": "npm install"
+    "setup": "npm install",
+    "swagger-autogen": "node swagger.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/camtoth/DA219A-fullstack-group5.git"
   },
-  "author": "Stephan Hek, Hiva Moghaddam, Cameron Toth, Yana Zlatanova",
+  "author": "Stephan Hek, Hiva Hojjati Moghaddam, Cameron Toth, Yana Zlatanova",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/camtoth/DA219A-fullstack-group5/issues"
