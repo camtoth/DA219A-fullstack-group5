@@ -105,7 +105,7 @@ function renderPlacedOrder(current, selectedTableID, selectedTableNumber, userID
   if (userID == tableWaiter.waiterID){
     htmlToRender += `<h6>Waiter: ${tableWaiter.firstName}</h6>`
   } else {
-    htmlToRender += `<h6><b>Waiter: ${tableWaiter.firstName}</b> ⚠</h6>
+    htmlToRender += `<h6><b>Waiter: ${tableWaiter.firstName}</b><span class="emoji"> ⚠ <span></h6>
       `
   }
   selectedTableOrders.forEach((item) => {
