@@ -1,5 +1,5 @@
 import {renderTables, renderMenuCategories, renderPlacedOrder, renderNewOrder, renderCheckoutModal, renderUsername} from './render.js'
-import {logJSONData, postData, putData, addItem, removeAllItemsWithId, removeItem, getNumberOfItemsWithSameId, addOrRemoveComment, getUserID, addItemnamesToOccupation, mapNamesToIDs, showTooltip, hideTooltip} from './utils.js'
+import {logJSONData, postData, putData, addItem, removeAllItemsWithId, removeItem, getNumberOfItemsWithSameId, addOrRemoveComment, getUserID, addItemnamesToOccupation, mapNamesToIDs, showTooltip, hideTooltip, changeTooltip} from './utils.js'
 
 
 //global variables
@@ -70,6 +70,8 @@ function flushNewOrder() {
   console.log(newOrder)
   console.log('changing table')
   document.querySelectorAll('input[type=checkbox]').forEach(el => el.checked = false)
+  showTooltip('place-order-button')
+  document.getElementById('place-order-button').disabled = true
 }
 
 async function showCheckoutModal() {
@@ -131,8 +133,7 @@ function initMenuListeners() {
       }
       selectedTableID = table.currentTarget.id
       selectedTableNumber = table.currentTarget.dataset.tablenumber
-      //document.getElementById('place-order-button').disabled = false
-      hideTooltip('place-order-button')
+      changeTooltip('place-order-button', 'Can\'t place empty order!')
       document.getElementById('tabs-current-order-tab').disabled = false
       document.querySelectorAll('.accordion-button').forEach(button => {
         button.disabled = false

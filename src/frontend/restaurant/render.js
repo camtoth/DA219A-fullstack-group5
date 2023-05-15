@@ -105,7 +105,7 @@ function renderPlacedOrder(current, selectedTableID, selectedTableNumber, userID
   if (userID == tableWaiter.waiterID){
     htmlToRender += `<h6>Waiter: ${tableWaiter.firstName}</h6>`
   } else {
-    htmlToRender += `<h6><b>Waiter: ${tableWaiter.firstName}</b><span class="emoji"> ⚠ <span></h6>
+    htmlToRender += `<h6><b>Waiter: ${tableWaiter.firstName}</b><span class="emoji" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="This table is not assigned to you!" id="waiterID-warning"> ⚠ <span></h6>
       `
   }
   selectedTableOrders.forEach((item) => {
@@ -121,6 +121,12 @@ function renderPlacedOrder(current, selectedTableID, selectedTableNumber, userID
           `
   })
   htmlDiv.innerHTML = htmlToRender
+
+  //add tooltip to warning emoji when table is not assigned to current waiter
+  const waiterWarning = document.getElementById('waiterID-warning')
+  if (waiterWarning) {
+    new bootstrap.Tooltip(document.getElementById('waiterID-warning'))
+  }
 }
   
 function renderNewOrder(newOrder, selectedTableID, selectedTableNumber) {

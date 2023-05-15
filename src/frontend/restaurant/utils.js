@@ -40,6 +40,7 @@ function addItem(id, itemName, newOrder) {
     comment: '',
   }) //push the iteminstance object
   document.getElementById('place-order-button').disabled = false
+  hideTooltip('place-order-button')
   return newOrder
 }
 
@@ -47,6 +48,7 @@ function removeAllItemsWithId(id, newOrder) {
   newOrder = newOrder.filter((item) => item.menuItemID !== id)
   if(newOrder.length == 0) {
     document.getElementById('place-order-button').disabled = true
+    showTooltip('place-order-button')
   }
   return newOrder
 }
@@ -62,6 +64,7 @@ function removeItem(menuItemID, instanceID, newOrder){
   newOrder.splice(newOrder.indexOf(itemToDelete), 1)
   if(newOrder.length == 0) {
     document.getElementById('place-order-button').disabled = true
+    showTooltip('place-order-button')
   }
   return newOrder
 }
@@ -116,4 +119,9 @@ function hideTooltip(elementHtmlID) {
   tooltip.disable() 
 }
 
-export {logJSONData, postData, putData, addItem, removeAllItemsWithId, removeItem, getNumberOfItemsWithSameId, addOrRemoveComment, getUserID, addItemnamesToOccupation, mapNamesToIDs, showTooltip, hideTooltip}
+function changeTooltip(elementHtmlID, newText) {
+  const tooltip = bootstrap.Tooltip.getOrCreateInstance(document.getElementById(elementHtmlID).parentNode)
+  tooltip.setContent({'.tooltip-inner': newText})
+}
+
+export {logJSONData, postData, putData, addItem, removeAllItemsWithId, removeItem, getNumberOfItemsWithSameId, addOrRemoveComment, getUserID, addItemnamesToOccupation, mapNamesToIDs, showTooltip, hideTooltip, changeTooltip  }
