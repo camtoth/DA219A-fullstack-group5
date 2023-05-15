@@ -15,8 +15,8 @@ a:link, a:visited {
 
 a:hover, a:active {
 
-    border-left: solid 10px rgb(241, 171, 110);
-  border-right: solid 10px rgb(241, 171, 110);
+    border-left: solid 6px rgb(241, 171, 110);
+  border-right: solid 6px rgb(241, 171, 110);
 }
 
 body, html {
