@@ -30,7 +30,7 @@ async function putData(APIendpoint, JSONdata) {
 function addItem(id, itemName, newOrder) {
   if (newOrder.length == 0) {
     let htmlDiv = document.querySelector('#tabs-tab button[data-bs-target="#tabs-current-order"]')
-    console.log(htmlDiv)
+    //console.log(htmlDiv)
     bootstrap.Tab.getInstance(htmlDiv).show()
   }
   newOrder.push({
@@ -83,7 +83,7 @@ function addOrRemoveComment(menuItemID, instanceID, commentValue, newOrder) {
 function getUserID(){
   let url = window.location.href
   let userID = url.split('/').at(-1)
-  console.log('userID:', userID)
+  //console.log('userID:', userID)
   return userID
 }
 

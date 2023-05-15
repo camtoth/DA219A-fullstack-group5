@@ -46,7 +46,7 @@ async function checkout() {
 function handleMenuChange(inputValue, menuItemID, menuItemName) {
   const value = inputValue
   const currentItemCount = getNumberOfItemsWithSameId(menuItemID, newOrder)
-  console.log(currentItemCount)
+  //console.log(currentItemCount)
   let numberOfItemsToChange
   if (value > currentItemCount) {
     numberOfItemsToChange = value - currentItemCount
@@ -67,8 +67,8 @@ function handleMenuChange(inputValue, menuItemID, menuItemName) {
 
 function flushNewOrder() {
   newOrder = []
-  console.log(newOrder)
-  console.log('changing table')
+  //console.log(newOrder)
+  //console.log('changing table')
   document.querySelectorAll('input[type=checkbox]').forEach(el => el.checked = false)
   showTooltip('place-order-button')
   document.getElementById('place-order-button').disabled = true
@@ -79,7 +79,7 @@ async function showCheckoutModal() {
   await putData(`api/occupations/updateTotalPrice/${orderToCheckout._id}`)
   orderToCheckout = (await logJSONData(`api/occupations/${orderToCheckout._id}`))
   orderToCheckout = (addItemnamesToOccupation(orderToCheckout, menu))[0]
-  console.log(orderToCheckout)
+  //console.log(orderToCheckout)
   renderCheckoutModal(orderToCheckout)
 }
 
@@ -230,12 +230,12 @@ async function init() {
   menu = await logJSONData('api/menuItems')
   accounts = await logJSONData('api/accounts')
   accounts = mapNamesToIDs(accounts)
-  console.log(accounts)
+  //console.log(accounts)
   userID = getUserID()
   hideLoadingOverlay()
   renderUsername(accounts, userID)
   current = addItemnamesToOccupation(current, menu)
-  console.log(current[0])
+  //console.log(current[0])
   renderTables(tables, current, selectedTableID, selectedTableNumber, userID)
   renderMenuCategories(categories, menu)
   initButtonsListeners()
