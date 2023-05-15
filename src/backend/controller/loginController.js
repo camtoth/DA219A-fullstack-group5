@@ -83,8 +83,11 @@ async function checkLogin(req, res, next) {
     userID = decryptedtoken.userID;
     let password = decryptedtoken.password;
     userRole = await getUserRole(username, password);
+
+    
   } catch (error) {
-  }
+
+  }  
 
   if (userRole === "guest") {
     next()
@@ -93,6 +96,7 @@ async function checkLogin(req, res, next) {
   } else if (userRole === "waiter") {
     res.redirect(`/waiter/${userID}`)
   }
+
 }
 
 
@@ -129,7 +133,8 @@ async function loginUser(req, res) {
   let userRole = await getUserRole(username, password);
 
   if (userRole == "guest") {
-    res.redirect("/login")
+    res.redirect("/login/error")
+    // TO DO Send an error msg
   } else {
 
     //find userId 
