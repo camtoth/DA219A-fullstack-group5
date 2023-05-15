@@ -203,8 +203,17 @@ a:hover{
   color: white;
  
 }
+
 .accordion-button:disabled {
   background-color: lightgray;
   opacity: 0.8;
   transition: all 0.2s;
+}
+
+:root {
+  --system-ui: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.emoji {
+  font-family: var(--system-ui);
 }
