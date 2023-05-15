@@ -13,7 +13,11 @@ const { loginUser, checkPermission, checkLogin } = require('../controller/loginC
 
 // mainpage backend team
 router.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, '../../frontend/about/about.html'));
+  res.sendFile(path.join(__dirname, '../../frontend/start/start.html'));
+});
+
+router.get('/about', function (req, res) {
+  res.sendFile(path.join(__dirname, '../../frontend/about/aboutUs.html'));
 });
 
 //login page (TO DO: need to do a redirect when already logged in)
