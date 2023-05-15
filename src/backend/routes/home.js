@@ -25,6 +25,11 @@ router.get('/login', checkLogin, function (req, res) {
   res.sendFile(path.join(__dirname, '../../frontend/login/login.html'));
 });
 
+router.get('/login/error', function (req, res) {
+  // Send the user here if the username or pass was wrong
+  res.sendFile(path.join(__dirname, '../../frontend/login/login.html'));
+});
+
 router.get('/logout', function (req, res) {
   try {
     res.clearCookie('jwt')
