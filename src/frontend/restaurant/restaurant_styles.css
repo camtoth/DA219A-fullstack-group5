@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=EB+Garamond:ital,wght@0,600;1,400;1,600;1,700&family=Mulish:wght@500&family=Nunito+Sans:wght@500&family=Poppins:wght@300;500&family=Source+Sans+Pro:wght@400;600&display=swap');
 
 body {
+  min-height: 100vh;
   width: 100vw;
   scrollbar-gutter: stable both-edges;
   overflow: auto;
@@ -83,7 +84,8 @@ input{
 }
 
 .footer {
-  position:sticky, absolute;
+  position: absolute;
+  bottom: 0;
   left: 0;
   height: 70%;
   width: 100vw;

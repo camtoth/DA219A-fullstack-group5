@@ -83,7 +83,7 @@ function renderMenuItems(htmlCategoryID, category, menu) {
                       </div>
                       <div class="col-auto">
                           <label class="visually-hidden " for="${item._id}Amount">Amount</label>
-                          <input class="form-control" style="width: 60px" type="number" min="0" data-name="${item.name}" data-id="${item._id}" id="${item._id}Amount" value="1" onkeydown="return false">
+                          <input class="form-control" style="width: 60px" type="number" min="0" data-name="${item.name}" data-id="${item._id}" id="${item._id}Amount" value="1">
                       </div>
                   </form>
               </li>`

@@ -160,12 +160,9 @@ function initMenuListeners() {
   menuCheckboxes.forEach((checkbox) => {
     checkbox.addEventListener('change', (checkbox) => {
       if (checkbox.currentTarget.checked) {
-        newOrder = addItem(
-          checkbox.currentTarget.dataset.id,
-          checkbox.currentTarget.value,
-          newOrder
-        )
+        newOrder = addItem(checkbox.currentTarget.dataset.id, checkbox.currentTarget.value, newOrder)
         renderNewOrder(newOrder, selectedTableID, selectedTableNumber)
+        document.getElementById(`${checkbox.currentTarget.dataset.id}Amount`).value = 1
         initCommentListeners()
       } else {
         newOrder = removeAllItemsWithId(checkbox.currentTarget.dataset.id, newOrder)
@@ -177,6 +174,9 @@ function initMenuListeners() {
   const quantityInputs = document.querySelectorAll('input[type=number]')
   quantityInputs.forEach((quantity) => {
     quantity.addEventListener('change', (quantity) => {
+      if (quantity.currentTarget.value < 0){
+        quantity.currentTarget.value = 0
+      }
       quantity.currentTarget.value == 0
         ? (document.getElementById(
           quantity.currentTarget.dataset.id + 'Checkbox'
