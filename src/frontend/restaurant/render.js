@@ -113,7 +113,7 @@ function renderPlacedOrder(current, selectedTableID, selectedTableNumber, userID
               <div class="row row-cols-auto align-items-center justify-content-between">
                   <div class="col "><h6>${item.menuItemName}</h6>
                   </div>
-                  <div class="col-md-6 align-items-center">
+                  <div class="col-md-6 align-items-center" style="text-align: justify">
                       ${item.comment}
                   </div>
               </div>
