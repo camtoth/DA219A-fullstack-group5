@@ -1,27 +1,26 @@
 
-let table2occupation = {};
+let table2occupation = {}
 
 //get all tablenrs in database
 async function getTableNrs() {
   let tableNrs = {}
-  let tables = await (await (fetch(`http://localhost:3000/api/tables`))).json();
+  let tables = await (await (fetch('../api/tables'))).json()
 
   for (let i = 0; i < tables.length; i++) {
     tableNr = tables[i].number
     tableid = tables[i]._id
     tableNrs[tableid] = tableNr
   }
-
   return tableNrs
 }
 
 
 async function showTables() {
-  let collections = await (await (fetch(`http://localhost:3000/api/occupations/current`))).json();
-  let tableNrs = await getTableNrs();
+  let collections = await (await (fetch('../api/occupations/current'))).json()
+  let tableNrs = await getTableNrs()
   console.log(collections)
 
-  html = `
+  let html = `
   <table>
   <tr>
   <td>Table Nr</td>
@@ -35,16 +34,16 @@ async function showTables() {
     table2occupation[tableID] = occupationID
     html += `<option value="${tableID}">${tableNr}</option>`
   }
-  html += `</select></td></tr></table>`
+  html += '</select></td></tr></table>'
 
-  document.getElementById("tableInfo").innerHTML = html;
+  document.getElementById('tableInfo').innerHTML = html
 
 
 }
 
 async function showMenu() {
   //retrieve data
-  let collections = await (await (fetch(`http://localhost:3000/api/menuItems`))).json();
+  let collections = await (await (fetch('../api/menuItems'))).json()
 
   //title
   let html = `
@@ -65,21 +64,21 @@ async function showMenu() {
     </tr>`
   }
 
-  html += `</table>`
-  document.getElementById("orderInfo").innerHTML = html;
+  html += '</table>'
+  document.getElementById('orderInfo').innerHTML = html
 }
 
 //add order to occupation
 async function addOrder() {
 
-  let tableID = document.getElementById(`tableSelect`).value;
+  let tableID = document.getElementById('tableSelect').value
   let idnr = table2occupation[tableID]
 
   if (idnr === undefined) {
-    console.log("specify id")
+    console.log('specify id')
   } else {
     //retrieve data
-    let collections = await (await (fetch(`http://localhost:3000/api/menuItems`))).json();
+    let collections = await (await (fetch('../api/menuItems'))).json()
 
     //loop through list
     for (let i = 0; i < collections.length; i++) {
@@ -94,25 +93,22 @@ async function addOrder() {
       "completed": false}}`
 
 
-        const response = fetch(`http://localhost:3000/api/occupations/placeOrder/${idnr}`, {
+        let response = fetch(`../api/occupations/placeOrder/${idnr}`, {
           method: 'PUT',
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
           },
           body: jsonText
-        });
+        })
       }
     }
   }
-
-
 }
 
-document.getElementById("placeOrder").addEventListener('click', event => {
-  addOrder();
+document.getElementById('placeOrder').addEventListener('click', event => {
+  addOrder()
+})
 
-});
-
-showTables();
-showMenu();
+showTables()
+showMenu()
