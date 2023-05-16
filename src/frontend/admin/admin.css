@@ -55,35 +55,35 @@ color: rgb(239, 183, 133);
  }
 
  #pb {
-   margin-bottom: 20px;
-   margin-top: 10px;
-     background-color: rgb(219, 144, 78);
-     color: white;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    background-color: rgb(219, 144, 78);
+    color: white;
     font-weight: 500;
     border: 9px;
-      transition: 0.5s;
-  transition-property: border-left, border-right, box-shadow;
-   font-family:  serif;
+    transition: 0.5s;
+    transition-property: border-left, border-right, box-shadow;
+    font-family:  serif;
     font-size: 17px;
     border-color: white;
     border-width: 30px;
  }
 
  #pb:hover{
-     border-left: solid 8px rgb(219, 144, 78);
+  border-left: solid 8px rgb(219, 144, 78);
   border-right: solid 8px rgb(219, 144, 78);
  }
 
  #ob {
-   margin-bottom: 20px;
-   margin-top: 10px;
+    margin-bottom: 20px;
+    margin-top: 10px;
     background-color: rgb(219, 144, 78);
     color: white;
     font-weight: 500;
-     border: 9px;
-       transition: 0.5s;
-  transition-property: border-left, border-right, box-shadow;
-   font-family: serif;
+    border: 9px;
+    transition: 0.5s;
+    transition-property: border-left, border-right, box-shadow;
+    font-family: serif;
     font-size: 17px;
     border-color: white;
  }
@@ -111,8 +111,8 @@ color: rgb(239, 183, 133);
  }
 
  #editMode:hover{
-   border-left: solid 8px  rgb(219, 144, 78);
-  border-right: solid 8px  rgb(219, 144, 78);
+   border-left: solid 6px  rgb(219, 144, 78);
+  border-right: solid 6px  rgb(219, 144, 78);
 
  }
  .footer {
@@ -191,16 +191,17 @@ img, svg {
 
 .container-fluid{
    background-color:rgb(219, 144, 78);
-
+  padding-bottom: 3px;
+  padding-top: 3px;
 }
 
 .nav-item{
 
 font-weight: 500;
-  padding: 0;
-    transition: 0.5s;
-    transition-property: all;
-    color: white;
+padding: 0;
+transition: 0.5s;
+transition-property: all;
+color: white;
    
 
 }
@@ -210,9 +211,14 @@ font-weight: 500;
 }
 
 .navbar{
-  padding-top: 0px;
- 
+padding-top: 0px;
+align-items: center;
   
+}
+
+.navbar-nav{
+  justify-items: center;
+ 
 }
 
 .bg-light {
