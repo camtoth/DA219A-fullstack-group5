@@ -162,6 +162,7 @@ async function updateTotalPrice(req, res) {
         { new: true });
 
     if (!occupation) return res.status(404).json({ error: 'ID not found' });
+    console.log("final price:", totalPrice)
 
     res.status(200).json(occupation)
   } catch (error) {
