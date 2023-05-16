@@ -283,6 +283,8 @@ function checkoutOccupation(idnr) {
 
   //post to database
   sendRequest(`../api/occupations/${idnr}`, "PUT", jsonText);
+
+  sendRequest(`../api/occupations/updateTotalPrice/${idnr}`, "PUT", jsonText);
 }
 
 //delete record
@@ -456,7 +458,7 @@ async function drawStatistics() {
 drawStatistics()
 
 // Get admin id
-function getUserID(){
+function getUserID() {
   let url = window.location.href
   let userID = url.split('/').at(-1)
   console.log('userID:', userID)
