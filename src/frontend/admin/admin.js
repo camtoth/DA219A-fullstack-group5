@@ -1,6 +1,6 @@
 
 //available roles
-const roles = { admin: "admin", waiter: "waiter", cook: "cook" };
+const roles = { admin: "admin", waiter: "waiter" };
 
 //available categories
 const categories = { "main": "main", "side": "side", "starter": "starter", "snack": "snack", "soup": "soup", "dessert": "dessert" }
