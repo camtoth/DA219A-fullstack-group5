@@ -92,7 +92,7 @@ function addItemnamesToOccupation(current, menu){
   if (!current?.error) {
     current.forEach((occupation) => {
       occupation.orders.forEach((item) => {
-        const menuItemName = menu.find((e) => e._id == item.menuItemID).name
+        const menuItemName = menu.find((e) => e._id == item.menuItemID)?.name
         item.menuItemName = menuItemName
       })
     })
